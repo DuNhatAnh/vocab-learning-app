@@ -30,4 +30,8 @@ public class Word {
 
     @Column(nullable = false)
     private Integer orderIndex;
+
+    private String userAnswer;
+
+    private Boolean correct;
 }

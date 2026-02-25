@@ -16,5 +16,7 @@ export const api = {
         axios.post<Word[]>(`${API_BASE_URL}/sessions/${sessionId}/words`, words),
     submitLearning: (sessionId: string, answers: Record<string, string>) =>
         axios.post<EvaluationResult[]>(`${API_BASE_URL}/sessions/${sessionId}/submit`, answers),
+    getResults: (sessionId: string) =>
+        axios.get<EvaluationResult[]>(`${API_BASE_URL}/sessions/${sessionId}/submit/results`),
     deleteSession: (id: string) => axios.delete(`${API_BASE_URL}/sessions/${id}`),
 };

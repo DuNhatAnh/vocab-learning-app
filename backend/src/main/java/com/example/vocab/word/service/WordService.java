@@ -30,6 +30,11 @@ public class WordService {
     }
 
     @Transactional
+    public List<Word> updateWords(List<Word> words) {
+        return wordRepository.saveAll(words);
+    }
+
+    @Transactional
     public void deleteWordsBySessionId(UUID sessionId) {
         wordRepository.deleteAllBySessionId(sessionId);
     }

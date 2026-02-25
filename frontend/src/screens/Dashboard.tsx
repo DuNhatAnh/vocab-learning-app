@@ -57,8 +57,11 @@ export default function Dashboard() {
     };
 
     return (
-        <div>
-            <h1 style={{ marginBottom: '2rem' }}>Vocabulary Learning</h1>
+        <div className="container">
+            <header style={{ marginBottom: '2rem' }}>
+                <h1 style={{ margin: 0 }}>Học từ vựng</h1>
+                <p className="text-muted">Danh sách các phiên học của bạn</p>
+            </header>
 
             <div className="grid">
                 {sessions.map(session => (
@@ -74,28 +77,31 @@ export default function Dashboard() {
                                 </span>
                                 <button
                                     className="btn btn-ghost"
-                                    style={{ padding: '4px', height: 'auto', minHeight: 'unset', color: 'var(--error)' }}
+                                    style={{ padding: '4px', border: 'none' }}
                                     onClick={(e) => handleDelete(e, session.id)}
                                 >
-                                    <Trash2 size={16} />
+                                    <Trash2 size={16} className="text-error" />
                                 </button>
                             </div>
                         </div>
-                        <div className="flex">
-                            <BookOpen size={18} className="text-muted" />
-                            <span className="font-bold">{session.wordCount} Words</span>
+                        <div className="flex justify-between items-center">
+                            <div className="flex items-center">
+                                <BookOpen size={18} className="text-primary" />
+                                <span className="font-bold">{session.wordCount} từ vựng</span>
+                            </div>
+                            <span className="text-primary text-sm">Chi tiết →</span>
                         </div>
                     </div>
                 ))}
                 {sessions.length === 0 && (
-                    <div className="text-muted" style={{ textAlign: 'center', marginTop: '2rem' }}>
-                        No sessions yet. Click the + button to start.
+                    <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
+                        Chưa có phiên học nào. Nhấn dấu + để bắt đầu.
                     </div>
                 )}
             </div>
 
-            <button className="btn btn-primary floating-btn" onClick={createSession}>
-                <Plus size={24} />
+            <button className="btn btn-primary floating-btn" onClick={createSession} style={{ padding: 0 }}>
+                <Plus size={40} />
             </button>
         </div>
     );

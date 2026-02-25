@@ -29,6 +29,7 @@ public class LearningService {
         private boolean correct;
     }
 
+    @Transactional
     public List<EvaluationResult> submitLearning(UUID sessionId, Map<UUID, String> answers) {
         List<Word> words = wordService.getWordsBySessionId(sessionId);
         List<EvaluationResult> results = new ArrayList<>();
@@ -36,6 +37,9 @@ public class LearningService {
         for (Word word : words) {
             String userAnswer = answers.getOrDefault(word.getId(), "").trim();
             boolean correct = word.getEnglish().equalsIgnoreCase(userAnswer);
+
+            word.setUserAnswer(userAnswer);
+            word.setCorrect(correct);
 
             results.add(EvaluationResult.builder()
                     .english(word.getEnglish())
@@ -45,6 +49,7 @@ public class LearningService {
                     .build());
         }
 
+        wordService.updateWords(words);
         sessionService.updateStatus(sessionId, SessionStatus.DONE);
         return results;
     }
@@ -57,8 +62,8 @@ public class LearningService {
             results.add(EvaluationResult.builder()
                     .english(word.getEnglish())
                     .vietnamese(word.getVietnamese())
-                    .userAnswer("") // No answer stored in this simple version
-                    .correct(false)
+                    .userAnswer(word.getUserAnswer() != null ? word.getUserAnswer() : "")
+                    .correct(word.getCorrect() != null ? word.getCorrect() : false)
                     .build());
         }
         return results;
