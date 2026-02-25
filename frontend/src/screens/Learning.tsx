@@ -17,6 +17,11 @@ export default function Learning() {
     const fetchWords = async () => {
         try {
             const resp = await api.getWords(id!);
+            if (resp.data.length === 0) {
+                alert("Phiên học này hiện chưa có từ vựng nào!");
+                navigate('/');
+                return;
+            }
             // Shuffle words
             const shuffled = [...resp.data].sort(() => Math.random() - 0.5);
             setWords(shuffled);
@@ -31,9 +36,15 @@ export default function Learning() {
     };
 
     const handleSubmit = async () => {
+        const answeredCount = Object.keys(answers).filter(id => answers[id].trim()).length;
+        if (answeredCount < words.length) {
+            alert("Vui lòng điền đầy đủ tất cả các câu trả lời!");
+            return;
+        }
+
         try {
-            await api.submitLearning(id!, answers);
-            navigate(`/session/${id}/result`);
+            const resp = await api.submitLearning(id!, answers);
+            navigate(`/session/${id}/result`, { state: { results: resp.data } });
         } catch (err) {
             console.error(err);
         }

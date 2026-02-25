@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Calendar, BookOpen } from 'lucide-react';
+import { Plus, Calendar, BookOpen, Trash2 } from 'lucide-react';
 import { api } from '../api/api';
 import type { Session } from '../types';
 
@@ -30,10 +30,30 @@ export default function Dashboard() {
         }
     };
 
+    const handleDelete = async (e: React.MouseEvent, id: string) => {
+        e.stopPropagation();
+        if (window.confirm('Bạn có chắc chắn muốn xoá phiên học này không?')) {
+            try {
+                await api.deleteSession(id);
+                setSessions(sessions.filter(s => s.id !== id));
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    };
+
     const handleSessionClick = (session: Session) => {
         if (session.status === 'NEW') navigate(`/session/${session.id}/add`);
         else if (session.status === 'LEARNING') navigate(`/session/${session.id}/learning`);
         else navigate(`/session/${session.id}/result`);
+    };
+
+    const formatTime = (dateStr: string) => {
+        return new Intl.DateTimeFormat('vi-VN', {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+            timeZone: 'Asia/Ho_Chi_Minh'
+        }).format(new Date(dateStr));
     };
 
     return (
@@ -46,11 +66,20 @@ export default function Dashboard() {
                         <div className="flex justify-between" style={{ marginBottom: '1rem' }}>
                             <div className="flex text-muted text-sm">
                                 <Calendar size={14} />
-                                {new Date(session.createdAt).toLocaleString()}
+                                {formatTime(session.createdAt)}
                             </div>
-                            <span className={`badge badge-${session.status.toLowerCase()}`}>
-                                {session.status}
-                            </span>
+                            <div className="flex items-center gap-2">
+                                <span className={`badge badge-${session.status.toLowerCase()}`}>
+                                    {session.status}
+                                </span>
+                                <button
+                                    className="btn btn-ghost"
+                                    style={{ padding: '4px', height: 'auto', minHeight: 'unset', color: 'var(--error)' }}
+                                    onClick={(e) => handleDelete(e, session.id)}
+                                >
+                                    <Trash2 size={16} />
+                                </button>
+                            </div>
                         </div>
                         <div className="flex">
                             <BookOpen size={18} className="text-muted" />

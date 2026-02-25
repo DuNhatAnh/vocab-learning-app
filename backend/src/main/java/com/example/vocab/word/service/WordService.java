@@ -28,4 +28,9 @@ public class WordService {
         }
         return wordRepository.saveAll(words);
     }
+
+    @Transactional
+    public void deleteWordsBySessionId(UUID sessionId) {
+        wordRepository.deleteAllBySessionId(sessionId);
+    }
 }

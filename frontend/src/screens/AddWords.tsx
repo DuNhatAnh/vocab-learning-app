@@ -18,17 +18,21 @@ export default function AddWords() {
     };
 
     const handleSubmit = async () => {
-        if (words.some(w => !w.english || !w.vietnamese)) {
-            alert("Please fill all fields");
+        const validWords = words.filter(w => w.english.trim() && w.vietnamese.trim());
+
+        if (validWords.length === 0) {
+            alert("Bạn phải nhập ít nhất 1 từ vựng (bao gồm cả tiếng Anh và tiếng Việt)!");
             return;
         }
-        if (words.length === 0) {
-            alert("Add at least one word");
-            return;
+
+        if (words.length !== validWords.length) {
+            if (!window.confirm("Có một số ô bị trống, chúng sẽ bị bỏ qua. Bạn có muốn tiếp tục không?")) {
+                return;
+            }
         }
+
         try {
-            await api.saveWords(id!, words.map((w, i) => ({ ...w, sessionId: id!, orderIndex: i })));
-            alert(`Session created at ${new Date().toLocaleTimeString()}`);
+            await api.saveWords(id!, validWords.map((w, i) => ({ ...w, sessionId: id!, orderIndex: i })));
             navigate(`/session/${id}/learning`);
         } catch (err) {
             console.error(err);

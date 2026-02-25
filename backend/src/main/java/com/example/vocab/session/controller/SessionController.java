@@ -35,4 +35,9 @@ public class SessionController {
     public Session updateStatus(@PathVariable UUID id, @RequestBody SessionStatus status) {
         return sessionService.updateStatus(id, status);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteSession(@PathVariable UUID id) {
+        sessionService.deleteSession(id);
+    }
 }

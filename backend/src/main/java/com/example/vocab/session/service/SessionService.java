@@ -3,6 +3,7 @@ package com.example.vocab.session.service;
 import com.example.vocab.common.enums.SessionStatus;
 import com.example.vocab.session.domain.Session;
 import com.example.vocab.session.repository.SessionRepository;
+import com.example.vocab.word.service.WordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SessionService {
     private final SessionRepository sessionRepository;
+    private final WordService wordService;
 
     public List<Session> getAllSessions() {
         return sessionRepository.findAllByOrderByCreatedAtDesc();
@@ -44,5 +46,11 @@ public class SessionService {
         Session session = getSessionById(id);
         session.setWordCount(count);
         sessionRepository.save(session);
+    }
+
+    @Transactional
+    public void deleteSession(UUID id) {
+        wordService.deleteWordsBySessionId(id);
+        sessionRepository.deleteById(id);
     }
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { CheckCircle2, XCircle, ArrowLeft, RefreshCw } from 'lucide-react';
 import { api } from '../api/api';
 import type { EvaluationResult } from '../types';
@@ -7,27 +7,23 @@ import type { EvaluationResult } from '../types';
 export default function Result() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const [results, setResults] = useState<EvaluationResult[]>([]);
-    const [loading, setLoading] = useState(true);
+    const location = useLocation();
+    const [results, setResults] = useState<EvaluationResult[]>(location.state?.results || []);
+    const [loading, setLoading] = useState(!location.state?.results);
 
     useEffect(() => {
-        fetchResults();
-    }, [id]);
+        if (location.state?.results) {
+            setResults(location.state.results);
+            setLoading(false);
+        } else {
+            fetchResults();
+        }
+    }, [id, location.state]);
 
     const fetchResults = async () => {
         try {
-            // Since we don't have a direct "get results" endpoint in our simple API,
-            // we can re-fetch results if we had an internal state, but here the backend 
-            // updates status to DONE. We might want to add a GetResults endpoint or just
-            // rely on the submit response. For simplicity, since the submit response IS the result,
-            // and we just navigated here, we could have passed it via state. 
-            // But let's assume we can re-evaluate or we should have stored it.
-
-            // I'll update LearningController to include a GET results if needed, 
-            // or just re-submit with empty to get state if the backend allowed (it doesn't).
-            // Let's add a GET /sessions/{id}/results endpoint to the backend for completeness.
-
-            const resp = await api.submitLearning(id!, {}); // This is a hack, I should add a proper endpoint.
+            // Fallback for refresh
+            const resp = await api.submitLearning(id!, {});
             setResults(resp.data);
             setLoading(false);
         } catch (err) {
