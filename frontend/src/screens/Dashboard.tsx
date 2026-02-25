@@ -58,22 +58,16 @@ export default function Dashboard() {
 
     return (
         <div className="container">
-            <header style={{ marginBottom: '2rem' }}>
-                <h1 style={{ margin: 0 }}>Học từ vựng</h1>
-                <p className="text-muted">Danh sách các phiên học của bạn</p>
-            </header>
-
             <div className="grid">
-                {sessions.map(session => (
+                {sessions.map((session, index) => (
                     <div key={session.id} className="card" onClick={() => handleSessionClick(session)}>
-                        <div className="flex justify-between" style={{ marginBottom: '1rem' }}>
-                            <div className="flex text-muted text-sm">
-                                <Calendar size={14} />
-                                {formatTime(session.createdAt)}
+                        <div className="flex justify-between items-center" style={{ marginBottom: '1rem' }}>
+                            <div className="font-bold text-primary">
+                                Phiên #{sessions.length - index}
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className={`badge badge-${session.status.toLowerCase()}`}>
-                                    {session.status}
+                                    {session.status === 'DONE' ? 'Hoàn thành' : session.status === 'LEARNING' ? 'Đang học' : 'Mới'}
                                 </span>
                                 <button
                                     className="btn btn-ghost"
@@ -84,6 +78,14 @@ export default function Dashboard() {
                                 </button>
                             </div>
                         </div>
+
+                        <div style={{ marginBottom: '1rem' }}>
+                            <div className="flex text-muted text-sm items-center gap-1">
+                                <Calendar size={14} />
+                                {formatTime(session.createdAt)}
+                            </div>
+                        </div>
+
                         <div className="flex justify-between items-center">
                             <div className="flex items-center">
                                 <BookOpen size={18} className="text-primary" />

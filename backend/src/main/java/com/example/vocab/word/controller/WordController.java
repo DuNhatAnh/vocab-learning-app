@@ -30,4 +30,9 @@ public class WordController {
         sessionService.updateStatus(sessionId, SessionStatus.LEARNING);
         return savedWords;
     }
+
+    @PutMapping("/{wordId}")
+    public Word updateWord(@PathVariable UUID sessionId, @PathVariable UUID wordId, @RequestBody Word wordData) {
+        return wordService.updateWord(wordId, wordData.getEnglish(), wordData.getVietnamese());
+    }
 }

@@ -3,6 +3,7 @@ import Dashboard from './screens/Dashboard.tsx';
 import AddWords from './screens/AddWords.tsx';
 import Learning from './screens/Learning.tsx';
 import Result from './screens/Result.tsx';
+import Summary from './screens/Summary.tsx';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/session/:id/add" element={<AddWords />} />
           <Route path="/session/:id/learning" element={<Learning />} />
+          <Route path="/session/:id/summary" element={<Summary />} />
           <Route path="/session/:id/result" element={<Result />} />
         </Routes>
       </div>

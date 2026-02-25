@@ -16,6 +16,7 @@ export interface Word {
 }
 
 export interface EvaluationResult {
+    id: string;
     english: string;
     vietnamese: string;
     userAnswer: string;

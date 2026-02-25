@@ -44,7 +44,7 @@ export default function Learning() {
 
         try {
             const resp = await api.submitLearning(id!, answers);
-            navigate(`/session/${id}/result`, { state: { results: resp.data } });
+            navigate(`/session/${id}/summary`, { state: { results: resp.data } });
         } catch (err) {
             console.error(err);
         }

@@ -38,4 +38,13 @@ public class WordService {
     public void deleteWordsBySessionId(UUID sessionId) {
         wordRepository.deleteAllBySessionId(sessionId);
     }
+
+    @Transactional
+    public Word updateWord(UUID wordId, String english, String vietnamese) {
+        Word word = wordRepository.findById(wordId)
+                .orElseThrow(() -> new RuntimeException("Word not found"));
+        word.setEnglish(english);
+        word.setVietnamese(vietnamese);
+        return wordRepository.save(word);
+    }
 }
