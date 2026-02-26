@@ -20,5 +20,7 @@ export const api = {
         axios.get<EvaluationResult[]>(`${API_BASE_URL}/sessions/${sessionId}/submit/results`),
     updateWord: (sessionId: string, wordId: string, data: { english: string; vietnamese: string }) =>
         axios.put<Word>(`${API_BASE_URL}/sessions/${sessionId}/words/${wordId}`, data),
+    updateSessionTopic: (id: string, topic: string) =>
+        axios.patch<Session>(`${API_BASE_URL}/sessions/${id}/topic`, { topic }),
     deleteSession: (id: string) => axios.delete(`${API_BASE_URL}/sessions/${id}`),
 };

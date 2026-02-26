@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Calendar, BookOpen, Trash2 } from 'lucide-react';
+import { Plus, Calendar, BookOpen, Trash2, Edit2 } from 'lucide-react';
 import { api } from '../api/api';
 import type { Session } from '../types';
 
@@ -22,9 +22,25 @@ export default function Dashboard() {
     };
 
     const createSession = async () => {
+        const topic = window.prompt("Nhập tên chủ đề cho phiên học mới (để trống nếu chưa chọn):", "Chưa thêm chủ đề");
+        if (topic === null) return; // Cancelled
+
         try {
-            const resp = await api.createSession();
+            const resp = await api.createSession(topic);
             navigate(`/session/${resp.data.id}/add`);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const handleEditTopic = async (e: React.MouseEvent, session: Session) => {
+        e.stopPropagation();
+        const newTopic = window.prompt("Chỉnh sửa tên chủ đề:", session.topic || "Chưa thêm chủ đề");
+        if (newTopic === null) return;
+
+        try {
+            const resp = await api.updateSessionTopic(session.id, newTopic);
+            setSessions(sessions.map(s => s.id === session.id ? resp.data : s));
         } catch (err) {
             console.error(err);
         }
@@ -59,11 +75,19 @@ export default function Dashboard() {
     return (
         <div className="container">
             <div className="grid">
-                {sessions.map((session, index) => (
+                {sessions.map((session) => (
                     <div key={session.id} className="card" onClick={() => handleSessionClick(session)}>
                         <div className="flex justify-between items-center" style={{ marginBottom: '1rem' }}>
-                            <div className="font-bold text-primary" style={{ fontSize: '1.2rem' }}>
-                                {session.topic || `Phiên #${sessions.length - index}`}
+                            <div className="flex items-center gap-2 font-bold text-primary" style={{ fontSize: '1.2rem' }}>
+                                <span>{session.topic || "Chưa thêm chủ đề"}</span>
+                                <button
+                                    className="btn btn-ghost"
+                                    style={{ padding: '2px', border: 'none', display: 'flex', alignItems: 'center' }}
+                                    onClick={(e) => handleEditTopic(e, session)}
+                                    title="Sửa tên chủ đề"
+                                >
+                                    <Edit2 size={14} />
+                                </button>
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className={`badge badge-${session.status.toLowerCase()}`}>
@@ -89,7 +113,7 @@ export default function Dashboard() {
                         <div className="flex justify-between items-center">
                             <div className="flex items-center">
                                 <BookOpen size={18} className="text-primary" />
-                                <span className="font-bold">{session.wordCount} từ vựng</span>
+                                <span className="font-bold ml-1">{session.wordCount} từ vựng</span>
                             </div>
                             <span className="text-primary text-sm">Chi tiết →</span>
                         </div>

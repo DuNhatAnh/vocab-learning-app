@@ -26,6 +26,7 @@ public class Session {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SessionStatus status;
 

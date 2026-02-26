@@ -29,9 +29,16 @@ public class SessionService {
     public Session createSession(String topic) {
         Session session = Session.builder()
                 .status(SessionStatus.NEW)
-                .topic(topic != null ? topic : "Chưa có tên")
+                .topic(topic != null && !topic.trim().isEmpty() ? topic : "Chưa thêm chủ đề")
                 .wordCount(0)
                 .build();
+        return sessionRepository.save(session);
+    }
+
+    @Transactional
+    public Session updateTopic(UUID id, String topic) {
+        Session session = getSessionById(id);
+        session.setTopic(topic != null && !topic.trim().isEmpty() ? topic : "Chưa thêm chủ đề");
         return sessionRepository.save(session);
     }
 

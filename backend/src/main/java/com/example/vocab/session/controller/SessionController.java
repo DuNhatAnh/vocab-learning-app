@@ -37,6 +37,12 @@ public class SessionController {
         return sessionService.updateStatus(id, status);
     }
 
+    @PatchMapping("/{id}/topic")
+    public Session updateTopic(@PathVariable UUID id, @RequestBody java.util.Map<String, String> data) {
+        String topic = data != null ? data.get("topic") : null;
+        return sessionService.updateTopic(id, topic);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteSession(@PathVariable UUID id) {
         sessionService.deleteSession(id);
