@@ -42,7 +42,7 @@ export default function AddWords() {
         }
     };
 
-    const handleSubmit = async () => {
+    const saveWords = async (startLearning: boolean) => {
         const validWords = words.filter(w => w.english.trim() && w.vietnamese.trim());
 
         if (validWords.length === 0) {
@@ -58,11 +58,18 @@ export default function AddWords() {
 
         try {
             await api.saveWords(id!, validWords.map((w, i) => ({ ...w, sessionId: id!, orderIndex: i })));
-            navigate(`/session/${id}/learning`);
+            if (startLearning) {
+                navigate(`/session/${id}/learning`);
+            } else {
+                navigate(`/`, { state: { showSuccess: true } });
+            }
         } catch (err) {
             console.error(err);
         }
     };
+
+    const handleSubmit = () => saveWords(true);
+    const handleSaveOnly = () => saveWords(false);
 
     if (!initialized) {
         return (
@@ -124,6 +131,9 @@ export default function AddWords() {
             <div className="flex" style={{ marginTop: '2rem', justifyContent: 'center', gap: '1rem' }}>
                 <button className="btn btn-ghost" onClick={addRow}>
                     <Plus size={18} /> Thêm hàng
+                </button>
+                <button className="btn btn-ghost" onClick={handleSaveOnly} style={{ border: '1px solid var(--primary)', color: 'var(--primary)' }}>
+                    <Save size={18} /> Chỉ Lưu
                 </button>
                 <button className="btn btn-primary" onClick={handleSubmit}>
                     <Save size={18} /> Lưu & Bắt đầu

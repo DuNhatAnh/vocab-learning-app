@@ -6,6 +6,8 @@ import Result from './screens/Result.tsx';
 import Summary from './screens/Summary.tsx';
 import Profile from './screens/Profile.tsx';
 import Flashcard from './screens/Flashcard.tsx';
+import RandomQuiz from './screens/RandomQuiz.tsx';
+import QuizResult from './screens/QuizResult.tsx';
 import BottomNav from './components/BottomNav.tsx';
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
             <Route path="/session/:id/summary" element={<Summary />} />
             <Route path="/session/:id/result" element={<Result />} />
             <Route path="/session/:id/flashcards" element={<Flashcard />} />
+            <Route path="/quiz/random" element={<RandomQuiz />} />
+            <Route path="/quiz/result" element={<QuizResult />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>

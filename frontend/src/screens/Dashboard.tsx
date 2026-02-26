@@ -1,16 +1,23 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Plus, Calendar, BookOpen, Trash2, Edit2 } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Plus, Calendar, BookOpen, Trash2, Edit2, Dices, CheckCircle2 } from 'lucide-react';
 import { api } from '../api/api';
 import type { Session } from '../types';
 
 export default function Dashboard() {
     const [sessions, setSessions] = useState<Session[]>([]);
+    const [showSuccess, setShowSuccess] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         fetchSessions();
-    }, []);
+        if (location.state?.showSuccess) {
+            setShowSuccess(true);
+            // Clear state to avoid showing again on refresh
+            window.history.replaceState({}, document.title);
+        }
+    }, [location]);
 
     const fetchSessions = async () => {
         try {
@@ -129,6 +136,34 @@ export default function Dashboard() {
             <button className="btn btn-primary floating-btn" onClick={createSession} style={{ padding: 0 }}>
                 <Plus size={40} />
             </button>
+
+            <button
+                className="btn floating-btn"
+                onClick={() => navigate('/quiz/random')}
+                style={{
+                    bottom: '160px',
+                    background: '#8b5cf6',
+                    color: 'white',
+                    padding: 0,
+                    boxShadow: '0 8px 25px rgba(139, 92, 246, 0.4)'
+                }}
+            >
+                <Dices size={40} style={{ transform: 'rotate(-45deg)' }} />
+            </button>
+
+            {showSuccess && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <div style={{ color: 'var(--success)', marginBottom: '1rem' }}>
+                            <CheckCircle2 size={64} style={{ margin: '0 auto' }} />
+                        </div>
+                        <h2 style={{ marginBottom: '1.5rem', fontSize: '1.5rem' }}>Tạo thành công!</h2>
+                        <button className="btn-light-blue" onClick={() => setShowSuccess(false)}>
+                            Oke
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

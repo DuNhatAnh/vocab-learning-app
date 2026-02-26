@@ -23,4 +23,8 @@ export const api = {
     updateSessionTopic: (id: string, topic: string) =>
         axios.patch<Session>(`${API_BASE_URL}/sessions/${id}/topic`, { topic }),
     deleteSession: (id: string) => axios.delete(`${API_BASE_URL}/sessions/${id}`),
+    // Quiz Random
+    getRandomQuiz: () => axios.get<Word[]>(`${API_BASE_URL}/quiz/random`),
+    submitRandomQuiz: (answers: Record<string, string>) =>
+        axios.post<EvaluationResult[]>(`${API_BASE_URL}/quiz/submit`, answers),
 };
