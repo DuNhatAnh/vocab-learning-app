@@ -62,8 +62,8 @@ export default function Dashboard() {
                 {sessions.map((session, index) => (
                     <div key={session.id} className="card" onClick={() => handleSessionClick(session)}>
                         <div className="flex justify-between items-center" style={{ marginBottom: '1rem' }}>
-                            <div className="font-bold text-primary">
-                                Phiên #{sessions.length - index}
+                            <div className="font-bold text-primary" style={{ fontSize: '1.2rem' }}>
+                                {session.topic || `Phiên #${sessions.length - index}`}
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className={`badge badge-${session.status.toLowerCase()}`}>

@@ -27,8 +27,9 @@ public class SessionController {
     }
 
     @PostMapping
-    public Session createSession() {
-        return sessionService.createSession();
+    public Session createSession(@RequestBody(required = false) java.util.Map<String, String> data) {
+        String topic = data != null ? data.get("topic") : null;
+        return sessionService.createSession(topic);
     }
 
     @PatchMapping("/{id}/status")

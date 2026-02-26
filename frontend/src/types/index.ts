@@ -4,6 +4,7 @@ export interface Session {
     id: string;
     createdAt: string;
     status: SessionStatus;
+    topic?: string;
     wordCount: number;
 }
 

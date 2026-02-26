@@ -2,33 +2,36 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { RotateCw, ChevronRight, ChevronLeft, CheckCircle2, RefreshCw, LogOut } from 'lucide-react';
 import { api } from '../api/api';
-import type { EvaluationResult } from '../types';
+import type { EvaluationResult, Session } from '../types';
 
 export default function Flashcard() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const location = useLocation();
     const [words, setWords] = useState<EvaluationResult[]>(location.state?.results || []);
+    const [session, setSession] = useState<Session | null>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
-    const [loading, setLoading] = useState(!location.state?.results);
+    const [loading, setLoading] = useState(true);
     const [isFinished, setIsFinished] = useState(false);
 
     useEffect(() => {
-        if (!location.state?.results) {
-            fetchWords();
-        }
-    }, [id]);
-
-    const fetchWords = async () => {
-        try {
-            const resp = await api.getResults(id!);
-            setWords(resp.data);
-            setLoading(false);
-        } catch (err) {
-            console.error(err);
-        }
-    };
+        const fetchData = async () => {
+            try {
+                const [wordsResp, sessionResp] = await Promise.all([
+                    location.state?.results ? Promise.resolve({ data: location.state.results }) : api.getResults(id!),
+                    api.getSession(id!)
+                ]);
+                setWords(wordsResp.data);
+                setSession(sessionResp.data);
+                setLoading(false);
+            } catch (err) {
+                console.error(err);
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, [id, location.state]);
 
     const handleFlip = () => {
         setIsFlipped(!isFlipped);
@@ -99,7 +102,7 @@ export default function Flashcard() {
     return (
         <div className="container" style={{ maxWidth: '500px' }}>
             <header style={{ marginBottom: '2rem', textAlign: 'center' }}>
-                <h1 style={{ margin: 0 }}>Flashcard</h1>
+                <h1 style={{ margin: 0 }}>{session?.topic || "Flashcard"}</h1>
                 <p className="text-muted">Thẻ {currentIndex + 1} trên {words.length}</p>
             </header>
 

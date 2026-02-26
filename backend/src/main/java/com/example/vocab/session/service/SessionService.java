@@ -26,9 +26,10 @@ public class SessionService {
                 .orElseThrow(() -> new RuntimeException("Session not found"));
     }
 
-    public Session createSession() {
+    public Session createSession(String topic) {
         Session session = Session.builder()
                 .status(SessionStatus.NEW)
+                .topic(topic != null ? topic : "Chưa có tên")
                 .wordCount(0)
                 .build();
         return sessionRepository.save(session);

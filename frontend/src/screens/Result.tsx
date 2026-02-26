@@ -2,35 +2,35 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, RefreshCw, Edit2, Check, X, Layers } from 'lucide-react';
 import { api } from '../api/api';
-import type { EvaluationResult } from '../types';
+import type { EvaluationResult, Session } from '../types';
 
 export default function Result() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const location = useLocation();
     const [results, setResults] = useState<EvaluationResult[]>(location.state?.results || []);
-    const [loading, setLoading] = useState(!location.state?.results);
+    const [loading, setLoading] = useState(true);
+    const [session, setSession] = useState<Session | null>(null);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editValues, setEditValues] = useState({ english: '', vietnamese: '' });
 
     useEffect(() => {
-        if (location.state?.results) {
-            setResults(location.state.results);
-            setLoading(false);
-        } else {
-            fetchResults();
-        }
+        const fetchData = async () => {
+            try {
+                const [resultsResp, sessionResp] = await Promise.all([
+                    location.state?.results ? Promise.resolve({ data: location.state.results }) : api.getResults(id!),
+                    api.getSession(id!)
+                ]);
+                setResults(resultsResp.data);
+                setSession(sessionResp.data);
+                setLoading(false);
+            } catch (err) {
+                console.error(err);
+                setLoading(false);
+            }
+        };
+        fetchData();
     }, [id, location.state]);
-
-    const fetchResults = async () => {
-        try {
-            const resp = await api.getResults(id!);
-            setResults(resp.data);
-            setLoading(false);
-        } catch (err) {
-            console.error(err);
-        }
-    };
 
     const handleRetry = async () => {
         try {
@@ -71,7 +71,7 @@ export default function Result() {
         <div className="container" style={{ maxWidth: '650px' }}>
             <div className="flex justify-between items-center" style={{ marginBottom: '2rem' }}>
                 <div style={{ textAlign: 'left' }}>
-                    <h1 style={{ margin: 0 }}>Chi tiết từ vựng</h1>
+                    <h1 style={{ margin: 0 }}>{session?.topic || "Chi tiết từ vựng"}</h1>
                     <p className="text-muted">Danh sách từ vựng trong phiên học</p>
                 </div>
                 <button
