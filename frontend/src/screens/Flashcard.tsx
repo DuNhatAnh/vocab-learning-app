@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { RotateCw, ChevronRight, ChevronLeft, CheckCircle2, RefreshCw, LogOut, Image as ImageIcon } from 'lucide-react';
+import { RotateCw, ChevronRight, ChevronLeft, CheckCircle2, RefreshCw, LogOut, Image as ImageIcon, Volume2 } from 'lucide-react';
 import { api } from '../api/api';
 import type { EvaluationResult, Session } from '../types';
 
@@ -32,6 +32,26 @@ export default function Flashcard() {
         };
         fetchData();
     }, [id, location.state]);
+
+    const handleSpeak = useCallback((text: string, lang: 'en-US' | 'vi-VN') => {
+        if ('speechSynthesis' in window) {
+            // Cancel any ongoing speech
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = lang;
+            utterance.rate = 0.9; // Slightly slower for clarity
+
+            // Try to find a better voice if available
+            const voices = window.speechSynthesis.getVoices();
+            const preferredVoice = voices.find(v => v.lang === lang && (v.name.includes('Google') || v.name.includes('Premium')));
+            if (preferredVoice) {
+                utterance.voice = preferredVoice;
+            }
+
+            window.speechSynthesis.speak(utterance);
+        }
+    }, []);
 
     const handleFlip = useCallback(() => {
         setIsFlipped(prev => !prev);
@@ -72,6 +92,14 @@ export default function Flashcard() {
                 case 'Enter':
                     handleFlip();
                     break;
+                case ' ': // Space to speak
+                    e.preventDefault();
+                    if (words[currentIndex]) {
+                        const text = isFlipped ? words[currentIndex].vietnamese : words[currentIndex].english;
+                        const lang = isFlipped ? 'vi-VN' : 'en-US';
+                        handleSpeak(text, lang as any);
+                    }
+                    break;
                 default:
                     break;
             }
@@ -79,7 +107,7 @@ export default function Flashcard() {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [handleNext, handlePrev, handleFlip, isFinished, loading]);
+    }, [handleNext, handlePrev, handleFlip, handleSpeak, isFinished, loading, words, currentIndex, isFlipped]);
 
     const handleRestart = () => {
         setCurrentIndex(0);
@@ -124,37 +152,66 @@ export default function Flashcard() {
     const currentWord = words[currentIndex];
 
     return (
-        <div className="container" style={{ maxWidth: '500px' }}>
+        <div className="container" style={{ maxWidth: '600px' }}>
             <header style={{ marginBottom: '2rem', textAlign: 'center' }}>
                 <h1 style={{ margin: 0 }}>{session?.topic || "Flashcard"}</h1>
                 <p className="text-muted">Thẻ {currentIndex + 1} trên {words.length}</p>
             </header>
 
-            <div className={`flashcard-container ${isFlipped ? 'is-flipped' : ''}`} onClick={handleFlip}>
-                <div className="flashcard-inner">
-                    {/* Front Face: English */}
-                    <div className="flashcard-face flashcard-front">
-                        <div className="flashcard-label">Tiếng Anh</div>
-                        <div className="flashcard-content">{currentWord.english}</div>
-                        <div className="text-muted text-xs" style={{ marginTop: '2rem', opacity: 0.6 }}>Bấm để lật thẻ</div>
-                    </div>
-                    {/* Back Face: Vietnamese */}
-                    <div className="flashcard-face flashcard-back" style={{ padding: 0, overflow: 'hidden' }}>
-                        <div className="flex flex-col h-full w-full">
-                            <div className="flashcard-image-container">
-                                {currentWord.imageUrl ? (
-                                    <img src={currentWord.imageUrl} alt={currentWord.english} className="flashcard-image" />
-                                ) : (
-                                    <div className="flashcard-image-placeholder">
-                                        <ImageIcon size={48} opacity={0.2} />
-                                    </div>
-                                )}
-                            </div>
-                            <div className="flex-1 flex flex-col items-center justify-center p-6">
-                                <div className="flashcard-content" style={{ color: 'var(--text)', fontSize: '2.5rem' }}>{currentWord.vietnamese}</div>
+            <div className="flex items-center gap-6">
+                <div className={`flashcard-container ${isFlipped ? 'is-flipped' : ''}`} onClick={handleFlip} style={{ flex: 1, margin: 0 }}>
+                    <div className="flashcard-inner">
+                        {/* Front Face: English */}
+                        <div className="flashcard-face flashcard-front">
+                            <div className="flashcard-label">Tiếng Anh</div>
+                            <div className="flashcard-content">{currentWord.english}</div>
+                            <div className="text-muted text-xs" style={{ marginTop: '2rem', opacity: 0.6 }}>Bấm để lật thẻ</div>
+                        </div>
+                        {/* Back Face: Vietnamese */}
+                        <div className="flashcard-face flashcard-back" style={{ padding: 0, overflow: 'hidden' }}>
+                            <div className="flex flex-col h-full w-full">
+                                <div className="flashcard-image-container">
+                                    {currentWord.imageUrl ? (
+                                        <img src={currentWord.imageUrl} alt={currentWord.english} className="flashcard-image" />
+                                    ) : (
+                                        <div className="flashcard-image-placeholder">
+                                            <ImageIcon size={48} opacity={0.2} />
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="flex-1 flex flex-col items-center justify-center p-6">
+                                    <div className="flashcard-content" style={{ color: 'var(--text)', fontSize: '2.5rem' }}>{currentWord.vietnamese}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div className="flex flex-col">
+                    <button
+                        className="btn btn-ghost btn-lg speaker-btn"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            const text = isFlipped ? currentWord.vietnamese : currentWord.english;
+                            const lang = isFlipped ? 'vi-VN' : 'en-US';
+                            handleSpeak(text, lang as any);
+                        }}
+                        title="Phát âm"
+                        style={{
+                            width: '60px',
+                            height: '60px',
+                            borderRadius: '50%',
+                            padding: 0,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxShadow: 'var(--shadow-sm)',
+                            backgroundColor: 'white',
+                            color: 'var(--primary)'
+                        }}
+                    >
+                        <Volume2 size={32} />
+                    </button>
                 </div>
             </div>
 
