@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { RotateCw, ChevronRight, ChevronLeft, CheckCircle2, RefreshCw, LogOut, Image as ImageIcon } from 'lucide-react';
 import { api } from '../api/api';
@@ -33,29 +33,53 @@ export default function Flashcard() {
         fetchData();
     }, [id, location.state]);
 
-    const handleFlip = () => {
-        setIsFlipped(!isFlipped);
-    };
+    const handleFlip = useCallback(() => {
+        setIsFlipped(prev => !prev);
+    }, []);
 
-    const handleNext = () => {
+    const handleNext = useCallback(() => {
         if (currentIndex < words.length - 1) {
             setIsFlipped(false);
             setTimeout(() => {
-                setCurrentIndex(currentIndex + 1);
+                setCurrentIndex(prev => prev + 1);
             }, 150); // Small delay to sync with flip back
         } else {
             setIsFinished(true);
         }
-    };
+    }, [currentIndex, words.length]);
 
-    const handlePrev = () => {
+    const handlePrev = useCallback(() => {
         if (currentIndex > 0) {
             setIsFlipped(false);
             setTimeout(() => {
-                setCurrentIndex(currentIndex - 1);
+                setCurrentIndex(prev => prev - 1);
             }, 150);
         }
-    };
+    }, [currentIndex]);
+
+    // Keyboard controls
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (isFinished || loading) return;
+
+            switch (e.key) {
+                case 'ArrowRight':
+                    handleNext();
+                    break;
+                case 'ArrowLeft':
+                    handlePrev();
+                    break;
+                case 'Enter':
+                    handleFlip();
+                    break;
+                default:
+                    break;
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [handleNext, handlePrev, handleFlip, isFinished, loading]);
 
     const handleRestart = () => {
         setCurrentIndex(0);
