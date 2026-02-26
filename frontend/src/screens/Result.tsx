@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, RefreshCw, Edit2, Check, X } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Edit2, Check, X, Layers } from 'lucide-react';
 import { api } from '../api/api';
 import type { EvaluationResult } from '../types';
 
@@ -31,6 +31,7 @@ export default function Result() {
             console.error(err);
         }
     };
+
     const handleRetry = async () => {
         try {
             await api.updateSessionStatus(id!, 'LEARNING');
@@ -68,10 +69,18 @@ export default function Result() {
 
     return (
         <div className="container" style={{ maxWidth: '650px' }}>
-            <header style={{ marginBottom: '2rem', textAlign: 'center' }}>
-                <h1 style={{ margin: 0 }}>Chi tiết từ vựng</h1>
-                <p className="text-muted">Danh sách từ vựng trong phiên học</p>
-            </header>
+            <div className="flex justify-between items-center" style={{ marginBottom: '2rem' }}>
+                <div style={{ textAlign: 'left' }}>
+                    <h1 style={{ margin: 0 }}>Chi tiết từ vựng</h1>
+                    <p className="text-muted">Danh sách từ vựng trong phiên học</p>
+                </div>
+                <button
+                    className="btn btn-primary btn-sm"
+                    onClick={() => navigate(`/session/${id}/flashcards`, { state: { results } })}
+                >
+                    <Layers size={16} /> Flashcard
+                </button>
+            </div>
 
             <div className="grid">
                 {results.map((result, idx) => (
