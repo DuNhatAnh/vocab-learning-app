@@ -13,6 +13,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@SuppressWarnings("null")
 public class SessionService {
     private final SessionRepository sessionRepository;
     private final WordService wordService;

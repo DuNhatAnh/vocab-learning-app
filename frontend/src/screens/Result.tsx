@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, RefreshCw, Edit2, Check, X, Layers } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Edit2, Check, X, Layers, Image as ImageIcon } from 'lucide-react';
 import { api } from '../api/api';
 import type { EvaluationResult, Session } from '../types';
 
@@ -12,7 +12,7 @@ export default function Result() {
     const [loading, setLoading] = useState(true);
     const [session, setSession] = useState<Session | null>(null);
     const [editingId, setEditingId] = useState<string | null>(null);
-    const [editValues, setEditValues] = useState({ english: '', vietnamese: '' });
+    const [editValues, setEditValues] = useState({ english: '', vietnamese: '', imageUrl: '' });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -44,7 +44,7 @@ export default function Result() {
 
     const startEditing = (result: EvaluationResult) => {
         setEditingId(result.id);
-        setEditValues({ english: result.english, vietnamese: result.vietnamese });
+        setEditValues({ english: result.english, vietnamese: result.vietnamese, imageUrl: result.imageUrl || '' });
     };
 
     const cancelEditing = () => {
@@ -88,6 +88,15 @@ export default function Result() {
                         {editingId === result.id ? (
                             <div className="flex flex-col gap-4">
                                 <div className="grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                    <div className="flex flex-col gap-4" style={{ gridColumn: 'span 2' }}>
+                                        <label className="text-muted text-xs font-bold uppercase">Link Hình ảnh (URL)</label>
+                                        <input
+                                            className="input"
+                                            placeholder="https://example.com/image.jpg"
+                                            value={editValues.imageUrl}
+                                            onChange={e => setEditValues({ ...editValues, imageUrl: e.target.value })}
+                                        />
+                                    </div>
                                     <div>
                                         <label className="text-muted text-xs font-bold uppercase">Tiếng Việt</label>
                                         <input
@@ -123,6 +132,19 @@ export default function Result() {
                                         {result.vietnamese}
                                     </div>
                                 </div>
+
+                                <div style={{ flex: 0.5, display: 'flex', justifyContent: 'center' }}>
+                                    <div className="word-image-thumbnail">
+                                        {result.imageUrl ? (
+                                            <img src={result.imageUrl} alt={result.english} />
+                                        ) : (
+                                            <div className="no-image">
+                                                <ImageIcon size={16} />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
                                 <div style={{ flex: 1, textAlign: 'center' }}>
                                     <div className="text-muted text-sm">Tiếng Anh</div>
                                     <div className="font-bold text-primary" style={{ fontSize: '1.1rem' }}>{result.english}</div>

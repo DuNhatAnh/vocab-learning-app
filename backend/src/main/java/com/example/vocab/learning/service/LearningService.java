@@ -29,6 +29,7 @@ public class LearningService {
         private String vietnamese;
         private String userAnswer;
         private boolean correct;
+        private String imageUrl;
     }
 
     @Transactional
@@ -49,6 +50,7 @@ public class LearningService {
                     .vietnamese(word.getVietnamese())
                     .userAnswer(userAnswer)
                     .correct(correct)
+                    .imageUrl(word.getImageUrl())
                     .build());
         }
 
@@ -68,6 +70,7 @@ public class LearningService {
                     .vietnamese(word.getVietnamese())
                     .userAnswer(word.getUserAnswer() != null ? word.getUserAnswer() : "")
                     .correct(word.getCorrect() != null ? word.getCorrect() : false)
+                    .imageUrl(word.getImageUrl())
                     .build());
         }
         return results;

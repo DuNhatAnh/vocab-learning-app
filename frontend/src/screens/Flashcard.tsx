@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { RotateCw, ChevronRight, ChevronLeft, CheckCircle2, RefreshCw, LogOut } from 'lucide-react';
+import { RotateCw, ChevronRight, ChevronLeft, CheckCircle2, RefreshCw, LogOut, Image as ImageIcon } from 'lucide-react';
 import { api } from '../api/api';
 import type { EvaluationResult, Session } from '../types';
 
@@ -115,10 +115,21 @@ export default function Flashcard() {
                         <div className="text-muted text-xs" style={{ marginTop: '2rem', opacity: 0.6 }}>Bấm để lật thẻ</div>
                     </div>
                     {/* Back Face: Vietnamese */}
-                    <div className="flashcard-face flashcard-back">
-                        <div className="flashcard-label">Tiếng Việt</div>
-                        <div className="flashcard-content" style={{ color: 'var(--text)' }}>{currentWord.vietnamese}</div>
-                        <div className="text-muted text-xs" style={{ marginTop: '2rem', opacity: 0.6 }}>Bấm để lật lại</div>
+                    <div className="flashcard-face flashcard-back" style={{ padding: 0, overflow: 'hidden' }}>
+                        <div className="flex flex-col h-full w-full">
+                            <div className="flashcard-image-container">
+                                {currentWord.imageUrl ? (
+                                    <img src={currentWord.imageUrl} alt={currentWord.english} className="flashcard-image" />
+                                ) : (
+                                    <div className="flashcard-image-placeholder">
+                                        <ImageIcon size={48} opacity={0.2} />
+                                    </div>
+                                )}
+                            </div>
+                            <div className="flex-1 flex flex-col items-center justify-center p-6">
+                                <div className="flashcard-content" style={{ color: 'var(--text)', fontSize: '2.5rem' }}>{currentWord.vietnamese}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

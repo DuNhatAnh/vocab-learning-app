@@ -33,6 +33,6 @@ public class WordController {
 
     @PutMapping("/{wordId}")
     public Word updateWord(@PathVariable UUID sessionId, @PathVariable UUID wordId, @RequestBody Word wordData) {
-        return wordService.updateWord(wordId, wordData.getEnglish(), wordData.getVietnamese());
+        return wordService.updateWord(wordId, wordData.getEnglish(), wordData.getVietnamese(), wordData.getImageUrl());
     }
 }

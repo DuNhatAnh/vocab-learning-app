@@ -40,11 +40,12 @@ public class WordService {
     }
 
     @Transactional
-    public Word updateWord(UUID wordId, String english, String vietnamese) {
+    public Word updateWord(UUID wordId, String english, String vietnamese, String imageUrl) {
         Word word = wordRepository.findById(wordId)
                 .orElseThrow(() -> new RuntimeException("Word not found"));
         word.setEnglish(english);
         word.setVietnamese(vietnamese);
+        word.setImageUrl(imageUrl);
         return wordRepository.save(word);
     }
 }

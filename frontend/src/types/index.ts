@@ -14,6 +14,7 @@ export interface Word {
     english: string;
     vietnamese: string;
     orderIndex: number;
+    imageUrl?: string;
 }
 
 export interface EvaluationResult {
@@ -22,4 +23,5 @@ export interface EvaluationResult {
     vietnamese: string;
     userAnswer: string;
     correct: boolean;
+    imageUrl?: string;
 }

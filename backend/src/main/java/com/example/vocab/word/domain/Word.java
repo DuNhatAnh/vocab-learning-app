@@ -22,16 +22,20 @@ public class Word {
     @Column(nullable = false)
     private UUID sessionId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String english;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String vietnamese;
 
     @Column(nullable = false)
     private Integer orderIndex;
 
+    @Column(columnDefinition = "TEXT")
     private String userAnswer;
 
     private Boolean correct;
+
+    @Column(columnDefinition = "TEXT")
+    private String imageUrl;
 }

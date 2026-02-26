@@ -41,6 +41,7 @@ public class QuizController {
                         .vietnamese(word.getVietnamese())
                         .userAnswer(userAnswer)
                         .correct(correct)
+                        .imageUrl(word.getImageUrl())
                         .build());
             }
         }
