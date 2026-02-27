@@ -18,57 +18,62 @@ export default function GrammarSelection() {
                 <h1>Grammar</h1>
             </header>
 
-            <section className="category-group">
-                <h2 className="category-title">Present</h2>
+            {['Present', 'Past', 'Future'].map(category => {
+                const categoryTenses = tenses.filter(t => t.category === category);
+                if (categoryTenses.length === 0) return null;
 
-                <div className="tense-list">
-                    {tenses.filter(t => t.category === 'Present').map((tense) => (
-                        <div key={tense.id} className="tense-container">
-                            <button
-                                className={`tense-item ${expandedTense === tense.id ? 'active' : ''}`}
-                                onClick={() => toggleExpand(tense.id)}
-                            >
-                                <span className="tense-name">{tense.name}</span>
-                                {expandedTense === tense.id ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
-                            </button>
+                return (
+                    <section key={category} className="category-group">
+                        <h2 className="category-title">{category}</h2>
 
-                            {expandedTense === tense.id && (
-                                <div className="sub-options">
+                        <div className="tense-list">
+                            {categoryTenses.map((tense) => (
+                                <div key={tense.id} className="tense-container">
                                     <button
-                                        className="sub-option"
-                                        onClick={() => navigate(`/grammar/quiz/${tense.id}`)}
+                                        className={`tense-item ${expandedTense === tense.id ? 'active' : ''}`}
+                                        onClick={() => toggleExpand(tense.id)}
                                     >
-                                        <div className="sub-option-icon quiz">
-                                            <List size={18} />
-                                        </div>
-                                        <div className="sub-option-info">
-                                            <span className="sub-name">{tense.name} (trắc nghiệm)</span>
-                                            <span className="sub-desc">Chọn đáp án đúng từ các lựa chọn</span>
-                                        </div>
-                                        <ChevronRight size={16} />
+                                        <span className="tense-name">{tense.name}</span>
+                                        {expandedTense === tense.id ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
                                     </button>
 
-                                    {tense.id === 'present-simple' && (
-                                        <button
-                                            className="sub-option"
-                                            onClick={() => navigate(`/grammar/fitb/${tense.id}`)}
-                                        >
-                                            <div className="sub-option-icon fitb">
-                                                <Edit3 size={18} />
-                                            </div>
-                                            <div className="sub-option-info">
-                                                <span className="sub-name">{tense.name} (điền từ)</span>
-                                                <span className="sub-desc">Tự nhập câu trả lời vào chỗ trống</span>
-                                            </div>
-                                            <ChevronRight size={16} />
-                                        </button>
+                                    {expandedTense === tense.id && (
+                                        <div className="sub-options">
+                                            <button
+                                                className="sub-option"
+                                                onClick={() => navigate(`/grammar/quiz/${tense.id}`)}
+                                            >
+                                                <div className="sub-option-icon quiz">
+                                                    <List size={18} />
+                                                </div>
+                                                <div className="sub-option-info">
+                                                    <span className="sub-name">{tense.name} (trắc nghiệm)</span>
+                                                    <span className="sub-desc">Chọn đáp án đúng từ các lựa chọn</span>
+                                                </div>
+                                                <ChevronRight size={16} />
+                                            </button>
+
+                                            <button
+                                                className="sub-option"
+                                                onClick={() => navigate(`/grammar/fitb/${tense.id}`)}
+                                            >
+                                                <div className="sub-option-icon fitb">
+                                                    <Edit3 size={18} />
+                                                </div>
+                                                <div className="sub-option-info">
+                                                    <span className="sub-name">{tense.name} (điền từ)</span>
+                                                    <span className="sub-desc">Tự nhập câu trả lời vào chỗ trống</span>
+                                                </div>
+                                                <ChevronRight size={16} />
+                                            </button>
+                                        </div>
                                     )}
                                 </div>
-                            )}
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </section>
+                    </section>
+                );
+            })}
 
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');

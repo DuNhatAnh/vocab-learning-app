@@ -5,5 +5,19 @@
         "file": "present_simple.json",
         "category": "Present",
         "note": "Present Simple — Note\n\n👉 Dùng khi:\n- Thói quen\n- Lịch trình\n- Sự thật\n- Trạng thái lâu dài\n\n👉 Công thức:\n(+) S + V(s/es)\n(−) S + do/does not + V\n(?) Do/Does + S + V?\n\n👉 Quy tắc:\n- He/She/It → thêm s/es\n- ch, sh, x, o → es\n\n👉 Dấu hiệu:\nalways, usually, often, every day"
+    },
+    {
+        "id": "past-simple",
+        "name": "Past Simple",
+        "file": "past_simple.json",
+        "category": "Past",
+        "note": "Past Simple — Note\n\n👉 Dùng khi:\n- Sự việc đã kết thúc trong quá khứ\n- Chuỗi hành động trong quá khứ\n\n👉 Công thức:\n(+) S + V2/ed\n(−) S + did not + V\n(?) Did + S + V?\n\n👉 Quy tắc:\n- Động từ có quy tắc: thêm -ed\n- Động từ bất quy tắc: xem bảng V2\n\n👉 Dấu hiệu:\nyesterday, last week, ago, in 2010"
+    },
+    {
+        "id": "future-simple",
+        "name": "Future Simple",
+        "file": "future_simple.json",
+        "category": "Future",
+        "note": "Future Simple — Note\n\n👉 Dùng khi:\n- Quyết định ngay lúc nói\n- Dự đoán không căn cứ\n- Lời hứa, lời đề nghị\n\n👉 Công thức:\n(+) S + will + V\n(−) S + will not (won't) + V\n(?) Will + S + V?\n\n👉 Dấu hiệu:\ntomorrow, next week, soon, in the future"
     }
 ]

@@ -1,0 +1,302 @@
+[
+    {
+        "sentence": "I ________ to the park yesterday.",
+        "options": [
+            "going",
+            "go",
+            "went",
+            "goes"
+        ],
+        "correctIndex": 2
+    },
+    {
+        "sentence": "She ________ a beautiful song at the party.",
+        "options": [
+            "sings",
+            "sang",
+            "sung",
+            "sing"
+        ],
+        "correctIndex": 1
+    },
+    {
+        "sentence": "They ________ their homework last night.",
+        "options": [
+            "did",
+            "done",
+            "do",
+            "does"
+        ],
+        "correctIndex": 0
+    },
+    {
+        "sentence": "We ________ a great movie last weekend.",
+        "options": [
+            "watched",
+            "watches",
+            "watching",
+            "watch"
+        ],
+        "correctIndex": 0
+    },
+    {
+        "sentence": "He ________ his keys this morning.",
+        "options": [
+            "loses",
+            "lose",
+            "losing",
+            "lost"
+        ],
+        "correctIndex": 3
+    },
+    {
+        "sentence": "Did you ________ the cake?",
+        "options": [
+            "ate",
+            "eaten",
+            "eats",
+            "eat"
+        ],
+        "correctIndex": 3
+    },
+    {
+        "sentence": "I ________ not see him at the meeting.",
+        "options": [
+            "done",
+            "did",
+            "do",
+            "does"
+        ],
+        "correctIndex": 1
+    },
+    {
+        "sentence": "They ________ to London in 2010.",
+        "options": [
+            "moving",
+            "move",
+            "moves",
+            "moved"
+        ],
+        "correctIndex": 3
+    },
+    {
+        "sentence": "She ________ a new car last month.",
+        "options": [
+            "buying",
+            "bought",
+            "buy",
+            "buys"
+        ],
+        "correctIndex": 1
+    },
+    {
+        "sentence": "The train ________ ten minutes ago.",
+        "options": [
+            "leaves",
+            "leaving",
+            "leave",
+            "left"
+        ],
+        "correctIndex": 3
+    },
+    {
+        "sentence": "He ________ a letter to his parents yesterday.",
+        "options": [
+            "write",
+            "written",
+            "writes",
+            "wrote"
+        ],
+        "correctIndex": 3
+    },
+    {
+        "sentence": "We ________ lunch at a Japanese restaurant.",
+        "options": [
+            "having",
+            "have",
+            "had",
+            "has"
+        ],
+        "correctIndex": 2
+    },
+    {
+        "sentence": "They ________ very hard for the exam.",
+        "options": [
+            "study",
+            "studying",
+            "studies",
+            "studied"
+        ],
+        "correctIndex": 3
+    },
+    {
+        "sentence": "I ________ my room on Saturday morning.",
+        "options": [
+            "cleaned",
+            "cleaning",
+            "clean",
+            "cleans"
+        ],
+        "correctIndex": 0
+    },
+    {
+        "sentence": "She ________ her old friends at the cafe.",
+        "options": [
+            "meeting",
+            "met",
+            "meet",
+            "meets"
+        ],
+        "correctIndex": 1
+    },
+    {
+        "sentence": "The cat ________ out of the window.",
+        "options": [
+            "jumped",
+            "jumping",
+            "jump",
+            "jumps"
+        ],
+        "correctIndex": 0
+    },
+    {
+        "sentence": "I ________ my phone in the office.",
+        "options": [
+            "forgot",
+            "forget",
+            "forgotten",
+            "forgets"
+        ],
+        "correctIndex": 0
+    },
+    {
+        "sentence": "They ________ the game last night.",
+        "options": [
+            "win",
+            "wins",
+            "winning",
+            "won"
+        ],
+        "correctIndex": 3
+    },
+    {
+        "sentence": "He ________ English when he was a child.",
+        "options": [
+            "learned",
+            "learn",
+            "learns",
+            "learning"
+        ],
+        "correctIndex": 0
+    },
+    {
+        "sentence": "We ________ our grandparents every week last summer.",
+        "options": [
+            "visits",
+            "visit",
+            "visiting",
+            "visited"
+        ],
+        "correctIndex": 3
+    },
+    {
+        "sentence": "I ________ my coffee with milk this morning.",
+        "options": [
+            "drunk",
+            "drank",
+            "drinks",
+            "drink"
+        ],
+        "correctIndex": 1
+    },
+    {
+        "sentence": "She ________ a doctor when she was younger.",
+        "options": [
+            "been",
+            "was",
+            "were",
+            "is"
+        ],
+        "correctIndex": 1
+    },
+    {
+        "sentence": "They ________ at the cinema yesterday.",
+        "options": [
+            "were",
+            "was",
+            "is",
+            "been"
+        ],
+        "correctIndex": 0
+    },
+    {
+        "sentence": "The weather ________ very nice yesterday.",
+        "options": [
+            "been",
+            "were",
+            "is",
+            "was"
+        ],
+        "correctIndex": 3
+    },
+    {
+        "sentence": "I ________ late for school this morning.",
+        "options": [
+            "am",
+            "been",
+            "was",
+            "were"
+        ],
+        "correctIndex": 2
+    },
+    {
+        "sentence": "We ________ very tired after the long trip.",
+        "options": [
+            "are",
+            "been",
+            "were",
+            "was"
+        ],
+        "correctIndex": 2
+    },
+    {
+        "sentence": "The children ________ very happy to see the clowns.",
+        "options": [
+            "was",
+            "been",
+            "were",
+            "is"
+        ],
+        "correctIndex": 2
+    },
+    {
+        "sentence": "There ________ a lot of people at the party.",
+        "options": [
+            "were",
+            "was",
+            "is",
+            "been"
+        ],
+        "correctIndex": 0
+    },
+    {
+        "sentence": "The book ________ very interesting.",
+        "options": [
+            "been",
+            "was",
+            "is",
+            "were"
+        ],
+        "correctIndex": 1
+    },
+    {
+        "sentence": "I ________ not at home when you called.",
+        "options": [
+            "be",
+            "was",
+            "am",
+            "were"
+        ],
+        "correctIndex": 1
+    }
+]
