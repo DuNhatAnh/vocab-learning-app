@@ -2,220 +2,220 @@
     {
         "sentence": "He often ________ up late.",
         "options": [
-            "get up",
             "gets up",
             "got up",
+            "get up",
             "getting up"
         ],
-        "correctIndex": 1
+        "correctIndex": 0
     },
     {
         "sentence": "________ you often ________ TV?",
         "options": [
-            "Do / watch",
             "Do / watches",
             "Have / watch",
+            "Do / watch",
             "Does / watches"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "Mr. Brown ________ English.",
         "options": [
-            "speak",
-            "speaks",
+            "speakes",
             "does speak",
-            "speakes"
+            "speaks",
+            "speak"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "Quan usually ________ shopping on weekends.",
         "options": [
-            "goes",
-            "does go",
             "go",
-            "do"
-        ],
-        "correctIndex": 0
-    },
-    {
-        "sentence": "Quan often ________ his face at 6:15.",
-        "options": [
-            "washes",
-            "washing",
-            "does wash",
-            "wash"
-        ],
-        "correctIndex": 0
-    },
-    {
-        "sentence": "San and David always ________ a movie on Saturdays.",
-        "options": [
-            "see",
-            "sees",
-            "do see",
-            "does"
-        ],
-        "correctIndex": 0
-    },
-    {
-        "sentence": "________ Andy often ________ a bus to school?",
-        "options": [
-            "Do / take",
-            "Is / take",
-            "Does / takes",
-            "Does / take"
+            "do",
+            "does go",
+            "goes"
         ],
         "correctIndex": 3
     },
     {
+        "sentence": "Quan often ________ his face at 6:15.",
+        "options": [
+            "does wash",
+            "washes",
+            "washing",
+            "wash"
+        ],
+        "correctIndex": 1
+    },
+    {
+        "sentence": "San and David always ________ a movie on Saturdays.",
+        "options": [
+            "does",
+            "do see",
+            "sees",
+            "see"
+        ],
+        "correctIndex": 3
+    },
+    {
+        "sentence": "________ Andy often ________ a bus to school?",
+        "options": [
+            "Is / take",
+            "Does / take",
+            "Do / take",
+            "Does / takes"
+        ],
+        "correctIndex": 1
+    },
+    {
         "sentence": "They ________ students in class 8A.",
         "options": [
-            "are",
-            "is",
             "do",
-            "eat"
+            "are",
+            "eat",
+            "is"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "Linda ________ homework in the evenings.",
         "options": [
-            "do not",
+            "do",
             "does not do",
-            "doing",
-            "do"
+            "do not",
+            "doing"
         ],
         "correctIndex": 1
     },
     {
         "sentence": "Quan usually ________ a taxi to the railway station.",
         "options": [
-            "takes",
-            "take",
             "taking",
+            "take",
+            "takes",
             "does take"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "She always ________ breakfast before school.",
         "options": [
-            "have",
-            "has",
             "having",
-            "had"
+            "have",
+            "had",
+            "has"
         ],
-        "correctIndex": 1
+        "correctIndex": 3
     },
     {
         "sentence": "We ________ our grandparents every month.",
         "options": [
-            "visit",
             "visits",
+            "visit",
             "visited",
             "visiting"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "Tom ________ his emails every morning.",
         "options": [
             "check",
-            "checks",
             "checking",
-            "checked"
+            "checked",
+            "checks"
         ],
-        "correctIndex": 1
+        "correctIndex": 3
     },
     {
         "sentence": "They usually ________ dinner at home.",
         "options": [
-            "eat",
             "eats",
+            "ate",
             "eating",
-            "ate"
+            "eat"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "My brother ________ football very well.",
         "options": [
-            "play",
             "plays",
             "playing",
+            "play",
             "played"
         ],
-        "correctIndex": 1
+        "correctIndex": 0
     },
     {
         "sentence": "I ________ coffee twice a day.",
         "options": [
-            "drink",
             "drinks",
+            "drink",
             "drinking",
             "drank"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "She ________ her room every weekend.",
         "options": [
-            "clean",
             "cleans",
+            "cleaned",
             "cleaning",
-            "cleaned"
+            "clean"
         ],
-        "correctIndex": 1
+        "correctIndex": 0
     },
     {
         "sentence": "We often ________ to music in the evening.",
         "options": [
-            "listen",
+            "listened",
             "listens",
-            "listening",
-            "listened"
+            "listen",
+            "listening"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "The train ________ at 7 pm.",
         "options": [
-            "leave",
             "leaves",
-            "leaving",
-            "left"
-        ],
-        "correctIndex": 1
-    },
-    {
-        "sentence": "Students ________ uniforms at this school.",
-        "options": [
-            "wear",
-            "wears",
-            "wearing",
-            "wore"
+            "left",
+            "leave",
+            "leaving"
         ],
         "correctIndex": 0
     },
     {
-        "sentence": "He rarely ________ late for work.",
+        "sentence": "Students ________ uniforms at this school.",
         "options": [
-            "arrive",
-            "arrives",
-            "arriving",
-            "arrived"
+            "wearing",
+            "wear",
+            "wore",
+            "wears"
         ],
         "correctIndex": 1
+    },
+    {
+        "sentence": "He rarely ________ late for work.",
+        "options": [
+            "arrives",
+            "arriving",
+            "arrive",
+            "arrived"
+        ],
+        "correctIndex": 0
     },
     {
         "sentence": "Do you ________ books in English?",
         "options": [
             "read",
-            "reads",
             "reading",
-            "readed"
+            "readed",
+            "reads"
         ],
         "correctIndex": 0
     },
@@ -224,148 +224,148 @@
         "options": [
             "play",
             "plays",
-            "playing",
-            "played"
+            "played",
+            "playing"
         ],
         "correctIndex": 1
     },
     {
         "sentence": "We ________ meetings on Mondays.",
         "options": [
+            "having",
             "have",
             "has",
-            "having",
             "had"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "The shop ________ at 9 am.",
         "options": [
-            "open",
+            "opened",
             "opens",
             "opening",
-            "opened"
+            "open"
         ],
         "correctIndex": 1
     },
     {
         "sentence": "I ________ my parents every weekend.",
         "options": [
-            "call",
+            "called",
             "calls",
-            "calling",
-            "called"
+            "call",
+            "calling"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "He ________ a shower every morning.",
         "options": [
-            "take",
             "takes",
+            "took",
             "taking",
-            "took"
-        ],
-        "correctIndex": 1
-    },
-    {
-        "sentence": "They ________ online courses.",
-        "options": [
-            "take",
-            "takes",
-            "taking",
-            "took"
+            "take"
         ],
         "correctIndex": 0
     },
     {
+        "sentence": "They ________ online courses.",
+        "options": [
+            "takes",
+            "took",
+            "take",
+            "taking"
+        ],
+        "correctIndex": 2
+    },
+    {
         "sentence": "The baby ________ a lot at night.",
         "options": [
-            "cry",
-            "cries",
             "crying",
-            "cried"
+            "cries",
+            "cried",
+            "cry"
         ],
         "correctIndex": 1
     },
     {
         "sentence": "We ________ English grammar daily.",
         "options": [
-            "practice",
-            "practices",
             "practicing",
-            "practiced"
+            "practiced",
+            "practices",
+            "practice"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "My father ________ a car to work.",
         "options": [
-            "drive",
-            "drives",
+            "drove",
             "driving",
-            "drove"
+            "drives",
+            "drive"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "I ________ vegetables every day.",
         "options": [
-            "eat",
             "eats",
             "eating",
+            "eat",
             "ate"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "She ________ interesting stories.",
         "options": [
+            "told",
             "tell",
-            "tells",
             "telling",
-            "told"
+            "tells"
         ],
-        "correctIndex": 1
+        "correctIndex": 3
     },
     {
         "sentence": "We ________ the bus to school.",
         "options": [
-            "take",
             "takes",
+            "take",
             "taking",
             "took"
-        ],
-        "correctIndex": 0
-    },
-    {
-        "sentence": "He ________ math homework after dinner.",
-        "options": [
-            "do",
-            "does",
-            "doing",
-            "did"
         ],
         "correctIndex": 1
     },
     {
+        "sentence": "He ________ math homework after dinner.",
+        "options": [
+            "did",
+            "do",
+            "does",
+            "doing"
+        ],
+        "correctIndex": 2
+    },
+    {
         "sentence": "They ________ football in the park.",
         "options": [
-            "play",
-            "plays",
             "playing",
+            "plays",
+            "play",
             "played"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "The sun ________ in the east.",
         "options": [
-            "rise",
+            "rose",
             "rises",
             "rising",
-            "rose"
+            "rise"
         ],
         "correctIndex": 1
     },
@@ -374,8 +374,8 @@
         "options": [
             "boil",
             "boils",
-            "boiling",
-            "boiled"
+            "boiled",
+            "boiling"
         ],
         "correctIndex": 1
     },
@@ -384,128 +384,128 @@
         "options": [
             "like",
             "likes",
-            "liking",
-            "liked"
+            "liked",
+            "liking"
         ],
         "correctIndex": 0
     },
     {
         "sentence": "She ________ French at university.",
         "options": [
-            "study",
             "studies",
+            "studied",
             "studying",
-            "studied"
+            "study"
         ],
-        "correctIndex": 1
+        "correctIndex": 0
     },
     {
         "sentence": "We ________ lunch at noon.",
         "options": [
-            "have",
-            "has",
             "having",
-            "had"
+            "had",
+            "have",
+            "has"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "He ________ emails quickly.",
         "options": [
-            "write",
-            "writes",
+            "wrote",
             "writing",
-            "wrote"
+            "write",
+            "writes"
         ],
-        "correctIndex": 1
+        "correctIndex": 3
     },
     {
         "sentence": "I ________ the news every morning.",
         "options": [
+            "readed",
             "read",
             "reads",
-            "reading",
-            "readed"
+            "reading"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "The teacher ________ homework daily.",
         "options": [
-            "give",
+            "gave",
             "gives",
-            "giving",
-            "gave"
+            "give",
+            "giving"
         ],
         "correctIndex": 1
     },
     {
         "sentence": "They ________ photos on trips.",
         "options": [
-            "take",
             "takes",
+            "took",
             "taking",
-            "took"
+            "take"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "She ________ yoga on weekends.",
         "options": [
             "do",
             "does",
-            "doing",
-            "did"
+            "did",
+            "doing"
         ],
         "correctIndex": 1
     },
     {
         "sentence": "We ________ our friends often.",
         "options": [
+            "meeting",
             "meet",
             "meets",
-            "meeting",
             "met"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "He ________ very fast.",
         "options": [
-            "run",
-            "runs",
+            "ran",
             "running",
-            "ran"
+            "run",
+            "runs"
         ],
-        "correctIndex": 1
+        "correctIndex": 3
     },
     {
         "sentence": "I ________ new words daily.",
         "options": [
-            "learn",
-            "learns",
+            "learned",
             "learning",
-            "learned"
+            "learns",
+            "learn"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "The dog ________ loudly.",
         "options": [
+            "barking",
             "bark",
             "barks",
-            "barking",
             "barked"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "She ________ letters to her friends.",
         "options": [
-            "write",
-            "writes",
             "writing",
-            "wrote"
+            "writes",
+            "wrote",
+            "write"
         ],
         "correctIndex": 1
     },
@@ -514,8 +514,8 @@
         "options": [
             "drink",
             "drinks",
-            "drinking",
-            "drank"
+            "drank",
+            "drinking"
         ],
         "correctIndex": 0
     },
@@ -523,111 +523,111 @@
         "sentence": "He ________ meetings every week.",
         "options": [
             "attend",
-            "attends",
             "attending",
-            "attended"
+            "attended",
+            "attends"
         ],
-        "correctIndex": 1
+        "correctIndex": 3
     },
     {
         "sentence": "We ________ homework together.",
         "options": [
-            "do",
+            "did",
             "does",
-            "doing",
-            "did"
+            "do",
+            "doing"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "I ________ emails at night.",
         "options": [
+            "checking",
             "check",
             "checks",
-            "checking",
             "checked"
-        ],
-        "correctIndex": 0
-    },
-    {
-        "sentence": "She ________ her bike to school.",
-        "options": [
-            "ride",
-            "rides",
-            "riding",
-            "rode"
         ],
         "correctIndex": 1
     },
     {
+        "sentence": "She ________ her bike to school.",
+        "options": [
+            "riding",
+            "ride",
+            "rides",
+            "rode"
+        ],
+        "correctIndex": 2
+    },
+    {
         "sentence": "They ________ tennis regularly.",
         "options": [
-            "play",
-            "plays",
             "playing",
-            "played"
+            "played",
+            "play",
+            "plays"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "He ________ tea every afternoon.",
         "options": [
-            "drink",
-            "drinks",
             "drinking",
-            "drank"
+            "drinks",
+            "drank",
+            "drink"
         ],
         "correctIndex": 1
     },
     {
         "sentence": "We ________ English movies.",
         "options": [
+            "watching",
             "watch",
             "watches",
-            "watching",
             "watched"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "I ________ my room daily.",
         "options": [
-            "clean",
-            "cleans",
             "cleaning",
-            "cleaned"
+            "cleaned",
+            "cleans",
+            "clean"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "She ________ the bus at 7 am.",
         "options": [
+            "catching",
             "catch",
             "catches",
-            "catching",
             "caught"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "They ________ homework after school.",
         "options": [
-            "finish",
-            "finishes",
             "finishing",
-            "finished"
+            "finished",
+            "finish",
+            "finishes"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "He ________ his parents weekly.",
         "options": [
+            "visited",
             "visit",
             "visits",
-            "visiting",
-            "visited"
+            "visiting"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "We ________ snacks in class.",
@@ -642,30 +642,30 @@
     {
         "sentence": "I ________ messages quickly.",
         "options": [
-            "reply",
-            "replies",
             "replying",
-            "replied"
+            "replied",
+            "reply",
+            "replies"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "She ________ English songs.",
         "options": [
-            "sing",
-            "sings",
+            "sang",
             "singing",
-            "sang"
+            "sings",
+            "sing"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "They ________ school at 7.",
         "options": [
             "start",
+            "started",
             "starts",
-            "starting",
-            "started"
+            "starting"
         ],
         "correctIndex": 0
     },
@@ -673,38 +673,38 @@
         "sentence": "He ________ lunch at work.",
         "options": [
             "have",
-            "has",
+            "had",
             "having",
-            "had"
+            "has"
         ],
-        "correctIndex": 1
+        "correctIndex": 3
     },
     {
         "sentence": "We ________ books monthly.",
         "options": [
-            "buy",
             "buys",
             "buying",
-            "bought"
+            "bought",
+            "buy"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "I ________ homework first.",
         "options": [
-            "do",
             "does",
-            "doing",
-            "did"
+            "did",
+            "do",
+            "doing"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "She ________ reports daily.",
         "options": [
-            "write",
-            "writes",
             "writing",
+            "writes",
+            "write",
             "wrote"
         ],
         "correctIndex": 1
@@ -712,80 +712,80 @@
     {
         "sentence": "They ________ buses often.",
         "options": [
-            "miss",
-            "misses",
             "missing",
-            "missed"
+            "misses",
+            "missed",
+            "miss"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "He ________ vegetables.",
         "options": [
-            "grow",
             "grows",
             "growing",
+            "grow",
             "grew"
         ],
-        "correctIndex": 1
+        "correctIndex": 0
     },
     {
         "sentence": "We ________ breakfast early.",
         "options": [
-            "eat",
-            "eats",
             "eating",
-            "ate"
+            "eat",
+            "ate",
+            "eats"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "I ________ lessons online.",
         "options": [
-            "take",
+            "took",
             "takes",
-            "taking",
-            "took"
+            "take",
+            "taking"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "She ________ customers politely.",
         "options": [
-            "help",
             "helps",
-            "helping",
-            "helped"
-        ],
-        "correctIndex": 1
-    },
-    {
-        "sentence": "They ________ homework quickly.",
-        "options": [
-            "finish",
-            "finishes",
-            "finishing",
-            "finished"
+            "help",
+            "helped",
+            "helping"
         ],
         "correctIndex": 0
     },
     {
+        "sentence": "They ________ homework quickly.",
+        "options": [
+            "finished",
+            "finishing",
+            "finish",
+            "finishes"
+        ],
+        "correctIndex": 2
+    },
+    {
         "sentence": "He ________ news daily.",
         "options": [
-            "watch",
-            "watches",
+            "watched",
             "watching",
-            "watched"
+            "watches",
+            "watch"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "We ________ lunch together.",
         "options": [
             "have",
             "has",
-            "having",
-            "had"
+            "had",
+            "having"
         ],
         "correctIndex": 0
     },
@@ -794,8 +794,8 @@
         "options": [
             "read",
             "reads",
-            "reading",
-            "readed"
+            "readed",
+            "reading"
         ],
         "correctIndex": 0
     },
@@ -803,19 +803,19 @@
         "sentence": "She ________ emails fast.",
         "options": [
             "send",
-            "sends",
             "sending",
-            "sent"
+            "sent",
+            "sends"
         ],
-        "correctIndex": 1
+        "correctIndex": 3
     },
     {
         "sentence": "They ________ cars carefully.",
         "options": [
             "drive",
-            "drives",
             "driving",
-            "drove"
+            "drove",
+            "drives"
         ],
         "correctIndex": 0
     },
@@ -824,67 +824,67 @@
         "options": [
             "complete",
             "completes",
-            "completing",
-            "completed"
+            "completed",
+            "completing"
         ],
         "correctIndex": 1
     },
     {
         "sentence": "We ________ games weekly.",
         "options": [
-            "play",
+            "played",
             "plays",
-            "playing",
-            "played"
+            "play",
+            "playing"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "I ________ dinner at home.",
         "options": [
-            "cook",
-            "cooks",
             "cooking",
-            "cooked"
+            "cooked",
+            "cooks",
+            "cook"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "She ________ flowers.",
         "options": [
             "water",
-            "waters",
             "watering",
+            "waters",
             "watered"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "They ________ homework nightly.",
         "options": [
             "do",
             "does",
-            "doing",
-            "did"
+            "did",
+            "doing"
         ],
         "correctIndex": 0
     },
     {
         "sentence": "He ________ coffee.",
         "options": [
-            "like",
-            "likes",
             "liking",
-            "liked"
+            "liked",
+            "likes",
+            "like"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "We ________ friends often.",
         "options": [
             "visit",
-            "visits",
             "visiting",
+            "visits",
             "visited"
         ],
         "correctIndex": 0
@@ -893,269 +893,269 @@
         "sentence": "I ________ English daily.",
         "options": [
             "study",
-            "studies",
             "studying",
-            "studied"
+            "studied",
+            "studies"
         ],
         "correctIndex": 0
     },
     {
         "sentence": "She ________ breakfast.",
         "options": [
-            "prepare",
-            "prepares",
             "preparing",
-            "prepared"
+            "prepares",
+            "prepared",
+            "prepare"
         ],
         "correctIndex": 1
     },
     {
         "sentence": "They ________ letters.",
         "options": [
-            "write",
             "writes",
-            "writing",
-            "wrote"
+            "wrote",
+            "write",
+            "writing"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "He ________ lunch.",
         "options": [
-            "pack",
-            "packs",
+            "packed",
             "packing",
-            "packed"
+            "packs",
+            "pack"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "We ________ calls.",
         "options": [
+            "received",
             "receive",
             "receives",
-            "receiving",
-            "received"
+            "receiving"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "I ________ tea.",
         "options": [
-            "drink",
             "drinks",
+            "drink",
             "drinking",
             "drank"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "She ________ TV.",
         "options": [
             "watch",
-            "watches",
+            "watched",
             "watching",
-            "watched"
+            "watches"
         ],
-        "correctIndex": 1
+        "correctIndex": 3
     },
     {
         "sentence": "They ________ bikes.",
         "options": [
             "ride",
             "rides",
-            "riding",
-            "rode"
+            "rode",
+            "riding"
         ],
         "correctIndex": 0
     },
     {
         "sentence": "He ________ homework.",
         "options": [
-            "check",
-            "checks",
             "checking",
-            "checked"
+            "checked",
+            "checks",
+            "check"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "We ________ classes.",
         "options": [
-            "attend",
             "attends",
-            "attending",
-            "attended"
+            "attend",
+            "attended",
+            "attending"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "I ________ reports.",
         "options": [
-            "write",
             "writes",
-            "writing",
-            "wrote"
+            "wrote",
+            "write",
+            "writing"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "She ________ emails.",
         "options": [
             "reply",
-            "replies",
+            "replied",
             "replying",
-            "replied"
+            "replies"
         ],
-        "correctIndex": 1
+        "correctIndex": 3
     },
     {
         "sentence": "They ________ breakfast.",
         "options": [
+            "skipped",
             "skip",
-            "skips",
             "skipping",
-            "skipped"
+            "skips"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "He ________ news.",
         "options": [
-            "read",
             "reads",
-            "reading",
-            "readed"
+            "read",
+            "readed",
+            "reading"
         ],
-        "correctIndex": 1
+        "correctIndex": 0
     },
     {
         "sentence": "We ________ games.",
         "options": [
-            "play",
-            "plays",
             "playing",
-            "played"
+            "played",
+            "play",
+            "plays"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "I ________ calls.",
         "options": [
-            "make",
-            "makes",
             "making",
-            "made"
+            "made",
+            "makes",
+            "make"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "She ________ clients.",
         "options": [
-            "meet",
-            "meets",
             "meeting",
-            "met"
+            "met",
+            "meets",
+            "meet"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "They ________ homework.",
         "options": [
-            "finish",
-            "finishes",
+            "finished",
             "finishing",
-            "finished"
+            "finishes",
+            "finish"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "He ________ dinner.",
         "options": [
-            "cook",
-            "cooks",
             "cooking",
-            "cooked"
+            "cooks",
+            "cooked",
+            "cook"
         ],
         "correctIndex": 1
     },
     {
         "sentence": "We ________ coffee.",
         "options": [
-            "drink",
-            "drinks",
             "drinking",
-            "drank"
+            "drink",
+            "drank",
+            "drinks"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "I ________ lunch.",
         "options": [
-            "pack",
-            "packs",
             "packing",
-            "packed"
+            "packs",
+            "packed",
+            "pack"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "She ________ music.",
         "options": [
             "love",
-            "loves",
+            "loved",
             "loving",
-            "loved"
+            "loves"
         ],
-        "correctIndex": 1
+        "correctIndex": 3
     },
     {
         "sentence": "They ________ homework.",
         "options": [
-            "check",
             "checks",
             "checking",
+            "check",
             "checked"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "He ________ shoes.",
         "options": [
-            "buy",
+            "bought",
             "buys",
             "buying",
-            "bought"
+            "buy"
         ],
         "correctIndex": 1
     },
     {
         "sentence": "We ________ photos.",
         "options": [
-            "take",
             "takes",
-            "taking",
-            "took"
+            "took",
+            "take",
+            "taking"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "I ________ books.",
         "options": [
-            "borrow",
-            "borrows",
             "borrowing",
+            "borrows",
+            "borrow",
             "borrowed"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "She ________ students.",
         "options": [
-            "teach",
+            "taught",
             "teaches",
-            "teaching",
-            "taught"
+            "teach",
+            "teaching"
         ],
         "correctIndex": 1
     },
@@ -1163,49 +1163,49 @@
         "sentence": "They ________ lessons.",
         "options": [
             "start",
+            "started",
             "starts",
-            "starting",
-            "started"
+            "starting"
         ],
         "correctIndex": 0
     },
     {
         "sentence": "He ________ calls.",
         "options": [
+            "answered",
             "answer",
-            "answers",
             "answering",
-            "answered"
+            "answers"
         ],
-        "correctIndex": 1
+        "correctIndex": 3
     },
     {
         "sentence": "We ________ snacks.",
         "options": [
-            "eat",
-            "eats",
             "eating",
-            "ate"
+            "eat",
+            "ate",
+            "eats"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "I ________ homework.",
         "options": [
+            "doing",
             "do",
             "does",
-            "doing",
             "did"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "She ________ books.",
         "options": [
             "sell",
             "sells",
-            "selling",
-            "sold"
+            "sold",
+            "selling"
         ],
         "correctIndex": 1
     },
@@ -1222,70 +1222,70 @@
     {
         "sentence": "He ________ homework.",
         "options": [
-            "finish",
             "finishes",
-            "finishing",
-            "finished"
+            "finish",
+            "finished",
+            "finishing"
         ],
-        "correctIndex": 1
+        "correctIndex": 0
     },
     {
         "sentence": "We ________ coffee.",
         "options": [
-            "make",
+            "made",
             "makes",
-            "making",
-            "made"
+            "make",
+            "making"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "I ________ lunch.",
         "options": [
-            "eat",
-            "eats",
             "eating",
-            "ate"
+            "ate",
+            "eat",
+            "eats"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "She ________ news.",
         "options": [
-            "watch",
             "watches",
+            "watched",
             "watching",
-            "watched"
+            "watch"
         ],
-        "correctIndex": 1
+        "correctIndex": 0
     },
     {
         "sentence": "They ________ emails.",
         "options": [
-            "send",
             "sends",
             "sending",
+            "send",
             "sent"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "He ________ homework.",
         "options": [
             "check",
+            "checked",
             "checks",
-            "checking",
-            "checked"
+            "checking"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "We ________ calls.",
         "options": [
             "receive",
-            "receives",
+            "received",
             "receiving",
-            "received"
+            "receives"
         ],
         "correctIndex": 0
     },
@@ -1294,38 +1294,38 @@
         "options": [
             "meet",
             "meets",
-            "meeting",
-            "met"
+            "met",
+            "meeting"
         ],
         "correctIndex": 0
     },
     {
         "sentence": "She ________ reports.",
         "options": [
-            "write",
+            "wrote",
             "writes",
             "writing",
-            "wrote"
+            "write"
         ],
         "correctIndex": 1
     },
     {
         "sentence": "They ________ cars.",
         "options": [
-            "drive",
             "drives",
+            "drive",
             "driving",
             "drove"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "He ________ dinner.",
         "options": [
-            "cook",
+            "cooked",
             "cooks",
-            "cooking",
-            "cooked"
+            "cook",
+            "cooking"
         ],
         "correctIndex": 1
     },
@@ -1333,79 +1333,79 @@
         "sentence": "We ________ homework.",
         "options": [
             "do",
-            "does",
+            "did",
             "doing",
-            "did"
+            "does"
         ],
         "correctIndex": 0
     },
     {
         "sentence": "I ________ books.",
         "options": [
+            "reading",
             "read",
             "reads",
-            "reading",
             "readed"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "She ________ calls.",
         "options": [
-            "make",
+            "made",
             "makes",
             "making",
-            "made"
+            "make"
         ],
         "correctIndex": 1
     },
     {
         "sentence": "They ________ music.",
         "options": [
-            "listen",
             "listens",
-            "listening",
-            "listened"
+            "listen",
+            "listened",
+            "listening"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "He ________ homework.",
         "options": [
             "finish",
-            "finishes",
             "finishing",
+            "finishes",
             "finished"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "We ________ games.",
         "options": [
-            "play",
             "plays",
+            "played",
             "playing",
-            "played"
+            "play"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "I ________ coffee.",
         "options": [
-            "drink",
-            "drinks",
             "drinking",
+            "drinks",
+            "drink",
             "drank"
         ],
-        "correctIndex": 0
+        "correctIndex": 2
     },
     {
         "sentence": "She ________ books.",
         "options": [
             "write",
             "writes",
-            "writing",
-            "wrote"
+            "wrote",
+            "writing"
         ],
         "correctIndex": 1
     },
@@ -1414,8 +1414,8 @@
         "options": [
             "do",
             "does",
-            "doing",
-            "did"
+            "did",
+            "doing"
         ],
         "correctIndex": 0
     },
@@ -1424,8 +1424,8 @@
         "options": [
             "take",
             "takes",
-            "taking",
-            "took"
+            "took",
+            "taking"
         ],
         "correctIndex": 1
     },
@@ -1433,69 +1433,69 @@
         "sentence": "We ________ lunch.",
         "options": [
             "have",
-            "has",
             "having",
-            "had"
+            "had",
+            "has"
         ],
         "correctIndex": 0
     },
     {
         "sentence": "I ________ music.",
         "options": [
-            "like",
             "likes",
             "liking",
-            "liked"
+            "liked",
+            "like"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "She ________ emails.",
         "options": [
             "send",
-            "sends",
             "sending",
+            "sends",
             "sent"
         ],
-        "correctIndex": 1
+        "correctIndex": 2
     },
     {
         "sentence": "They ________ homework.",
         "options": [
-            "finish",
+            "finished",
             "finishes",
             "finishing",
-            "finished"
+            "finish"
         ],
-        "correctIndex": 0
+        "correctIndex": 3
     },
     {
         "sentence": "He ________ dinner.",
         "options": [
-            "eat",
             "eats",
             "eating",
-            "ate"
+            "ate",
+            "eat"
         ],
-        "correctIndex": 1
+        "correctIndex": 0
     },
     {
         "sentence": "We ________ TV.",
         "options": [
+            "watching",
             "watch",
             "watches",
-            "watching",
             "watched"
         ],
-        "correctIndex": 0
+        "correctIndex": 1
     },
     {
         "sentence": "I ________ friends.",
         "options": [
             "call",
-            "calls",
             "calling",
-            "called"
+            "called",
+            "calls"
         ],
         "correctIndex": 0
     }
