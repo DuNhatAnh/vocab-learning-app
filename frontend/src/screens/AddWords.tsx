@@ -114,12 +114,14 @@ export default function AddWords() {
                             placeholder="Tiếng Anh"
                             value={word.english}
                             onChange={e => handleChange(index, 'english', e.target.value)}
+                            onFocus={(e) => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' })}
                         />
                         <input
                             className="input"
                             placeholder="Tiếng Việt"
                             value={word.vietnamese}
                             onChange={e => handleChange(index, 'vietnamese', e.target.value)}
+                            onFocus={(e) => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' })}
                         />
                         <button className="btn btn-ghost" onClick={() => removeRow(index)} disabled={words.length === 1} style={{ border: 'none' }}>
                             <Trash2 size={18} className="text-error" />

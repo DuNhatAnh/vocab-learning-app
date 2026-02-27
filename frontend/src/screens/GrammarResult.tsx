@@ -1,11 +1,14 @@
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RefreshCw, Home, CheckCircle2, XCircle } from 'lucide-react';
 import type { GrammarQuestion, UserAnswer } from '../models/grammar';
 
 interface LocationState {
     tenseId: string;
+    tenseName: string;
     score: number;
     total: number;
+    correctCount: number;
     userAnswers: UserAnswer[];
     questions: GrammarQuestion[];
 }
@@ -14,6 +17,29 @@ export default function GrammarResult() {
     const location = useLocation();
     const navigate = useNavigate();
     const state = location.state as LocationState;
+
+    useEffect(() => {
+        if (state) {
+            const history = JSON.parse(localStorage.getItem('grammar_history') || '[]');
+            const newResult = {
+                topic: state.tenseName,
+                score: state.score,
+                date: new Date().toISOString()
+            };
+
+            // Check if this result was just added (to prevent double adding on re-render)
+            // Use a combination of topic and timestamp to identify uniqueness roughly
+            const lastEntry = history[0];
+            const isDuplicate = lastEntry &&
+                lastEntry.topic === newResult.topic &&
+                Math.abs(new Date(lastEntry.date).getTime() - new Date(newResult.date).getTime()) < 1000;
+
+            if (!isDuplicate) {
+                const newHistory = [newResult, ...history].slice(0, 5);
+                localStorage.setItem('grammar_history', JSON.stringify(newHistory));
+            }
+        }
+    }, [state]);
 
     if (!state) {
         return (
@@ -24,21 +50,21 @@ export default function GrammarResult() {
         );
     }
 
-    const { tenseId, score, total, userAnswers, questions } = state;
-    const percentage = Math.round((score / total) * 100);
+    const { tenseId, tenseName, score, total, correctCount, userAnswers, questions } = state;
+    const percentage = Math.round((correctCount / total) * 100);
     const wrongAnswers = userAnswers.filter(a => !a.isCorrect);
 
     return (
         <div className="grammar-result-screen">
             <header className="result-header">
                 <div className="score-circle">
-                    <span className="score-value">{score}</span>
-                    <span className="total-value">/ {total}</span>
+                    <span className="score-value">{score.toFixed(1)}</span>
+                    <span className="total-value">/ 10</span>
                 </div>
                 <h1 className="result-title">
                     {percentage >= 80 ? 'Tuyệt vời!' : percentage >= 50 ? 'Khá tốt!' : 'Cố gắng lên!'}
                 </h1>
-                <p className="result-info">Bạn đã hoàn thành bài tập thì {tenseId.replace('-', ' ')}</p>
+                <p className="result-info">Bạn đã hoàn thành bài tập thì {tenseName}</p>
             </header>
 
             <div className="result-actions">

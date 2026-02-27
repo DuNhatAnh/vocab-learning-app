@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, RefreshCw, CheckCircle2, XCircle } from 'lucide-react';
 import type { EvaluationResult } from '../types';
@@ -6,6 +7,10 @@ export default function QuizResult() {
     const navigate = useNavigate();
     const location = useLocation();
     const results: EvaluationResult[] = location.state?.results || [];
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const correctCount = results.filter(r => r.correct).length;
     const totalCount = results.length;
@@ -27,6 +32,15 @@ export default function QuizResult() {
                 <div className="text-muted" style={{ marginTop: '1rem' }}>
                     {correctCount === totalCount ? "Tuyệt vời! Bạn đã thuộc hết bộ từ này." : "Cố gắng luyện tập thêm nhé!"}
                 </div>
+            </div>
+
+            <div className="flex" style={{ marginBottom: '2rem', gap: '1rem' }}>
+                <button className="btn btn-ghost" onClick={() => navigate('/')} style={{ flex: 1 }}>
+                    <ArrowLeft size={18} /> Quay về Dashboard
+                </button>
+                <button className="btn btn-primary" onClick={() => navigate('/quiz/random')} style={{ flex: 1, background: '#8b5cf6' }}>
+                    <RefreshCw size={18} /> Làm 10 câu khác
+                </button>
             </div>
 
             <div className="grid">
@@ -75,14 +89,6 @@ export default function QuizResult() {
                 ))}
             </div>
 
-            <div className="flex" style={{ marginTop: '3rem', gap: '1rem' }}>
-                <button className="btn btn-ghost" onClick={() => navigate('/')} style={{ flex: 1 }}>
-                    <ArrowLeft size={18} /> Quay về trang học tập
-                </button>
-                <button className="btn btn-primary" onClick={() => navigate('/quiz/random')} style={{ flex: 1, background: '#8b5cf6' }}>
-                    <RefreshCw size={18} /> Làm 10 câu khác
-                </button>
-            </div>
         </div>
     );
 }

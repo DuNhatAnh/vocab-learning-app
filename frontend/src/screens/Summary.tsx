@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { ArrowLeft, RefreshCw, CheckCircle2, XCircle } from 'lucide-react';
 import { api } from '../api/api';
@@ -8,6 +9,10 @@ export default function Summary() {
     const navigate = useNavigate();
     const location = useLocation();
     const results: EvaluationResult[] = location.state?.results || [];
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const correctCount = results.filter(r => r.correct).length;
     const totalCount = results.length;
@@ -35,6 +40,15 @@ export default function Summary() {
                 <div style={{ fontSize: '4rem', fontWeight: 'bold', color: 'var(--primary)' }}>
                     {correctCount}<span style={{ color: 'var(--text-muted)', fontSize: '2rem' }}>/{totalCount}</span>
                 </div>
+            </div>
+
+            <div className="flex" style={{ marginBottom: '2rem', gap: '1rem' }}>
+                <button className="btn btn-ghost" onClick={() => navigate('/')} style={{ flex: 1 }}>
+                    <ArrowLeft size={18} /> Quay về Dashboard
+                </button>
+                <button className="btn btn-primary" onClick={handleRetry} style={{ flex: 1 }}>
+                    <RefreshCw size={18} /> Luyện tập
+                </button>
             </div>
 
             <div className="grid">
@@ -83,14 +97,6 @@ export default function Summary() {
                 ))}
             </div>
 
-            <div className="flex" style={{ marginTop: '3rem', gap: '1rem' }}>
-                <button className="btn btn-ghost" onClick={() => navigate('/')} style={{ flex: 1 }}>
-                    <ArrowLeft size={18} /> Quay về Dashboard
-                </button>
-                <button className="btn btn-primary" onClick={handleRetry} style={{ flex: 1 }}>
-                    <RefreshCw size={18} /> Luyện tập lại
-                </button>
-            </div>
         </div>
     );
 }

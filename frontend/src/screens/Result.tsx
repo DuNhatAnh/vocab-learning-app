@@ -82,6 +82,15 @@ export default function Result() {
                 </button>
             </div>
 
+            <div className="flex" style={{ marginBottom: '2rem', gap: '1rem' }}>
+                <button className="btn btn-ghost" onClick={() => navigate('/')} style={{ flex: 1 }}>
+                    <ArrowLeft size={18} /> Quay về Dashboard
+                </button>
+                <button className="btn btn-primary" onClick={handleRetry} style={{ flex: 1 }}>
+                    <RefreshCw size={18} /> Luyện tập
+                </button>
+            </div>
+
             <div className="grid">
                 {results.map((result, idx) => (
                     <div key={idx} className="card" style={{ cursor: 'default', padding: '1.25rem' }}>
@@ -163,15 +172,6 @@ export default function Result() {
                     </div>
                 ))}
             </div>
-
-            <div className="flex" style={{ marginTop: '3rem', gap: '1rem' }}>
-                <button className="btn btn-ghost" onClick={() => navigate('/')} style={{ flex: 1 }}>
-                    <ArrowLeft size={18} /> Quay về Dashboard
-                </button>
-                <button className="btn btn-primary" onClick={handleRetry} style={{ flex: 1 }}>
-                    <RefreshCw size={18} /> Luyện tập lại
-                </button>
-            </div>
-        </div>
+        </div >
     );
 }

@@ -68,6 +68,7 @@ export default function RandomQuiz() {
                             placeholder="Nhập từ tiếng Anh..."
                             value={answers[word.id!] || ''}
                             onChange={e => handleAnswerChange(word.id!, e.target.value)}
+                            onFocus={(e) => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' })}
                         />
                     </div>
                 ))}

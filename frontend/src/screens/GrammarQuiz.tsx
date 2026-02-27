@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronLeft, Check, X, Lightbulb } from 'lucide-react';
 import { grammarService } from '../services/grammarService';
 import type { GrammarQuestion, UserAnswer } from '../models/grammar';
+import { useState, useEffect } from 'react';
 
 export default function GrammarQuiz() {
     const { tenseId } = useParams<{ tenseId: string }>();
@@ -55,12 +55,18 @@ export default function GrammarQuiz() {
             setIsAnswered(false);
         } else {
             // Finish quiz - passing state via navigate
-            const score = userAnswers.filter(a => a.isCorrect).length;
+            const correctCount = userAnswers.filter(a => a.isCorrect).length;
+            const score = (correctCount / questions.length) * 10;
+            const tenses = grammarService.getTenses();
+            const currentTense = tenses.find(t => t.id === tenseId);
+
             navigate('/grammar/result', {
                 state: {
                     tenseId,
+                    tenseName: currentTense?.name || tenseId,
                     score,
                     total: questions.length,
+                    correctCount,
                     userAnswers,
                     questions
                 }
@@ -68,11 +74,31 @@ export default function GrammarQuiz() {
         }
     };
 
+    const currentQuestion = questions[currentIndex];
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Enter') {
+                if (!isAnswered) {
+                    if (selectedOption !== null) handleCheck();
+                } else {
+                    handleNext();
+                }
+            } else if (!isAnswered && /^[1-4]$/.test(e.key)) {
+                const index = parseInt(e.key) - 1;
+                if (currentQuestion && index < currentQuestion.options.length) {
+                    handleOptionSelect(index);
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isAnswered, selectedOption, currentIndex, questions, currentQuestion, handleCheck, handleNext, handleOptionSelect]);
+    const progress = ((currentIndex + 1) / questions.length) * 100;
+
     if (loading) return <div className="quiz-loading">Đang tải câu hỏi...</div>;
     if (questions.length === 0) return <div className="quiz-error">Không tìm thấy câu hỏi cho thì này.</div>;
-
-    const currentQuestion = questions[currentIndex];
-    const progress = ((currentIndex + 1) / questions.length) * 100;
 
     return (
         <div className="grammar-quiz-screen">
