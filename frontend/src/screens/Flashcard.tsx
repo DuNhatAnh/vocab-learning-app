@@ -158,8 +158,11 @@ export default function Flashcard() {
                 <p className="text-muted">Thẻ {currentIndex + 1} trên {words.length}</p>
             </header>
 
-            <div className="flex items-center gap-6">
-                <div className={`flashcard-container ${isFlipped ? 'is-flipped' : ''}`} onClick={handleFlip} style={{ flex: 1, margin: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', gap: '1.5rem', marginBottom: '2rem' }}>
+                {/* Spacer to center the card by balancing the speaker button on the right */}
+                <div style={{ width: '60px', flexShrink: 0 }} aria-hidden="true"></div>
+
+                <div className={`flashcard-container ${isFlipped ? 'is-flipped' : ''}`} onClick={handleFlip} style={{ margin: 0, flexShrink: 0 }}>
                     <div className="flashcard-inner">
                         {/* Front Face: English */}
                         <div className="flashcard-face flashcard-front">
@@ -187,7 +190,7 @@ export default function Flashcard() {
                     </div>
                 </div>
 
-                <div className="flex flex-col">
+                <div className="flex flex-col" style={{ width: '60px', flexShrink: 0 }}>
                     <button
                         className="btn btn-ghost btn-lg speaker-btn"
                         onClick={(e) => {
@@ -207,7 +210,8 @@ export default function Flashcard() {
                             justifyContent: 'center',
                             boxShadow: 'var(--shadow-sm)',
                             backgroundColor: 'white',
-                            color: 'var(--primary)'
+                            color: 'var(--primary)',
+                            border: '2px solid var(--border)'
                         }}
                     >
                         <Volume2 size={32} />

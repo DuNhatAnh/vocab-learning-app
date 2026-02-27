@@ -8,6 +8,9 @@ import Profile from './screens/Profile.tsx';
 import Flashcard from './screens/Flashcard.tsx';
 import RandomQuiz from './screens/RandomQuiz.tsx';
 import QuizResult from './screens/QuizResult.tsx';
+import GrammarSelection from './screens/GrammarSelection.tsx';
+import GrammarQuiz from './screens/GrammarQuiz.tsx';
+import GrammarResult from './screens/GrammarResult.tsx';
 import BottomNav from './components/BottomNav.tsx';
 
 function App() {
@@ -24,6 +27,9 @@ function App() {
             <Route path="/session/:id/flashcards" element={<Flashcard />} />
             <Route path="/quiz/random" element={<RandomQuiz />} />
             <Route path="/quiz/result" element={<QuizResult />} />
+            <Route path="/grammar" element={<GrammarSelection />} />
+            <Route path="/grammar/quiz/:tenseId" element={<GrammarQuiz />} />
+            <Route path="/grammar/result" element={<GrammarResult />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>
