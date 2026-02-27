@@ -2,7 +2,7 @@ import type { GrammarQuestion, TenseConfig } from '../models/grammar';
 import tensesData from '../data/grammar/tenses.json';
 
 class GrammarService {
-    private tenses: TenseConfig[] = tensesData;
+    private tenses: TenseConfig[] = tensesData as TenseConfig[];
 
     getTenses(): TenseConfig[] {
         return this.tenses;
@@ -16,29 +16,37 @@ class GrammarService {
         }
 
         try {
-            console.log(`Loading questions for: ${tenseId} from ${config.file}`);
-
-            // Use import.meta.glob for better Vite support with dynamic paths
             const modules = import.meta.glob('../data/grammar/*.json');
             const path = `../data/grammar/${config.file}`;
 
             if (modules[path]) {
                 const module: any = await modules[path]();
                 const allQuestions = module.default || module;
-
-                if (!Array.isArray(allQuestions)) {
-                    console.error('Data is not an array:', allQuestions);
-                    return [];
-                }
-
-                console.log(`Successfully loaded ${allQuestions.length} questions`);
-                return this.shuffleAndLimit(allQuestions, 30);
+                return this.shuffleAndLimit(allQuestions, 20); // Limit to 20 as per user request
             } else {
-                console.error(`Module not found for path: ${path}`);
                 return [];
             }
         } catch (error) {
             console.error('Error loading questions:', error);
+            return [];
+        }
+    }
+
+    async getFitbQuestions(tenseId: string): Promise<any[]> {
+        try {
+            const modules = import.meta.glob('../data/grammar/*.json');
+            const path = `../data/grammar/${tenseId.replace(/-/g, '_')}_fitb.json`;
+
+            if (modules[path]) {
+                const module: any = await modules[path]();
+                const allQuestions = module.default || module;
+                return this.shuffleAndLimit(allQuestions, 10);
+            } else {
+                console.error(`FITB module not found for path: ${path}`);
+                return [];
+            }
+        } catch (error) {
+            console.error('Error loading FITB questions:', error);
             return [];
         }
     }

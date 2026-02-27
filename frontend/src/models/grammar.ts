@@ -8,6 +8,7 @@ export interface TenseConfig {
     id: string;
     name: string;
     file: string;
+    category?: 'Present' | 'Past' | 'Future' | 'Other';
     note?: string;
 }
 

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RefreshCw, Home, CheckCircle2, XCircle } from 'lucide-react';
-import type { GrammarQuestion, UserAnswer } from '../models/grammar';
+
 
 interface LocationState {
     tenseId: string;
@@ -9,8 +9,9 @@ interface LocationState {
     score: number;
     total: number;
     correctCount: number;
-    userAnswers: UserAnswer[];
-    questions: GrammarQuestion[];
+    userAnswers: any[];
+    questions: any[];
+    isFitb?: boolean;
 }
 
 export default function GrammarResult() {
@@ -68,13 +69,19 @@ export default function GrammarResult() {
             </header>
 
             <div className="result-actions">
-                <button className="action-btn retry-btn" onClick={() => navigate(`/grammar/quiz/${tenseId}`)}>
+                <button
+                    className="action-btn retry-btn"
+                    onClick={() => navigate(state.isFitb ? `/grammar/fitb/${tenseId}` : `/grammar/quiz/${tenseId}`)}
+                >
                     <RefreshCw size={20} />
                     Làm lại
                 </button>
-                <button className="action-btn home-btn" onClick={() => navigate('/')}>
+                <button className="action-btn next-btn" onClick={() => navigate('/grammar')}>
                     <Home size={20} />
-                    Trang chủ
+                    Làm tiếp bài khác
+                </button>
+                <button className="action-btn back-btn" onClick={() => navigate('/grammar')}>
+                    Quay về màn hình ngữ pháp
                 </button>
             </div>
 
@@ -90,11 +97,11 @@ export default function GrammarResult() {
                                     <div className="wrong-details">
                                         <div className="detail-row wrong">
                                             <XCircle size={16} />
-                                            <span>Bạn chọn: <strong>{question.options[answer.selectedOption]}</strong></span>
+                                            <span>Bạn {state.isFitb ? 'nhập' : 'chọn'}: <strong>{state.isFitb ? answer.userInput : question.options[answer.selectedOption]}</strong></span>
                                         </div>
                                         <div className="detail-row correct">
                                             <CheckCircle2 size={16} />
-                                            <span>Đáp án đúng: <strong>{question.options[question.correctIndex]}</strong></span>
+                                            <span>Đáp án đúng: <strong>{state.isFitb ? question.correctAnswer : question.options[question.correctIndex]}</strong></span>
                                         </div>
                                     </div>
                                 </div>
@@ -146,9 +153,9 @@ export default function GrammarResult() {
                     font-size: 16px;
                 }
                 .result-actions {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 15px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
                     margin-bottom: 40px;
                 }
                 .action-btn {
@@ -156,21 +163,24 @@ export default function GrammarResult() {
                     align-items: center;
                     justify-content: center;
                     gap: 10px;
-                    padding: 14px;
-                    border-radius: 12px;
-                    font-weight: 600;
+                    padding: 16px;
+                    border-radius: 16px;
+                    font-weight: 700;
                     cursor: pointer;
                     transition: all 0.2s;
-                    border: 1px solid #e5e7eb;
-                }
-                .retry-btn {
-                    background: #1f2937;
-                    color: white;
                     border: none;
                 }
-                .home-btn {
-                    background: white;
-                    color: #374151;
+                .retry-btn {
+                    background: #10b981;
+                    color: white;
+                }
+                .next-btn {
+                    background: #1f2937;
+                    color: white;
+                }
+                .back-btn {
+                    background: #f3f4f6;
+                    color: #4b5563;
                 }
                 .review-section {
                     background: #f9fafb;
