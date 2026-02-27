@@ -23,9 +23,14 @@ export default function GrammarQuiz() {
                 setQuestions(data);
                 setLoading(false);
             });
-            const tenses = grammarService.getTenses();
-            const currentTense = tenses.find(t => t.id === tenseId);
-            setTenseNote(currentTense?.note);
+
+            if (tenseId === 'all-random') {
+                setTenseNote("Đây là bài tập tổng hợp từ tất cả các thì. Hãy vận dụng kiến thức đã học để hoàn thành nhé!");
+            } else {
+                const tenses = grammarService.getTenses();
+                const currentTense = tenses.find(t => t.id === tenseId);
+                setTenseNote(currentTense?.note);
+            }
         }
     }, [tenseId]);
 
@@ -63,7 +68,9 @@ export default function GrammarQuiz() {
             navigate('/grammar/result', {
                 state: {
                     tenseId,
-                    tenseName: `${currentTense?.name || tenseId} (Trắc nghiệm)`,
+                    tenseName: tenseId === 'all-random'
+                        ? "Tổng hợp các thì (Trắc nghiệm)"
+                        : `${currentTense?.name || tenseId} (Trắc nghiệm)`,
                     score,
                     total: questions.length,
                     correctCount,

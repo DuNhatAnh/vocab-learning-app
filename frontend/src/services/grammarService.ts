@@ -9,6 +9,10 @@ class GrammarService {
     }
 
     async getQuestions(tenseId: string): Promise<GrammarQuestion[]> {
+        if (tenseId === 'all-random') {
+            return this.getAllQuestions();
+        }
+
         const config = this.tenses.find(t => t.id === tenseId);
         if (!config) {
             console.error(`Tense not found: ${tenseId}`);
@@ -33,6 +37,9 @@ class GrammarService {
     }
 
     async getFitbQuestions(tenseId: string): Promise<any[]> {
+        if (tenseId === 'all-random') {
+            return this.getAllFitbQuestions();
+        }
         try {
             const modules = import.meta.glob('../data/grammar/*.json');
             const path = `../data/grammar/${tenseId.replace(/-/g, '_')}_fitb.json`;
@@ -40,13 +47,51 @@ class GrammarService {
             if (modules[path]) {
                 const module: any = await modules[path]();
                 const allQuestions = module.default || module;
-                return this.shuffleAndLimit(allQuestions, 10);
+                return this.shuffleAndLimit(allQuestions, 20); // Sync to 20 for consistency
             } else {
                 console.error(`FITB module not found for path: ${path}`);
                 return [];
             }
         } catch (error) {
             console.error('Error loading FITB questions:', error);
+            return [];
+        }
+    }
+
+    async getAllQuestions(): Promise<GrammarQuestion[]> {
+        try {
+            const modules = import.meta.glob('../data/grammar/*.json');
+            let combinedQuestions: GrammarQuestion[] = [];
+
+            for (const tense of this.tenses) {
+                const path = `../data/grammar/${tense.file}`;
+                if (modules[path]) {
+                    const module: any = await modules[path]();
+                    combinedQuestions = [...combinedQuestions, ...(module.default || module)];
+                }
+            }
+            return this.shuffleAndLimit(combinedQuestions, 20);
+        } catch (error) {
+            console.error('Error loading all questions:', error);
+            return [];
+        }
+    }
+
+    async getAllFitbQuestions(): Promise<any[]> {
+        try {
+            const modules = import.meta.glob('../data/grammar/*.json');
+            let combinedQuestions: any[] = [];
+
+            for (const tense of this.tenses) {
+                const path = `../data/grammar/${tense.id.replace(/-/g, '_')}_fitb.json`;
+                if (modules[path]) {
+                    const module: any = await modules[path]();
+                    combinedQuestions = [...combinedQuestions, ...(module.default || module)];
+                }
+            }
+            return this.shuffleAndLimit(combinedQuestions, 20);
+        } catch (error) {
+            console.error('Error loading all FITB questions:', error);
             return [];
         }
     }

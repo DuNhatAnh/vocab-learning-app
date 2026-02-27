@@ -1,21 +1,72 @@
 import { useNavigate } from 'react-router-dom';
-import { ChevronRight, ChevronDown, List, Edit3 } from 'lucide-react';
+import { ChevronRight, ChevronDown, List, Edit3, Shuffle, X } from 'lucide-react';
 import { grammarService } from '../services/grammarService';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function GrammarSelection() {
     const navigate = useNavigate();
     const tenses = grammarService.getTenses();
     const [expandedTense, setExpandedTense] = useState<string | null>('present-simple');
+    const [showRandomMenu, setShowRandomMenu] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
 
     const toggleExpand = (id: string) => {
         setExpandedTense(expandedTense === id ? null : id);
     };
 
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setShowRandomMenu(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [menuRef]);
+
     return (
         <div className="grammar-selection-screen">
             <header className="header-section">
                 <h1>Grammar</h1>
+
+                <div className="random-fab-container" ref={menuRef}>
+                    <button
+                        className={`fab-button ${showRandomMenu ? 'active' : ''}`}
+                        onClick={() => setShowRandomMenu(!showRandomMenu)}
+                        title="Random luyện tập"
+                    >
+                        {showRandomMenu ? <X size={24} /> : <Shuffle size={24} />}
+                    </button>
+
+                    {showRandomMenu && (
+                        <div className="random-menu">
+                            <button
+                                className="random-menu-item"
+                                onClick={() => {
+                                    navigate('/grammar/quiz/all-random');
+                                    setShowRandomMenu(false);
+                                }}
+                            >
+                                <div className="menu-icon quiz">
+                                    <List size={18} />
+                                </div>
+                                <span>Random Trắc nghiệm</span>
+                            </button>
+                            <button
+                                className="random-menu-item"
+                                onClick={() => {
+                                    navigate('/grammar/fitb/all-random');
+                                    setShowRandomMenu(false);
+                                }}
+                            >
+                                <div className="menu-icon fitb">
+                                    <Edit3 size={18} />
+                                </div>
+                                <span>Random Điền từ</span>
+                            </button>
+                        </div>
+                    )}
+                </div>
             </header>
 
             {['Present', 'Past', 'Future'].map(category => {
@@ -97,6 +148,96 @@ export default function GrammarSelection() {
                     color: #111827;
                     letter-spacing: -1px;
                 }
+
+                .random-fab-container {
+                    position: absolute;
+                    top: 32px;
+                    right: 24px;
+                    z-index: 100;
+                }
+
+                .fab-button {
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 28px;
+                    background: #10b981;
+                    color: white;
+                    border: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+                    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                }
+
+                .fab-button:hover {
+                    transform: scale(1.1);
+                    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+                }
+
+                .fab-button.active {
+                    background: #ef4444;
+                    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+                }
+
+                .random-menu {
+                    position: absolute;
+                    top: 68px;
+                    right: 0;
+                    background: white;
+                    border-radius: 16px;
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                    border: 1px solid #f3f4f6;
+                    padding: 8px;
+                    min-width: 200px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                    animation: slideUp 0.3s ease-out;
+                }
+
+                @keyframes slideUp {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+
+                .random-menu-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    padding: 12px;
+                    background: transparent;
+                    border: none;
+                    border-radius: 12px;
+                    cursor: pointer;
+                    width: 100%;
+                    text-align: left;
+                    transition: all 0.2s;
+                }
+
+                .random-menu-item:hover {
+                    background: #f9fafb;
+                }
+
+                .random-menu-item span {
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #374151;
+                }
+
+                .menu-icon {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                }
+
+                .menu-icon.quiz { background: #ecfdf5; color: #10b981; }
+                .menu-icon.fitb { background: #eff6ff; color: #3b82f6; }
 
                 .category-title {
                     font-size: 20px;

@@ -54,7 +54,9 @@ export default function GrammarQuizFitb() {
             navigate('/grammar/result', {
                 state: {
                     tenseId,
-                    tenseName: 'Present Simple (Điền từ)',
+                    tenseName: tenseId === 'all-random'
+                        ? 'Tổng hợp các thì (Điền từ)'
+                        : 'Present Simple (Điền từ)',
                     score,
                     total: questions.length,
                     correctCount,
