@@ -1,302 +1,1202 @@
 [
-    {
-        "sentence": "I ________ you tomorrow.",
-        "options": [
-            "call",
-            "calling",
-            "calls",
-            "will call"
-        ],
-        "correctIndex": 3
-    },
-    {
-        "sentence": "She ________ the party next week.",
-        "options": [
-            "joining",
-            "join",
-            "joins",
-            "will join"
-        ],
-        "correctIndex": 3
-    },
-    {
-        "sentence": "They ________ to Japan next month.",
-        "options": [
-            "traveling",
-            "travels",
-            "will travel",
-            "travel"
-        ],
-        "correctIndex": 2
-    },
-    {
-        "sentence": "We ________ a new project soon.",
-        "options": [
-            "starts",
-            "will start",
-            "starting",
-            "start"
-        ],
-        "correctIndex": 1
-    },
-    {
-        "sentence": "He ________ his homework tonight.",
-        "options": [
-            "will do",
-            "do",
-            "doing",
-            "does"
-        ],
-        "correctIndex": 0
-    },
-    {
-        "sentence": "It ________ tomorrow.",
-        "options": [
-            "will rain",
-            "rain",
-            "rains",
-            "raining"
-        ],
-        "correctIndex": 0
-    },
-    {
-        "sentence": "They ________ probably arrive late.",
-        "options": [
-            "does",
-            "will",
-            "do",
-            "are"
-        ],
-        "correctIndex": 1
-    },
-    {
-        "sentence": "I ________ not go to the cinema.",
-        "options": [
-            "does",
-            "will",
-            "do",
-            "am"
-        ],
-        "correctIndex": 1
-    },
-    {
-        "sentence": "What ________ you do this weekend?",
-        "options": [
-            "will",
-            "did",
-            "do",
-            "are"
-        ],
-        "correctIndex": 0
-    },
-    {
-        "sentence": "I'm sure she ________ like the gift.",
-        "options": [
-            "will",
-            "do",
-            "does",
-            "is"
-        ],
-        "correctIndex": 0
-    },
-    {
-        "sentence": "Wait! I ________ help you.",
-        "options": [
-            "will",
-            "am",
-            "do",
-            "going"
-        ],
-        "correctIndex": 0
-    },
-    {
-        "sentence": "The train ________ at 9 am tomorrow.",
-        "options": [
-            "leave",
-            "will leave",
-            "leaves",
-            "left"
-        ],
-        "correctIndex": 1
-    },
-    {
-        "sentence": "We ________ expensive cars in the future.",
-        "options": [
-            "buy",
-            "bought",
-            "buys",
-            "will buy"
-        ],
-        "correctIndex": 3
-    },
-    {
-        "sentence": "I think it ________ a sunny day.",
-        "options": [
-            "be",
-            "is",
-            "was",
-            "will be"
-        ],
-        "correctIndex": 3
-    },
-    {
-        "sentence": "They ________ here at 5 o'clock.",
-        "options": [
-            "were",
-            "will be",
-            "are",
-            "be"
-        ],
-        "correctIndex": 1
-    },
-    {
-        "sentence": "I ________ probably stay at home tonight.",
-        "options": [
-            "do",
-            "will",
-            "was",
-            "am"
-        ],
-        "correctIndex": 1
-    },
-    {
-        "sentence": "She ________ fifteen next year.",
-        "options": [
-            "be",
-            "will be",
-            "is",
-            "was"
-        ],
-        "correctIndex": 1
-    },
-    {
-        "sentence": "The price of food ________ up.",
-        "options": [
-            "goes",
-            "going",
-            "will go",
-            "go"
-        ],
-        "correctIndex": 2
-    },
-    {
-        "sentence": "I hope you ________ have a good time.",
-        "options": [
-            "do",
-            "will",
-            "are",
-            "did"
-        ],
-        "correctIndex": 1
-    },
-    {
-        "sentence": "Maybe they ________ buy a new house.",
-        "options": [
-            "do",
-            "does",
-            "will",
-            "are"
-        ],
-        "correctIndex": 2
-    },
-    {
-        "sentence": "I ________ never forget this day.",
-        "options": [
-            "do",
-            "am",
-            "will",
-            "was"
-        ],
-        "correctIndex": 2
-    },
-    {
-        "sentence": "She ________ the manager next month.",
-        "options": [
-            "will become",
-            "become",
-            "became",
-            "becomes"
-        ],
-        "correctIndex": 0
-    },
-    {
-        "sentence": "We ________ more trees to save the environment.",
-        "options": [
-            "plant",
-            "planted",
-            "plants",
-            "will plant"
-        ],
-        "correctIndex": 3
-    },
-    {
-        "sentence": "I ________ see you later.",
-        "options": [
-            "am",
-            "do",
-            "will",
-            "was"
-        ],
-        "correctIndex": 2
-    },
-    {
-        "sentence": "The robot ________ do all the housework.",
-        "options": [
-            "does",
-            "do",
-            "will",
-            "did"
-        ],
-        "correctIndex": 2
-    },
-    {
-        "sentence": "The meeting ________ at 10 AM.",
-        "options": [
-            "start",
-            "started",
-            "will start",
-            "starts"
-        ],
-        "correctIndex": 2
-    },
-    {
-        "sentence": "I ________ wait for you.",
-        "options": [
-            "do",
-            "will",
-            "was",
-            "am"
-        ],
-        "correctIndex": 1
-    },
-    {
-        "sentence": "They ________ come back soon.",
-        "options": [
-            "do",
-            "are",
-            "were",
-            "will"
-        ],
-        "correctIndex": 3
-    },
-    {
-        "sentence": "He ________ be very happy with the news.",
-        "options": [
-            "do",
-            "was",
-            "will",
-            "is"
-        ],
-        "correctIndex": 2
-    },
-    {
-        "sentence": "I ________ take a taxi.",
-        "options": [
-            "was",
-            "am",
-            "will",
-            "do"
-        ],
-        "correctIndex": 2
-    }
+  {
+    "sentence": "I ________ you tomorrow.",
+    "options": [
+      "call",
+      "calling",
+      "calls",
+      "will call"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "sentence": "She ________ the party next week.",
+    "options": [
+      "joining",
+      "join",
+      "joins",
+      "will join"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "sentence": "They ________ to Japan next month.",
+    "options": [
+      "traveling",
+      "travels",
+      "will travel",
+      "travel"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "sentence": "We ________ a new project soon.",
+    "options": [
+      "starts",
+      "will start",
+      "starting",
+      "start"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "sentence": "He ________ his homework tonight.",
+    "options": [
+      "will do",
+      "do",
+      "doing",
+      "does"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "It ________ tomorrow.",
+    "options": [
+      "will rain",
+      "rain",
+      "rains",
+      "raining"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ probably arrive late.",
+    "options": [
+      "does",
+      "will",
+      "do",
+      "are"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "sentence": "I ________ not go to the cinema.",
+    "options": [
+      "does",
+      "will",
+      "do",
+      "am"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "sentence": "What ________ you do this weekend?",
+    "options": [
+      "will",
+      "did",
+      "do",
+      "are"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I'm sure she ________ like the gift.",
+    "options": [
+      "will",
+      "do",
+      "does",
+      "is"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "Wait! I ________ help you.",
+    "options": [
+      "will",
+      "am",
+      "do",
+      "going"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "The train ________ at 9 am tomorrow.",
+    "options": [
+      "leave",
+      "will leave",
+      "leaves",
+      "left"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "sentence": "We ________ expensive cars in the future.",
+    "options": [
+      "buy",
+      "bought",
+      "buys",
+      "will buy"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "sentence": "I think it ________ a sunny day.",
+    "options": [
+      "be",
+      "is",
+      "was",
+      "will be"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "sentence": "They ________ here at 5 o'clock.",
+    "options": [
+      "were",
+      "will be",
+      "are",
+      "be"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "sentence": "I ________ probably stay at home tonight.",
+    "options": [
+      "do",
+      "will",
+      "was",
+      "am"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "sentence": "She ________ fifteen next year.",
+    "options": [
+      "be",
+      "will be",
+      "is",
+      "was"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "sentence": "The price of food ________ up.",
+    "options": [
+      "goes",
+      "going",
+      "will go",
+      "go"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "sentence": "I hope you ________ have a good time.",
+    "options": [
+      "do",
+      "will",
+      "are",
+      "did"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "sentence": "Maybe they ________ buy a new house.",
+    "options": [
+      "do",
+      "does",
+      "will",
+      "are"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "sentence": "I ________ never forget this day.",
+    "options": [
+      "do",
+      "am",
+      "will",
+      "was"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "sentence": "She ________ the manager next month.",
+    "options": [
+      "will become",
+      "become",
+      "became",
+      "becomes"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ more trees to save the environment.",
+    "options": [
+      "plant",
+      "planted",
+      "plants",
+      "will plant"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "sentence": "I ________ see you later.",
+    "options": [
+      "am",
+      "do",
+      "will",
+      "was"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "sentence": "The robot ________ do all the housework.",
+    "options": [
+      "does",
+      "do",
+      "will",
+      "did"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "sentence": "The meeting ________ at 10 AM.",
+    "options": [
+      "start",
+      "started",
+      "will start",
+      "starts"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "sentence": "I ________ wait for you.",
+    "options": [
+      "do",
+      "will",
+      "was",
+      "am"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "sentence": "They ________ come back soon.",
+    "options": [
+      "do",
+      "are",
+      "were",
+      "will"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "sentence": "He ________ be very happy with the news.",
+    "options": [
+      "do",
+      "was",
+      "will",
+      "is"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "sentence": "I ________ take a taxi.",
+    "options": [
+      "was",
+      "am",
+      "will",
+      "do"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "sentence": "I ________ you tomorrow afternoon.",
+    "options": [
+      "will call",
+      "calls",
+      "calling",
+      "call"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ the game next weekend.",
+    "options": [
+      "will join",
+      "joins",
+      "joining",
+      "joined"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ to Europe next month.",
+    "options": [
+      "will travel",
+      "travels",
+      "traveling",
+      "travel"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ a new project soon.",
+    "options": [
+      "will start",
+      "starts",
+      "starting",
+      "started"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "He ________ his homework tonight.",
+    "options": [
+      "will do",
+      "does",
+      "doing",
+      "did"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "It ________ tomorrow morning.",
+    "options": [
+      "will rain",
+      "rains",
+      "raining",
+      "rained"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ move to a new house next year.",
+    "options": [
+      "will",
+      "does",
+      "is",
+      "are"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ not go to the cinema tonight.",
+    "options": [
+      "will",
+      "do",
+      "am",
+      "was"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "What time ________ you arrive?",
+    "options": [
+      "will",
+      "do",
+      "are",
+      "have"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I hope she ________ like the present.",
+    "options": [
+      "will",
+      "is",
+      "does",
+      "has"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "Wait! I ________ help you with those bags.",
+    "options": [
+      "will",
+      "am",
+      "do",
+      "going"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "The plane ________ at 10 AM tomorrow.",
+    "options": [
+      "will land",
+      "lands",
+      "landing",
+      "landed"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ expensive cars in the future.",
+    "options": [
+      "will buy",
+      "buy",
+      "buying",
+      "bought"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I think it ________ a sunny day.",
+    "options": [
+      "will be",
+      "is",
+      "was",
+      "be"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ here at 6 o'clock.",
+    "options": [
+      "will be",
+      "are",
+      "were",
+      "be"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ probably stay at home tonight.",
+    "options": [
+      "will",
+      "do",
+      "am",
+      "was"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ sixteen next month.",
+    "options": [
+      "will be",
+      "is",
+      "was",
+      "be"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "The price of gasoline ________ up.",
+    "options": [
+      "will go",
+      "goes",
+      "go",
+      "going"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I hope you ________ have a great time.",
+    "options": [
+      "will",
+      "do",
+      "are",
+      "have"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "Maybe they ________ buy a new apartment.",
+    "options": [
+      "will",
+      "do",
+      "are",
+      "doing"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ never forget our trip.",
+    "options": [
+      "will",
+      "do",
+      "am",
+      "have"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ a famous doctor one day.",
+    "options": [
+      "will become",
+      "becomes",
+      "became",
+      "becoming"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ more trees in the park.",
+    "options": [
+      "will plant",
+      "plant",
+      "planting",
+      "planted"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ see you later tonight.",
+    "options": [
+      "will",
+      "do",
+      "am",
+      "have"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "The robot ________ do all the cooking.",
+    "options": [
+      "will",
+      "does",
+      "is",
+      "has"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "The store ________ at 9 AM tomorrow.",
+    "options": [
+      "will open",
+      "opens",
+      "opened",
+      "opening"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ wait for you at the station.",
+    "options": [
+      "will",
+      "do",
+      "am",
+      "was"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ come back very soon.",
+    "options": [
+      "will",
+      "do",
+      "are",
+      "have"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "He ________ be very happy with the result.",
+    "options": [
+      "will",
+      "is",
+      "was",
+      "be"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ take a bus because my car is broken.",
+    "options": [
+      "will",
+      "do",
+      "am",
+      "was"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "Who ________ help me with this box?",
+    "options": [
+      "will",
+      "do",
+      "is",
+      "are"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ her new job on Monday.",
+    "options": [
+      "will start",
+      "starts",
+      "starting",
+      "started"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ the game on the big screen.",
+    "options": [
+      "will watch",
+      "watch",
+      "watching",
+      "watched"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ dinner at 7 PM.",
+    "options": [
+      "will have",
+      "have",
+      "having",
+      "had"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "He ________ to the university next year.",
+    "options": [
+      "will go",
+      "goes",
+      "go",
+      "going"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ my best to win the competition.",
+    "options": [
+      "will try",
+      "try",
+      "trying",
+      "tried"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ more money if she works hard.",
+    "options": [
+      "will earn",
+      "earns",
+      "earned",
+      "earning"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ a new car next week.",
+    "options": [
+      "will buy",
+      "buy",
+      "buying",
+      "bought"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ the house on Sunday.",
+    "options": [
+      "will clean",
+      "clean",
+      "cleaning",
+      "cleaned"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ my friend at the airport tomorrow.",
+    "options": [
+      "will meet",
+      "meet",
+      "meeting",
+      "met"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "He ________ the book for her birthday.",
+    "options": [
+      "will buy",
+      "buys",
+      "bought",
+      "buying"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ us at the park later.",
+    "options": [
+      "will meet",
+      "meets",
+      "met",
+      "meeting"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ a party for their anniversary.",
+    "options": [
+      "will throw",
+      "throws",
+      "threw",
+      "throwing"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ to the museum next Sunday.",
+    "options": [
+      "will visit",
+      "visit",
+      "visiting",
+      "visited"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ the report by Friday.",
+    "options": [
+      "will finish",
+      "finishes",
+      "finish",
+      "finished"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "He ________ very hard for the exam.",
+    "options": [
+      "will study",
+      "studies",
+      "study",
+      "studied"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ a cake for the party.",
+    "options": [
+      "will bake",
+      "bakes",
+      "baked",
+      "baking"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ for the bus at the corner.",
+    "options": [
+      "will wait",
+      "wait",
+      "waited",
+      "waiting"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ for 20 minutes for our table.",
+    "options": [
+      "will wait",
+      "waits",
+      "wait",
+      "waited"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ some photos of the landscape.",
+    "options": [
+      "will take",
+      "takes",
+      "take",
+      "took"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "He ________ more water in the summer.",
+    "options": [
+      "will drink",
+      "drinks",
+      "drink",
+      "drank"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ the flowers tomorrow morning.",
+    "options": [
+      "will water",
+      "waters",
+      "watered",
+      "watering"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ the museum next Saturday.",
+    "options": [
+      "will visit",
+      "visits",
+      "visiting",
+      "visited"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ a long walk in the countryside.",
+    "options": [
+      "will take",
+      "takes",
+      "take",
+      "took"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ to the concert next month.",
+    "options": [
+      "will go",
+      "goes",
+      "go",
+      "gone"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "He ________ a letter to his grandparents.",
+    "options": [
+      "will write",
+      "writes",
+      "wrote",
+      "writing"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ her breakfast at 8 AM.",
+    "options": [
+      "will have",
+      "has",
+      "having",
+      "had"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ a big surprise for his birthday.",
+    "options": [
+      "will have",
+      "have",
+      "having",
+      "had"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ some juice at the party.",
+    "options": [
+      "will drink",
+      "drinks",
+      "drinking",
+      "drank"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ my name and address on the form.",
+    "options": [
+      "will write",
+      "writes",
+      "write",
+      "wrote"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "He ________ the car into the garage.",
+    "options": [
+      "will drive",
+      "drives",
+      "drive",
+      "drove"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ a song during the ceremony.",
+    "options": [
+      "will sing",
+      "sings",
+      "sang",
+      "singing"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ the match if they play well.",
+    "options": [
+      "will win",
+      "wins",
+      "win",
+      "won"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ a lot of fun at the party.",
+    "options": [
+      "will have",
+      "have",
+      "having",
+      "had"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ to my parents on the phone later.",
+    "options": [
+      "will talk",
+      "talks",
+      "talk",
+      "talked"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "He ________ the dinner tonight.",
+    "options": [
+      "will cook",
+      "cooks",
+      "cook",
+      "cooked"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ the news at 6 o'clock.",
+    "options": [
+      "will watch",
+      "watches",
+      "watching",
+      "watched"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ a new house next year.",
+    "options": [
+      "will build",
+      "builds",
+      "build",
+      "built"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ more money if we work harder.",
+    "options": [
+      "will save",
+      "saves",
+      "save",
+      "saved"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ my room tomorrow.",
+    "options": [
+      "will clean",
+      "cleans",
+      "clean",
+      "cleaned"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "He ________ a photo of the monument.",
+    "options": [
+      "will take",
+      "takes",
+      "take",
+      "took"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ more vegetables in her garden.",
+    "options": [
+      "will plant",
+      "plants",
+      "plant",
+      "planted"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ in Spain next year.",
+    "options": [
+      "will live",
+      "lives",
+      "live",
+      "lived"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ many interesting places next summer.",
+    "options": [
+      "will see",
+      "see",
+      "saw",
+      "seeing"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ the teacher a question after class.",
+    "options": [
+      "will ask",
+      "asks",
+      "ask",
+      "asked"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "He ________ a letter to his boss tomorrow.",
+    "options": [
+      "will send",
+      "sends",
+      "send",
+      "sent"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ very happy to see you.",
+    "options": [
+      "will be",
+      "is",
+      "was",
+      "be"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ a movie on TV tonight.",
+    "options": [
+      "will watch",
+      "watch",
+      "watching",
+      "watched"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ some interesting people at the party.",
+    "options": [
+      "will meet",
+      "meet",
+      "meeting",
+      "met"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ very tired after the long trip tomorrow.",
+    "options": [
+      "will be",
+      "is",
+      "was",
+      "be"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "He ________ his dinner at a restaurant next Monday.",
+    "options": [
+      "will have",
+      "has",
+      "having",
+      "had"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ her floor this morning.",
+    "options": [
+      "will sweep",
+      "sweeps",
+      "swept",
+      "sweeping"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ some money for their vacation.",
+    "options": [
+      "will spend",
+      "spends",
+      "spent",
+      "spending"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ to the radio on the journey.",
+    "options": [
+      "will listen",
+      "listened",
+      "listen",
+      "listening"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ some flowers in the vase yesterday.",
+    "options": [
+      "will put",
+      "puts",
+      "putting",
+      "put"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "He ________ the bell twice to announce his arrival.",
+    "options": [
+      "will ring",
+      "rings",
+      "rang",
+      "ringing"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "She ________ the news as soon as she hears it.",
+    "options": [
+      "will tell",
+      "tells",
+      "told",
+      "telling"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "They ________ to the beach as soon as it's sunny.",
+    "options": [
+      "will go",
+      "go",
+      "goes",
+      "gone"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "We ________ more trees because we love nature.",
+    "options": [
+      "will plant",
+      "plant",
+      "planted",
+      "planting"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "sentence": "I ________ you as soon as I arrive at the hotel.",
+    "options": [
+      "will message",
+      "messages",
+      "message",
+      "messaged"
+    ],
+    "correctIndex": 0
+  }
 ]
