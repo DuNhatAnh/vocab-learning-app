@@ -30,12 +30,24 @@ export default function GrammarQuizFitb() {
         }
     }, [tenseId]);
 
+    const normalizeAnswer = (text: string) => {
+        return text.toLowerCase()
+            .trim()
+            .replace(/n't/g, ' not')
+            .replace(/'m/g, ' am')
+            .replace(/'re/g, ' are')
+            .replace(/'s/g, ' is')
+            .replace(/won't/g, 'will not')
+            .replace(/can't/g, 'cannot')
+            .replace(/\s+/g, ' ');
+    };
+
     const handleCheck = () => {
         if (!userAnswer.trim() || isAnswered) return;
 
-        const currentAnswer = questions[currentIndex].answer.toLowerCase().trim();
-        const userInput = userAnswer.toLowerCase().trim();
-        const correct = userInput === currentAnswer;
+        const normalizedAnswer = normalizeAnswer(questions[currentIndex].answer);
+        const normalizedInput = normalizeAnswer(userAnswer);
+        const correct = normalizedInput === normalizedAnswer;
 
         setResults([...results, { isCorrect: correct, userInput: userAnswer }]);
         setIsAnswered(true);

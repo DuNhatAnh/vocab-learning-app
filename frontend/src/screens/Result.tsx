@@ -13,16 +13,28 @@ export default function Result() {
     const [session, setSession] = useState<Session | null>(null);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editValues, setEditValues] = useState({ english: '', vietnamese: '', imageUrl: '' });
+    const [nextSession, setNextSession] = useState<Session | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [resultsResp, sessionResp] = await Promise.all([
+                const [resultsResp, sessionResp, sessionsResp] = await Promise.all([
                     location.state?.results ? Promise.resolve({ data: location.state.results }) : api.getResults(id!),
-                    api.getSession(id!)
+                    api.getSession(id!),
+                    api.getSessions()
                 ]);
                 setResults(resultsResp.data);
                 setSession(sessionResp.data);
+
+                // Find the session created chronologically after the current one
+                const sortedSessions = sessionsResp.data
+                    .sort((a: Session, b: Session) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+
+                const currentIndex = sortedSessions.findIndex(s => s.id === id);
+                if (currentIndex !== -1 && currentIndex < sortedSessions.length - 1) {
+                    setNextSession(sortedSessions[currentIndex + 1]);
+                }
+
                 setLoading(false);
             } catch (err) {
                 console.error(err);
@@ -41,6 +53,11 @@ export default function Result() {
         }
     };
 
+    const handleNextSession = () => {
+        if (nextSession) {
+            navigate(`/session/${nextSession.id}/learning`);
+        }
+    };
 
     const startEditing = (result: EvaluationResult) => {
         setEditingId(result.id);
@@ -65,7 +82,7 @@ export default function Result() {
         }
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <div className="p-8 text-center">Đang tải kết quả...</div>;
 
     return (
         <div className="container" style={{ maxWidth: '650px' }}>
@@ -82,7 +99,7 @@ export default function Result() {
                 </button>
             </div>
 
-            <div className="flex" style={{ marginBottom: '2rem', gap: '1rem' }}>
+            <div className="flex flex-col sm:flex-row" style={{ marginBottom: '2rem', gap: '1rem' }}>
                 <button className="btn btn-ghost" onClick={() => navigate('/')} style={{ flex: 1 }}>
                     <ArrowLeft size={18} /> Quay về Dashboard
                 </button>
@@ -172,6 +189,25 @@ export default function Result() {
                     </div>
                 ))}
             </div>
+
+            {nextSession && (
+                <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'center' }}>
+                    <button
+                        className="btn btn-primary"
+                        onClick={handleNextSession}
+                        style={{
+                            width: '100%',
+                            padding: '1rem',
+                            fontSize: '1.1rem',
+                            backgroundColor: '#10b981',
+                            borderColor: '#10b981',
+                            boxShadow: '0 4px 12px rgba(16, 185, 129, 0.2)'
+                        }}
+                    >
+                        <RefreshCw size={20} /> Luyện tập session kế tiếp
+                    </button>
+                </div>
+            )}
         </div >
     );
 }
