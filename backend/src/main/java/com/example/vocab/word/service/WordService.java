@@ -20,9 +20,13 @@ public class WordService {
 
     @Transactional
     public List<Word> saveWords(UUID sessionId, List<Word> words) {
+        if (words == null || sessionId == null)
+            return List.of();
         wordRepository.deleteAllBySessionId(sessionId);
         for (int i = 0; i < words.size(); i++) {
             Word word = words.get(i);
+            if (word == null)
+                continue;
             word.setSessionId(sessionId);
             word.setOrderIndex(i);
         }
@@ -31,6 +35,8 @@ public class WordService {
 
     @Transactional
     public List<Word> updateWords(List<Word> words) {
+        if (words == null)
+            return List.of();
         return wordRepository.saveAll(words);
     }
 

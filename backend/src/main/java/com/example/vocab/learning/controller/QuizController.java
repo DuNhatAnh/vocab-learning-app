@@ -28,6 +28,8 @@ public class QuizController {
         List<LearningService.EvaluationResult> results = new ArrayList<>();
 
         for (Map.Entry<UUID, String> entry : answers.entrySet()) {
+            if (entry.getKey() == null)
+                continue;
             Word word = wordRepository.findById(entry.getKey())
                     .orElse(null);
 
