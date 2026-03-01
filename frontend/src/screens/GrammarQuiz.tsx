@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronLeft, Check, X, Lightbulb } from 'lucide-react';
 import { grammarService } from '../services/grammarService';
+import { api } from '../api/api';
 import type { GrammarQuestion, UserAnswer } from '../models/grammar';
 import { useState, useEffect } from 'react';
 
@@ -64,13 +65,22 @@ export default function GrammarQuiz() {
             const score = (correctCount / questions.length) * 10;
             const tenses = grammarService.getTenses();
             const currentTense = tenses.find(t => t.id === tenseId);
+            const tenseName = tenseId === 'all-random'
+                ? "Tổng hợp các thì (Trắc nghiệm)"
+                : `${currentTense?.name || tenseId} (Trắc nghiệm)`;
+
+            // Save history
+            api.submitGrammarHistory({
+                type: 'GRAMMAR_MCQ',
+                topic: tenseName,
+                score: correctCount,
+                total: questions.length
+            }).catch(err => console.error('Failed to save grammar history:', err));
 
             navigate('/grammar/result', {
                 state: {
                     tenseId,
-                    tenseName: tenseId === 'all-random'
-                        ? "Tổng hợp các thì (Trắc nghiệm)"
-                        : `${currentTense?.name || tenseId} (Trắc nghiệm)`,
+                    tenseName,
                     score,
                     total: questions.length,
                     correctCount,
