@@ -25,13 +25,3 @@ export interface EvaluationResult {
     correct: boolean;
     imageUrl?: string;
 }
-
-export interface QuizHistory {
-    id: string;
-    timestamp: string;
-    score: number;
-    total: number;
-    wordIds?: string;
-    type: 'RANDOM' | 'GRAMMAR_MCQ' | 'GRAMMAR_FITB';
-    topic: string;
-}

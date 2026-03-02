@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Session, Word, EvaluationResult, SessionStatus, QuizHistory } from '../types';
+import type { Session, Word, EvaluationResult, SessionStatus } from '../types';
 
 const API_BASE_URL = 'http://localhost:8080/api';
 
@@ -27,7 +27,4 @@ export const api = {
     getRandomQuiz: () => axios.get<Word[]>(`${API_BASE_URL}/quiz/random`),
     submitRandomQuiz: (answers: Record<string, string>) =>
         axios.post<EvaluationResult[]>(`${API_BASE_URL}/quiz/submit`, answers),
-    getQuizHistory: () => axios.get<QuizHistory[]>(`${API_BASE_URL}/quiz/history`),
-    submitGrammarHistory: (data: { type: string; topic: string; score: number; total: number }) =>
-        axios.post(`${API_BASE_URL}/quiz/grammar-submit`, data),
 };

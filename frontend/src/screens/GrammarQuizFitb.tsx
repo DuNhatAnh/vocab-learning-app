@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronLeft, ArrowRight } from 'lucide-react';
 import { grammarService } from '../services/grammarService';
-import { api } from '../api/api';
 import { useState, useEffect, useRef } from 'react';
 
 interface FitbQuestion {
@@ -63,22 +62,13 @@ export default function GrammarQuizFitb() {
         } else {
             const correctCount = results.filter(r => r.isCorrect).length;
             const score = (correctCount / questions.length) * 10;
-            const tenseName = tenseId === 'all-random'
-                ? 'Tổng hợp các thì (Điền từ)'
-                : 'Present Simple (Điền từ)';
-
-            // Save history
-            api.submitGrammarHistory({
-                type: 'GRAMMAR_FITB',
-                topic: tenseName,
-                score: correctCount,
-                total: questions.length
-            }).catch(err => console.error('Failed to save grammar history:', err));
 
             navigate('/grammar/result', {
                 state: {
                     tenseId,
-                    tenseName,
+                    tenseName: tenseId === 'all-random'
+                        ? 'Tổng hợp các thì (Điền từ)'
+                        : 'Present Simple (Điền từ)',
                     score,
                     total: questions.length,
                     correctCount,
