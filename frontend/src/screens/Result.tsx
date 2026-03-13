@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, RefreshCw, Edit2, Check, X, Layers, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Edit2, Check, X, Layers, Image as ImageIcon, Plus } from 'lucide-react';
 import { api } from '../api/api';
 import type { EvaluationResult, Session } from '../types';
 
@@ -13,27 +13,16 @@ export default function Result() {
     const [session, setSession] = useState<Session | null>(null);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editValues, setEditValues] = useState({ english: '', vietnamese: '', imageUrl: '' });
-    const [nextSession, setNextSession] = useState<Session | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [resultsResp, sessionResp, sessionsResp] = await Promise.all([
+                const [resultsResp, sessionResp] = await Promise.all([
                     location.state?.results ? Promise.resolve({ data: location.state.results }) : api.getResults(id!),
-                    api.getSession(id!),
-                    api.getSessions()
+                    api.getSession(id!)
                 ]);
                 setResults(resultsResp.data);
                 setSession(sessionResp.data);
-
-                // Find the session created chronologically after the current one
-                const sortedSessions = sessionsResp.data
-                    .sort((a: Session, b: Session) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-
-                const currentIndex = sortedSessions.findIndex(s => s.id === id);
-                if (currentIndex !== -1 && currentIndex < sortedSessions.length - 1) {
-                    setNextSession(sortedSessions[currentIndex + 1]);
-                }
 
                 setLoading(false);
             } catch (err) {
@@ -50,12 +39,6 @@ export default function Result() {
             navigate(`/session/${id}/learning`);
         } catch (err) {
             console.error(err);
-        }
-    };
-
-    const handleNextSession = () => {
-        if (nextSession) {
-            navigate(`/session/${nextSession.id}/learning`);
         }
     };
 
@@ -190,24 +173,14 @@ export default function Result() {
                 ))}
             </div>
 
-            {nextSession && (
-                <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'center' }}>
-                    <button
-                        className="btn btn-primary"
-                        onClick={handleNextSession}
-                        style={{
-                            width: '100%',
-                            padding: '1rem',
-                            fontSize: '1.1rem',
-                            backgroundColor: '#10b981',
-                            borderColor: '#10b981',
-                            boxShadow: '0 4px 12px rgba(16, 185, 129, 0.2)'
-                        }}
-                    >
-                        <RefreshCw size={20} /> Luyện tập session kế tiếp
-                    </button>
-                </div>
-            )}
+            <button
+                className="btn btn-primary floating-btn"
+                onClick={() => navigate(`/session/${id}/add`)}
+                style={{ padding: 0 }}
+                title="Thêm từ vựng mới"
+            >
+                <Plus size={40} />
+            </button>
         </div >
     );
 }

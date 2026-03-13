@@ -1,13 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Plus, Calendar, BookOpen, Trash2, Edit2, Dices, CheckCircle2 } from 'lucide-react';
+import { Plus, Calendar, BookOpen, Trash2, Edit2, Dices, CheckCircle2, Search } from 'lucide-react';
 import { api } from '../api/api';
 import type { Session } from '../types';
 
 export default function Dashboard() {
     const [sessions, setSessions] = useState<Session[]>([]);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
+
+    const studyDaysCount = useMemo(() => {
+        const uniqueDays = new Set(
+            sessions.map(session => {
+                return new Intl.DateTimeFormat('vi-VN', {
+                    dateStyle: 'short',
+                    timeZone: 'Asia/Ho_Chi_Minh'
+                }).format(new Date(session.createdAt));
+            })
+        );
+        return uniqueDays.size;
+    }, [sessions]);
+
+    const filteredSessions = useMemo(() => {
+        return sessions.filter(session => {
+            const topic = session.topic || "Chưa thêm chủ đề";
+            return topic.toLowerCase().includes(searchQuery.toLowerCase());
+        });
+    }, [sessions, searchQuery]);
     const location = useLocation();
 
     useEffect(() => {
@@ -81,8 +101,36 @@ export default function Dashboard() {
 
     return (
         <div className="container">
+            <div style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {/* Stats Card */}
+                <div style={{ padding: '1.5rem', background: 'linear-gradient(135deg, var(--primary) 0%, #3182ce 100%)', borderRadius: '1rem', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 10px 15px -3px rgba(0, 102, 204, 0.3)' }}>
+                    <div>
+                        <div style={{ fontSize: '1rem', opacity: 0.9, marginBottom: '0.25rem', fontWeight: '500' }}>Tổng số ngày học tập</div>
+                        <div style={{ fontSize: '2.5rem', fontWeight: '800', lineHeight: 1 }}>{studyDaysCount} <span style={{ fontSize: '1.2rem', fontWeight: '500', opacity: 0.8 }}>ngày</span></div>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.2)', padding: '1rem', borderRadius: '50%', backdropFilter: 'blur(10px)' }}>
+                        <Calendar size={32} color="white" />
+                    </div>
+                </div>
+
+                {/* Search Bar */}
+                <div style={{ position: 'relative' }}>
+                    <div style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }}>
+                        <Search size={20} />
+                    </div>
+                    <input 
+                        type="text" 
+                        className="input"
+                        placeholder="Tìm kiếm theo chủ đề..." 
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        style={{ paddingLeft: '2.8rem', borderRadius: '1rem', background: 'var(--card-bg)', border: '1px solid var(--border)' }}
+                    />
+                </div>
+            </div>
+
             <div className="grid">
-                {sessions.map((session) => (
+                {filteredSessions.map((session) => (
                     <div key={session.id} className="card" onClick={() => handleSessionClick(session)}>
                         <div className="flex justify-between items-center" style={{ marginBottom: '1rem' }}>
                             <div className="flex items-center gap-2 font-bold text-primary" style={{ fontSize: '1.2rem' }}>
@@ -126,9 +174,11 @@ export default function Dashboard() {
                         </div>
                     </div>
                 ))}
-                {sessions.length === 0 && (
+                {filteredSessions.length === 0 && (
                     <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
-                        Chưa có phiên học nào. Nhấn dấu + để bắt đầu.
+                        {sessions.length === 0 
+                            ? "Chưa có phiên học nào. Nhấn dấu + để bắt đầu." 
+                            : "Không tìm thấy chủ đề nào phù hợp."}
                     </div>
                 )}
             </div>
