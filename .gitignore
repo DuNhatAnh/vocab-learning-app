@@ -1,7 +1,17 @@
-# OS files
+# macOS
 .DS_Store
-Thumbs.db
+.AppleDouble
+.LSOverride
+Icon
 
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
 # Backend (Spring Boot/Maven)
 backend/target/
 backend/*.jar
@@ -39,3 +49,9 @@ frontend/.env.production.local
 # Infrastructure
 .postgres_data/
 .gitnexus
+
+# Local models
+backend/src/main/resources/model/
+
+# Claude app config
+.claude/
