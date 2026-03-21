@@ -37,3 +37,4 @@ frontend/.env.production.local
 
 # Infrastructure
 .postgres_data/
+.gitnexus
