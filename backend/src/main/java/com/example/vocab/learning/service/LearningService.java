@@ -8,12 +8,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +22,7 @@ public class LearningService {
     @Data
     @Builder
     public static class EvaluationResult {
-        private UUID id;
+        private String id;
         private String english;
         private String vietnamese;
         private String userAnswer;
@@ -32,8 +30,7 @@ public class LearningService {
         private String imageUrl;
     }
 
-    @Transactional
-    public List<EvaluationResult> submitLearning(UUID sessionId, Map<UUID, String> answers) {
+    public List<EvaluationResult> submitLearning(String sessionId, Map<String, String> answers) {
         List<Word> words = wordService.getWordsBySessionId(sessionId);
         List<EvaluationResult> results = new ArrayList<>();
 
@@ -59,7 +56,7 @@ public class LearningService {
         return results;
     }
 
-    public List<EvaluationResult> getResults(UUID sessionId) {
+    public List<EvaluationResult> getResults(String sessionId) {
         List<Word> words = wordService.getWordsBySessionId(sessionId);
         List<EvaluationResult> results = new ArrayList<>();
 

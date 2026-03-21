@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/sessions/{sessionId}/submit")
@@ -16,13 +15,13 @@ public class LearningController {
     private final LearningService learningService;
 
     @PostMapping
-    public List<LearningService.EvaluationResult> submit(@PathVariable UUID sessionId,
-            @RequestBody Map<UUID, String> answers) {
+    public List<LearningService.EvaluationResult> submit(@PathVariable String sessionId,
+            @RequestBody Map<String, String> answers) {
         return learningService.submitLearning(sessionId, answers);
     }
 
     @GetMapping("/results")
-    public List<LearningService.EvaluationResult> getResults(@PathVariable UUID sessionId) {
+    public List<LearningService.EvaluationResult> getResults(@PathVariable String sessionId) {
         return learningService.getResults(sessionId);
     }
 }

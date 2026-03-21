@@ -6,10 +6,8 @@ import com.example.vocab.session.repository.SessionRepository;
 import com.example.vocab.word.service.WordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +20,7 @@ public class SessionService {
         return sessionRepository.findAllByOrderByCreatedAtDesc();
     }
 
-    public Session getSessionById(UUID id) {
+    public Session getSessionById(String id) {
         return sessionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Session not found"));
     }
@@ -36,29 +34,25 @@ public class SessionService {
         return sessionRepository.save(session);
     }
 
-    @Transactional
-    public Session updateTopic(UUID id, String topic) {
+    public Session updateTopic(String id, String topic) {
         Session session = getSessionById(id);
         session.setTopic(topic != null && !topic.trim().isEmpty() ? topic : "Chưa thêm chủ đề");
         return sessionRepository.save(session);
     }
 
-    @Transactional
-    public Session updateStatus(UUID id, SessionStatus status) {
+    public Session updateStatus(String id, SessionStatus status) {
         Session session = getSessionById(id);
         session.setStatus(status);
         return sessionRepository.save(session);
     }
 
-    @Transactional
-    public void updateWordCount(UUID id, int count) {
+    public void updateWordCount(String id, int count) {
         Session session = getSessionById(id);
         session.setWordCount(count);
         sessionRepository.save(session);
     }
 
-    @Transactional
-    public void deleteSession(UUID id) {
+    public void deleteSession(String id) {
         wordService.deleteWordsBySessionId(id);
         sessionRepository.deleteById(id);
     }

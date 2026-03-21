@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/sessions/{sessionId}/words")
@@ -19,12 +18,12 @@ public class WordController {
     private final SessionService sessionService;
 
     @GetMapping
-    public List<Word> getWords(@PathVariable UUID sessionId) {
+    public List<Word> getWords(@PathVariable String sessionId) {
         return wordService.getWordsBySessionId(sessionId);
     }
 
     @PostMapping
-    public List<Word> saveWords(@PathVariable UUID sessionId, @RequestBody List<Word> words) {
+    public List<Word> saveWords(@PathVariable String sessionId, @RequestBody List<Word> words) {
         List<Word> savedWords = wordService.saveWords(sessionId, words);
         sessionService.updateWordCount(sessionId, savedWords.size());
         sessionService.updateStatus(sessionId, SessionStatus.LEARNING);
@@ -32,7 +31,7 @@ public class WordController {
     }
 
     @PutMapping("/{wordId}")
-    public Word updateWord(@PathVariable UUID sessionId, @PathVariable UUID wordId, @RequestBody Word wordData) {
+    public Word updateWord(@PathVariable String sessionId, @PathVariable String wordId, @RequestBody Word wordData) {
         return wordService.updateWord(wordId, wordData.getEnglish(), wordData.getVietnamese(), wordData.getImageUrl());
     }
 }

@@ -9,6 +9,7 @@ backend/*.war
 backend/*.ear
 backend/logs/
 backend/hs_err_pid*
+backend/serviceAccountKey.json
 
 # IDEs
 .idea/

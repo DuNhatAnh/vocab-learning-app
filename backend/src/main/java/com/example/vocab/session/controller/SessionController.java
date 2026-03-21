@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/sessions")
@@ -22,7 +21,7 @@ public class SessionController {
     }
 
     @GetMapping("/{id}")
-    public Session getSessionById(@PathVariable UUID id) {
+    public Session getSessionById(@PathVariable String id) {
         return sessionService.getSessionById(id);
     }
 
@@ -33,18 +32,18 @@ public class SessionController {
     }
 
     @PatchMapping("/{id}/status")
-    public Session updateStatus(@PathVariable UUID id, @RequestBody SessionStatus status) {
+    public Session updateStatus(@PathVariable String id, @RequestBody SessionStatus status) {
         return sessionService.updateStatus(id, status);
     }
 
     @PatchMapping("/{id}/topic")
-    public Session updateTopic(@PathVariable UUID id, @RequestBody java.util.Map<String, String> data) {
+    public Session updateTopic(@PathVariable String id, @RequestBody java.util.Map<String, String> data) {
         String topic = data != null ? data.get("topic") : null;
         return sessionService.updateTopic(id, topic);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteSession(@PathVariable UUID id) {
+    public void deleteSession(@PathVariable String id) {
         sessionService.deleteSession(id);
     }
 }

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/quiz")
@@ -24,10 +23,10 @@ public class QuizController {
     }
 
     @PostMapping("/submit")
-    public List<LearningService.EvaluationResult> submitQuiz(@RequestBody Map<UUID, String> answers) {
+    public List<LearningService.EvaluationResult> submitQuiz(@RequestBody Map<String, String> answers) {
         List<LearningService.EvaluationResult> results = new ArrayList<>();
 
-        for (Map.Entry<UUID, String> entry : answers.entrySet()) {
+        for (Map.Entry<String, String> entry : answers.entrySet()) {
             if (entry.getKey() == null)
                 continue;
             Word word = wordRepository.findById(entry.getKey())
