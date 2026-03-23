@@ -1,18 +1,19 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Dashboard from './screens/Dashboard.tsx';
-import AddWords from './screens/AddWords.tsx';
-import Learning from './screens/Learning.tsx';
-import Result from './screens/Result.tsx';
-import Summary from './screens/Summary.tsx';
-import Profile from './screens/Profile.tsx';
-import Flashcard from './screens/Flashcard.tsx';
-import RandomQuiz from './screens/RandomQuiz.tsx';
-import QuizResult from './screens/QuizResult.tsx';
-import GrammarSelection from './screens/GrammarSelection.tsx';
-import GrammarQuiz from './screens/GrammarQuiz.tsx';
-import GrammarQuizFitb from './screens/GrammarQuizFitb.tsx';
-import GrammarResult from './screens/GrammarResult.tsx';
-import BottomNav from './components/BottomNav.tsx';
+import Dashboard from './screens/Dashboard';
+import AddWords from './screens/AddWords';
+import Learning from './screens/Learning';
+import Result from './screens/Result';
+import Summary from './screens/Summary';
+import Profile from './screens/Profile';
+import Flashcard from './screens/Flashcard';
+import Pronunciation from './screens/Pronunciation';
+import RandomQuiz from './screens/RandomQuiz';
+import QuizResult from './screens/QuizResult';
+import GrammarSelection from './screens/GrammarSelection';
+import GrammarQuiz from './screens/GrammarQuiz';
+import GrammarQuizFitb from './screens/GrammarQuizFitb';
+import GrammarResult from './screens/GrammarResult';
+import BottomNav from './components/BottomNav';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/session/:id/summary" element={<Summary />} />
             <Route path="/session/:id/result" element={<Result />} />
             <Route path="/session/:id/flashcards" element={<Flashcard />} />
+            <Route path="/session/:id/pronunciation" element={<Pronunciation />} />
             <Route path="/quiz/random" element={<RandomQuiz />} />
             <Route path="/quiz/result" element={<QuizResult />} />
             <Route path="/grammar" element={<GrammarSelection />} />

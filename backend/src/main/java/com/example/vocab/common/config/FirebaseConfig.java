@@ -17,11 +17,16 @@ public class FirebaseConfig {
     @Bean
     public Firestore firestore() throws Exception {
         if (FirebaseApp.getApps().isEmpty()) {
-            InputStream serviceAccount;
+            String keyPath = System.getenv("FIREBASE_KEY_PATH");
+            if (keyPath == null || keyPath.isEmpty()) {
+                keyPath = "serviceAccountKey.json";
+            }
+            
+            InputStream serviceAccount = null; // Declare serviceAccount here
             try {
-                serviceAccount = new FileInputStream("serviceAccountKey.json");
+                serviceAccount = new FileInputStream(keyPath);
             } catch (Exception e) {
-                throw new RuntimeException("Firebase serviceAccountKey.json not found in the backend directory. Please provide it to connect to Firebase.");
+                throw new RuntimeException("Firebase key file not found at: " + keyPath + ". Please provide it to connect to Firebase.");
             }
 
             FirebaseOptions options = FirebaseOptions.builder()

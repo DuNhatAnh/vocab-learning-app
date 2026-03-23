@@ -13,15 +13,16 @@ public class VoskConfig {
 
     @Bean
     public Model voskModel() {
+        String modelPath = System.getenv("VOSK_MODEL_PATH");
+        if (modelPath == null || modelPath.isEmpty()) {
+            modelPath = "src/main/resources/model";
+        }
+        
         try {
             LibVosk.setLogLevel(LogLevel.WARNINGS);
-            
-            // Note: Using relative path works when running the app directly via mvn or IDE.
-            // For a production fat-JAR, this model directory should be copied outside the JAR, 
-            // or extracted to a temp folder dynamically.
-            return new Model("src/main/resources/model");
+            return new Model(modelPath);
         } catch (IOException e) {
-            throw new RuntimeException("Lỗi: Không thể tìm thấy Model âm thanh tại 'src/main/resources/model'", e);
+            throw new RuntimeException("Lỗi: Không thể tìm thấy Model âm thanh tại '" + modelPath + "'", e);
         }
     }
 }

@@ -10,6 +10,12 @@ services:
     ports:
       - "8080:8080"
     restart: on-failure
+    environment:
+      - FIREBASE_KEY_PATH=/app/serviceAccountKey.json
+      - VOSK_MODEL_PATH=/app/model
+    volumes:
+      - ./backend/serviceAccountKey.json:/app/serviceAccountKey.json
+      - ./backend/src/main/resources/model:/app/model
     networks:
       - vocab-network
 

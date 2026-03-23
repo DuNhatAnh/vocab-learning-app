@@ -1,6 +1,5 @@
 package com.example.vocab.word.domain;
 
-import com.google.cloud.firestore.annotation.DocumentId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Word {
-    @DocumentId
     private String id;
     private String sessionId;
     private String english;

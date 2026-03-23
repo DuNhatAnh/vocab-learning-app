@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -26,13 +25,20 @@ public class WordRepository {
         try {
             ApiFuture<QuerySnapshot> future = firestore.collection(COLLECTION_NAME)
                     .whereEqualTo("sessionId", sessionId)
-                    .orderBy("orderIndex", Query.Direction.ASCENDING)
                     .get();
             List<QueryDocumentSnapshot> documents = future.get().getDocuments();
             List<Word> words = new ArrayList<>();
             for (QueryDocumentSnapshot document : documents) {
                 words.add(document.toObject(Word.class));
             }
+            // Sort manually to avoid composite index requirement
+            words.sort((a, b) -> {
+                Integer idxA = a.getOrderIndex();
+                Integer idxB = b.getOrderIndex();
+                if (idxA == null) return (idxB == null) ? 0 : -1;
+                if (idxB == null) return 1;
+                return idxA.compareTo(idxB);
+            });
             return words;
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException("Error fetching words", e);
@@ -74,7 +80,10 @@ public class WordRepository {
 
     public Optional<Word> findById(String id) {
         try {
-            DocumentSnapshot doc = firestore.collection(COLLECTION_NAME).document(Objects.requireNonNull(id)).get().get();
+            if (id == null) {
+                throw new IllegalArgumentException("Word ID cannot be null");
+            }
+            DocumentSnapshot doc = firestore.collection(COLLECTION_NAME).document(id).get().get();
             if (doc.exists()) {
                 return Optional.ofNullable(doc.toObject(Word.class));
             }
@@ -93,7 +102,11 @@ public class WordRepository {
                     docRef = firestore.collection(COLLECTION_NAME).document();
                     word.setId(docRef.getId());
                 } else {
-                    docRef = firestore.collection(COLLECTION_NAME).document(Objects.requireNonNull(word.getId()));
+                    String wordId = word.getId();
+                    if (wordId == null) {
+                        throw new IllegalArgumentException("Word ID cannot be null for update");
+                    }
+                    docRef = firestore.collection(COLLECTION_NAME).document(wordId);
                 }
                 batch.set(docRef, word);
             }
@@ -111,7 +124,11 @@ public class WordRepository {
                 word.setId(docRef.getId());
                 docRef.set(word).get();
             } else {
-                firestore.collection(COLLECTION_NAME).document(Objects.requireNonNull(word.getId())).set(word).get();
+                String wordId = word.getId();
+                if (wordId == null) {
+                    throw new IllegalArgumentException("Word ID cannot be null for update");
+                }
+                firestore.collection(COLLECTION_NAME).document(wordId).set(word).get();
             }
             return word;
         } catch (InterruptedException | ExecutionException e) {

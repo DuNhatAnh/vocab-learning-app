@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
@@ -25,7 +24,8 @@ public class SessionRepository {
             ApiFuture<QuerySnapshot> future = firestore.collection(COLLECTION_NAME)
                     .orderBy("createdAt", Query.Direction.DESCENDING)
                     .get();
-            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+            QuerySnapshot querySnapshot = future.get();
+            List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
             List<Session> sessions = new ArrayList<>();
             for (QueryDocumentSnapshot document : documents) {
                 sessions.add(document.toObject(Session.class));
@@ -38,7 +38,10 @@ public class SessionRepository {
 
     public Optional<Session> findById(String id) {
         try {
-            DocumentReference docRef = firestore.collection(COLLECTION_NAME).document(Objects.requireNonNull(id));
+            if (id == null) {
+                throw new IllegalArgumentException("Session ID cannot be null");
+            }
+            DocumentReference docRef = firestore.collection(COLLECTION_NAME).document(id);
             ApiFuture<DocumentSnapshot> future = docRef.get();
             DocumentSnapshot document = future.get();
             if (document.exists()) {
@@ -60,7 +63,11 @@ public class SessionRepository {
                 }
                 docRef.set(session).get();
             } else {
-                firestore.collection(COLLECTION_NAME).document(Objects.requireNonNull(session.getId())).set(session).get();
+                String sessionId = session.getId();
+                if (sessionId == null) {
+                    throw new IllegalArgumentException("Session ID cannot be null for update");
+                }
+                firestore.collection(COLLECTION_NAME).document(sessionId).set(session).get();
             }
             return session;
         } catch (InterruptedException | ExecutionException e) {
@@ -69,6 +76,9 @@ public class SessionRepository {
     }
 
     public void deleteById(String id) {
-        firestore.collection(COLLECTION_NAME).document(Objects.requireNonNull(id)).delete();
+        if (id == null) {
+            throw new IllegalArgumentException("Session ID cannot be null");
+        }
+        firestore.collection(COLLECTION_NAME).document(id).delete();
     }
 }

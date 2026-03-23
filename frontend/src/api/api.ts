@@ -27,4 +27,13 @@ export const api = {
     getRandomQuiz: () => axios.get<Word[]>(`${API_BASE_URL}/quiz/random`),
     submitRandomQuiz: (answers: Record<string, string>) =>
         axios.post<EvaluationResult[]>(`${API_BASE_URL}/quiz/submit`, answers),
+    // Pronunciation
+    checkPronunciation: (audio: Blob, targetWord: string) => {
+        const formData = new FormData();
+        formData.append('audio', audio, 'voice.wav');
+        formData.append('targetWord', targetWord);
+        return axios.post(`${API_BASE_URL}/v1/pronunciation/check`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
+    }
 };

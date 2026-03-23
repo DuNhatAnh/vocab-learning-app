@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, RefreshCw, Edit2, Check, X, Layers, Image as ImageIcon, Plus } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Edit2, Check, X, Layers, Image as ImageIcon, Plus, Mic } from 'lucide-react';
 import { api } from '../api/api';
 import type { EvaluationResult, Session } from '../types';
 
@@ -55,7 +55,7 @@ export default function Result() {
         if (!editingId) return;
         try {
             await api.updateWord(id!, editingId, editValues);
-            setResults(prev => prev.map(r =>
+            setResults((prev: EvaluationResult[]) => prev.map((r: EvaluationResult) =>
                 r.id === editingId ? { ...r, ...editValues } : r
             ));
             setEditingId(null);
@@ -74,12 +74,21 @@ export default function Result() {
                     <h1 style={{ margin: 0 }}>{session?.topic || "Chi tiết từ vựng"}</h1>
                     <p className="text-muted">Danh sách từ vựng trong phiên học</p>
                 </div>
-                <button
-                    className="btn btn-primary btn-sm"
-                    onClick={() => navigate(`/session/${id}/flashcards`, { state: { results } })}
-                >
-                    <Layers size={16} /> Flashcard
-                </button>
+                <div className="flex gap-2">
+                    <button
+                        className="btn btn-ghost btn-sm"
+                        onClick={() => navigate(`/session/${id}/pronunciation`)}
+                        style={{ color: '#8b5cf6' }}
+                    >
+                        <Mic size={16} /> Phát âm
+                    </button>
+                    <button
+                        className="btn btn-primary btn-sm"
+                        onClick={() => navigate(`/session/${id}/flashcards`, { state: { results } })}
+                    >
+                        <Layers size={16} /> Flashcard
+                    </button>
+                </div>
             </div>
 
             <div className="flex flex-col sm:flex-row" style={{ marginBottom: '2rem', gap: '1rem' }}>
@@ -92,7 +101,7 @@ export default function Result() {
             </div>
 
             <div className="grid">
-                {results.map((result, idx) => (
+                {results.map((result: EvaluationResult, idx: number) => (
                     <div key={idx} className="card" style={{ cursor: 'default', padding: '1.25rem' }}>
                         {editingId === result.id ? (
                             <div className="flex flex-col gap-4">
@@ -103,7 +112,7 @@ export default function Result() {
                                             className="input"
                                             placeholder="https://example.com/image.jpg"
                                             value={editValues.imageUrl}
-                                            onChange={e => setEditValues({ ...editValues, imageUrl: e.target.value })}
+                                            onChange={(e: any) => setEditValues({ ...editValues, imageUrl: e.target.value })}
                                         />
                                     </div>
                                     <div>
@@ -111,7 +120,7 @@ export default function Result() {
                                         <input
                                             className="input"
                                             value={editValues.vietnamese}
-                                            onChange={e => setEditValues({ ...editValues, vietnamese: e.target.value })}
+                                            onChange={(e: any) => setEditValues({ ...editValues, vietnamese: e.target.value })}
                                         />
                                     </div>
                                     <div>
@@ -119,7 +128,7 @@ export default function Result() {
                                         <input
                                             className="input"
                                             value={editValues.english}
-                                            onChange={e => setEditValues({ ...editValues, english: e.target.value })}
+                                            onChange={(e: any) => setEditValues({ ...editValues, english: e.target.value })}
                                         />
                                     </div>
                                 </div>

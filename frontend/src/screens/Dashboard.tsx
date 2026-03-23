@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Plus, Calendar, BookOpen, Trash2, Edit2, Dices, CheckCircle2, Search } from 'lucide-react';
+import { Plus, Calendar, BookOpen, Trash2, Edit2, Dices, CheckCircle2, Search, Mic } from 'lucide-react';
 import { api } from '../api/api';
 import type { Session } from '../types';
 
@@ -60,7 +60,7 @@ export default function Dashboard() {
         }
     };
 
-    const handleEditTopic = async (e: React.MouseEvent, session: Session) => {
+    const handleEditTopic = async (e: any, session: Session) => {
         e.stopPropagation();
         const newTopic = window.prompt("Chỉnh sửa tên chủ đề:", session.topic || "Chưa thêm chủ đề");
         if (newTopic === null) return;
@@ -73,7 +73,7 @@ export default function Dashboard() {
         }
     };
 
-    const handleDelete = async (e: React.MouseEvent, id: string) => {
+    const handleDelete = async (e: any, id: string) => {
         e.stopPropagation();
         if (window.confirm('Bạn có chắc chắn muốn xoá phiên học này không?')) {
             try {
@@ -123,7 +123,7 @@ export default function Dashboard() {
                         className="input"
                         placeholder="Tìm kiếm theo chủ đề..." 
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e: any) => setSearchQuery(e.target.value)}
                         style={{ paddingLeft: '2.8rem', borderRadius: '1rem', background: 'var(--card-bg)', border: '1px solid var(--border)' }}
                     />
                 </div>
@@ -166,9 +166,24 @@ export default function Dashboard() {
                         </div>
 
                         <div className="flex justify-between items-center">
-                            <div className="flex items-center">
-                                <BookOpen size={18} className="text-primary" />
-                                <span className="font-bold ml-1">{session.wordCount} từ vựng</span>
+                            <div className="flex items-center gap-4">
+                                <div className="flex items-center">
+                                    <BookOpen size={18} className="text-primary" />
+                                    <span className="font-bold ml-1">{session.wordCount} từ vựng</span>
+                                </div>
+                                {session.wordCount > 0 && (
+                                    <button
+                                        className="btn btn-ghost"
+                                        style={{ padding: '4px', color: '#8b5cf6', display: 'flex', alignItems: 'center' }}
+                                        onClick={(e: any) => {
+                                            e.stopPropagation();
+                                            navigate(`/session/${session.id}/pronunciation`);
+                                        }}
+                                        title="Luyện phát âm"
+                                    >
+                                        <Mic size={18} />
+                                    </button>
+                                )}
                             </div>
                             <span className="text-primary text-sm">Chi tiết →</span>
                         </div>
