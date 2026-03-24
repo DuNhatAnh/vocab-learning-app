@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Mic, Square, Volume2, ChevronLeft, ChevronRight, Home, AlertCircle } from 'lucide-react';
+import { Mic, Square, Volume2, ChevronLeft, ChevronRight, Home, AlertCircle, PlayCircle } from 'lucide-react';
 import { api } from '../api/api';
 import { encodeWAV } from '../utils/wavAudioEncoder';
 import type { Word } from '../types';
@@ -14,19 +14,35 @@ export default function Pronunciation() {
     const [isRecording, setIsRecording] = useState(false);
     const [result, setResult] = useState<{ score: number; recognized_text: string } | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [isAutoStop, setIsAutoStop] = useState(false);
+    const [recordedAudioUrl, setRecordedAudioUrl] = useState<string | null>(null);
 
     // Audio recording refs
     const audioContextRef = useRef<AudioContext | null>(null);
     const streamRef = useRef<MediaStream | null>(null);
     const processorRef = useRef<ScriptProcessorNode | null>(null);
     const audioDataRef = useRef<Float32Array[]>([]);
+    const autoStopTimerRef = useRef<any>(null);
+    const isRecordingRef = useRef(false);
 
     useEffect(() => {
         fetchWords();
         return () => {
             stopRecording();
+            if (autoStopTimerRef.current) clearTimeout(autoStopTimerRef.current);
+            if (recordedAudioUrl) URL.revokeObjectURL(recordedAudioUrl);
         };
     }, [id]);
+
+    useEffect(() => {
+        // Clear recording when changing words
+        setResult(null);
+        setError(null);
+        if (recordedAudioUrl) {
+            URL.revokeObjectURL(recordedAudioUrl);
+            setRecordedAudioUrl(null);
+        }
+    }, [currentIndex]);
 
     const fetchWords = async () => {
         try {
@@ -48,6 +64,11 @@ export default function Pronunciation() {
     const startRecording = async () => {
         setResult(null);
         setError(null);
+        // Clear previous recording URL if any
+        if (recordedAudioUrl) {
+            URL.revokeObjectURL(recordedAudioUrl);
+            setRecordedAudioUrl(null);
+        }
         audioDataRef.current = [];
 
         try {
@@ -71,6 +92,13 @@ export default function Pronunciation() {
             processor.connect(audioContext.destination);
 
             setIsRecording(true);
+            isRecordingRef.current = true;
+
+            if (isAutoStop) {
+                autoStopTimerRef.current = setTimeout(() => {
+                    stopRecording();
+                }, 5000);
+            }
         } catch (err) {
             console.error(err);
             setError("Không thể truy cập Microphone. Vui lòng cấp quyền sử dụng microphone.");
@@ -78,9 +106,15 @@ export default function Pronunciation() {
     };
 
     const stopRecording = async () => {
-        if (!isRecording) return;
+        if (!isRecordingRef.current) return;
 
         setIsRecording(false);
+        isRecordingRef.current = false;
+        
+        if (autoStopTimerRef.current) {
+            clearTimeout(autoStopTimerRef.current);
+            autoStopTimerRef.current = null;
+        }
 
         if (processorRef.current) {
             processorRef.current.disconnect();
@@ -110,6 +144,11 @@ export default function Pronunciation() {
 
         // Encode to WAV and send to backend
         const wavBlob = encodeWAV(mergedBuffer, 16000);
+        
+        // Create temporary URL for playback
+        const url = URL.createObjectURL(wavBlob);
+        setRecordedAudioUrl(url);
+
         handleCheckPronunciation(wavBlob);
     };
 
@@ -134,6 +173,13 @@ export default function Pronunciation() {
             utterance.lang = 'en-US';
             utterance.rate = 0.9;
             window.speechSynthesis.speak(utterance);
+        }
+    };
+
+    const playRecordedAudio = () => {
+        if (recordedAudioUrl) {
+            const audio = new Audio(recordedAudioUrl);
+            audio.play();
         }
     };
 
@@ -173,6 +219,18 @@ export default function Pronunciation() {
                     <Volume2 size={24} />
                 </button>
 
+                <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
+                    <label className="switch">
+                        <input 
+                            type="checkbox" 
+                            checked={isAutoStop} 
+                            onChange={(e) => setIsAutoStop(e.target.checked)} 
+                        />
+                        <span className="slider round"></span>
+                    </label>
+                    <span style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>Tự động dừng (5s)</span>
+                </div>
+
                 <div className="flex justify-center items-center gap-6">
                     {!isRecording ? (
                         <button 
@@ -202,6 +260,24 @@ export default function Pronunciation() {
                             }}
                         >
                             <Square size={32} />
+                        </button>
+                    )}
+
+                    {recordedAudioUrl && !isRecording && (
+                        <button 
+                            className="btn btn-ghost" 
+                            onClick={playRecordedAudio}
+                            title="Nghe lại giọng của mình"
+                            style={{ 
+                                width: '60px', 
+                                height: '60px', 
+                                borderRadius: '50%', 
+                                padding: 0,
+                                border: '1px solid var(--primary)',
+                                color: 'var(--primary)'
+                            }}
+                        >
+                            <PlayCircle size={32} />
                         </button>
                     )}
                 </div>
@@ -272,6 +348,50 @@ export default function Pronunciation() {
                     0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
                     70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
                     100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+                }
+
+                /* Switch styles */
+                .switch {
+                    position: relative;
+                    display: inline-block;
+                    width: 44px;
+                    height: 24px;
+                }
+                .switch input {
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                }
+                .slider {
+                    position: absolute;
+                    cursor: pointer;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: #ccc;
+                    transition: .4s;
+                    border-radius: 24px;
+                }
+                .slider:before {
+                    position: absolute;
+                    content: "";
+                    height: 18px;
+                    width: 18px;
+                    left: 3px;
+                    bottom: 3px;
+                    background-color: white;
+                    transition: .4s;
+                    border-radius: 50%;
+                }
+                input:checked + .slider {
+                    background-color: var(--primary);
+                }
+                input:focus + .slider {
+                    box-shadow: 0 0 1px var(--primary);
+                }
+                input:checked + .slider:before {
+                    transform: translateX(20px);
                 }
             `}</style>
         </div>
