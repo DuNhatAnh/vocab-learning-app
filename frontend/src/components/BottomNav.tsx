@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { BookOpen, User, PenTool } from 'lucide-react';
+import { BookOpen, User, PenTool, MessageSquare } from 'lucide-react';
 
 export default function BottomNav() {
     const navigate = useNavigate();
@@ -22,6 +22,13 @@ export default function BottomNav() {
             >
                 <PenTool size={24} />
                 <span>Ngữ pháp</span>
+            </button>
+            <button
+                className={`nav-item ${isActive('/ai-tutor') ? 'active' : ''}`}
+                onClick={() => navigate('/ai-tutor')}
+            >
+                <MessageSquare size={24} />
+                <span>AI Tutor</span>
             </button>
             <button
                 className={`nav-item ${isActive('/profile') ? 'active' : ''}`}

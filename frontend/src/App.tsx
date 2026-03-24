@@ -14,6 +14,7 @@ import GrammarQuiz from './screens/GrammarQuiz';
 import GrammarQuizFitb from './screens/GrammarQuizFitb';
 import GrammarResult from './screens/GrammarResult';
 import BottomNav from './components/BottomNav';
+import AITutor from './screens/AITutor';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/grammar/fitb/:tenseId" element={<GrammarQuizFitb />} />
             <Route path="/grammar/result" element={<GrammarResult />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/ai-tutor" element={<AITutor />} />
           </Routes>
         </main>
         <BottomNav />

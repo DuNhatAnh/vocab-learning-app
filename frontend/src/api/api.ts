@@ -37,5 +37,8 @@ export const api = {
         return axios.post(`${API_BASE_URL}/v1/pronunciation/check`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
-    }
+    },
+    // AI Chat Tutor
+    sendChatMessage: (message: string) => 
+        axios.post<{ response: string }>(`${API_BASE_URL}/chat/message`, { message })
 };

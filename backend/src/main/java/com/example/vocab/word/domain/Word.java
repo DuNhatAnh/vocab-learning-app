@@ -18,4 +18,5 @@ public class Word {
     private String userAnswer;
     private Boolean correct;
     private String imageUrl;
+    private String example;
 }
