@@ -10,6 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/pronunciation")
+@CrossOrigin(origins = "*")
 public class PronunciationController {
 
     private final PronunciationService pronunciationService;

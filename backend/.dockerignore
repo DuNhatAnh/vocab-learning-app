@@ -1,0 +1,10 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.DS_Store
+.git/
+.gitignore
+.vscode/
+node_modules/
+dist/
+build/
+*.log
