@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Plus, Calendar, BookOpen, Trash2, Edit2, Dices, CheckCircle2, Search, Mic } from 'lucide-react';
+import { Plus, Calendar, BookOpen, Trash2, Edit2, Dices, CheckCircle2, Search, ChevronRight } from 'lucide-react';
 import { api } from '../api/api';
 import type { Session } from '../types';
 
@@ -91,112 +91,100 @@ export default function Dashboard() {
         else navigate(`/session/${session.id}/result`);
     };
 
-    const formatTime = (dateStr: string) => {
-        return new Intl.DateTimeFormat('vi-VN', {
-            dateStyle: 'medium',
-            timeStyle: 'short',
-            timeZone: 'Asia/Ho_Chi_Minh'
-        }).format(new Date(dateStr));
-    };
+
 
     return (
         <div className="container">
-            <div style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {/* Stats Card */}
-                <div style={{ padding: '1.5rem', background: 'linear-gradient(135deg, var(--primary) 0%, #3182ce 100%)', borderRadius: '1rem', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 10px 15px -3px rgba(0, 102, 204, 0.3)' }}>
-                    <div>
-                        <div style={{ fontSize: '1rem', opacity: 0.9, marginBottom: '0.25rem', fontWeight: '500' }}>Tổng số ngày học tập</div>
-                        <div style={{ fontSize: '2.5rem', fontWeight: '800', lineHeight: 1 }}>{studyDaysCount} <span style={{ fontSize: '1.2rem', fontWeight: '500', opacity: 0.8 }}>ngày</span></div>
-                    </div>
-                    <div style={{ background: 'rgba(255,255,255,0.2)', padding: '1rem', borderRadius: '50%', backdropFilter: 'blur(10px)' }}>
-                        <Calendar size={32} color="white" />
-                    </div>
-                </div>
-
-                {/* Search Bar */}
-                <div style={{ position: 'relative' }}>
-                    <div style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }}>
-                        <Search size={20} />
-                    </div>
+            <header className="dashboard-header">
+                <h1 className="text-2xl font-bold" style={{ margin: 0, color: 'var(--text)' }}>Chào mừng trở lại!</h1>
+                <div className="search-container">
+                    <Search size={18} className="search-icon" />
                     <input 
                         type="text" 
-                        className="input"
-                        placeholder="Tìm kiếm theo chủ đề..." 
+                        className="search-input"
+                        placeholder="Tìm kiếm chủ đề..." 
                         value={searchQuery}
                         onChange={(e: any) => setSearchQuery(e.target.value)}
-                        style={{ paddingLeft: '2.8rem', borderRadius: '1rem', background: 'var(--card-bg)', border: '1px solid var(--border)' }}
                     />
+                </div>
+            </header>
+
+            {/* Streak Card */}
+            <div className="streak-card">
+                <div>
+                    <h2>Chuỗi học tập</h2>
+                    <div className="streak-value">{studyDaysCount} Ngày</div>
+                </div>
+                <div className="streak-icon">
+                    <Calendar size={32} />
                 </div>
             </div>
 
-            <div className="grid">
-                {filteredSessions.map((session) => (
-                    <div key={session.id} className="card" onClick={() => handleSessionClick(session)}>
-                        <div className="flex justify-between items-center" style={{ marginBottom: '1rem' }}>
-                            <div className="flex items-center gap-2 font-bold text-primary" style={{ fontSize: '1.2rem' }}>
-                                <span>{session.topic || "Chưa thêm chủ đề"}</span>
-                                <button
-                                    className="btn btn-ghost"
-                                    style={{ padding: '2px', border: 'none', display: 'flex', alignItems: 'center' }}
-                                    onClick={(e) => handleEditTopic(e, session)}
-                                    title="Sửa tên chủ đề"
-                                >
-                                    <Edit2 size={14} />
-                                </button>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <span className={`badge badge-${session.status.toLowerCase()}`}>
-                                    {session.status === 'DONE' ? 'Hoàn thành' : session.status === 'LEARNING' ? 'Đang học' : 'Mới'}
-                                </span>
-                                <button
-                                    className="btn btn-ghost"
-                                    style={{ padding: '4px', border: 'none' }}
-                                    onClick={(e) => handleDelete(e, session.id)}
-                                >
-                                    <Trash2 size={16} className="text-error" />
-                                </button>
-                            </div>
-                        </div>
+            <h2 className="section-title">Chủ đề từ vựng của tôi</h2>
 
-                        <div style={{ marginBottom: '1rem' }}>
-                            <div className="flex text-muted text-sm items-center gap-1">
-                                <Calendar size={14} />
-                                {formatTime(session.createdAt)}
-                            </div>
-                        </div>
-
-                        <div className="flex justify-between items-center">
-                            <div className="flex items-center gap-4">
-                                <div className="flex items-center">
-                                    <BookOpen size={18} className="text-primary" />
-                                    <span className="font-bold ml-1">{session.wordCount} từ vựng</span>
-                                </div>
-                                {session.wordCount > 0 && (
+            <div className="topic-grid">
+                {filteredSessions.map((session) => {
+                    const isCompleted = session.status === 'DONE';
+                    // Mock progress for now, in real app it would be calculated from words learned
+                    const progress = isCompleted ? 100 : session.status === 'LEARNING' ? 60 : 10;
+                    
+                    return (
+                        <div key={session.id} className="topic-card" onClick={() => handleSessionClick(session)}>
+                            <div className="flex justify-between items-center" style={{ width: '100%' }}>
+                                <h3 className="topic-title">{session.topic || "Chưa thêm chủ đề"}</h3>
+                                <div className="flex items-center gap-2">
                                     <button
                                         className="btn btn-ghost"
-                                        style={{ padding: '4px', color: '#8b5cf6', display: 'flex', alignItems: 'center' }}
-                                        onClick={(e: any) => {
-                                            e.stopPropagation();
-                                            navigate(`/session/${session.id}/pronunciation`);
-                                        }}
-                                        title="Luyện phát âm"
+                                        style={{ padding: '4px', border: 'none', display: 'flex', alignItems: 'center' }}
+                                        onClick={(e) => handleEditTopic(e, session)}
                                     >
-                                        <Mic size={18} />
+                                        <Edit2 size={16} />
                                     </button>
-                                )}
+                                    <button
+                                        className="btn btn-ghost"
+                                        style={{ padding: '4px', border: 'none' }}
+                                        onClick={(e) => handleDelete(e, session.id)}
+                                    >
+                                        <Trash2 size={16} className="text-error" />
+                                    </button>
+                                </div>
                             </div>
-                            <span className="text-primary text-sm">Chi tiết →</span>
+
+                            <div className="progress-container">
+                                <div className="progress-bar-bg">
+                                    <div className="progress-bar-fill" style={{ width: `${progress}%` }} />
+                                </div>
+                            </div>
+
+                            <div>
+                                <span className={`status-badge ${isCompleted ? 'status-completed' : 'status-in-progress'}`}>
+                                    {isCompleted ? 'Hoàn thành' : 'Đang học'}
+                                </span>
+                            </div>
+
+                            <div className="topic-footer">
+                                <div className="word-count">
+                                    <div style={{ background: 'var(--primary-light)', padding: '6px', borderRadius: '8px', display: 'flex' }}>
+                                        <BookOpen size={16} className="text-primary" />
+                                    </div>
+                                    <span className="font-semibold">{session.wordCount} từ vựng</span>
+                                </div>
+                                <button className="action-btn">
+                                    {isCompleted ? 'Ôn tập' : 'Tiếp tục'} <ChevronRight size={16} />
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                ))}
-                {filteredSessions.length === 0 && (
-                    <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
-                        {sessions.length === 0 
-                            ? "Chưa có phiên học nào. Nhấn dấu + để bắt đầu." 
-                            : "Không tìm thấy chủ đề nào phù hợp."}
-                    </div>
-                )}
+                    );
+                })}
             </div>
+
+            {filteredSessions.length === 0 && (
+                <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--text-muted)' }}>
+                    {sessions.length === 0 
+                        ? "Chưa có chủ đề nào. Nhấn + để bắt đầu!" 
+                        : "Không tìm thấy chủ đề phù hợp."}
+                </div>
+            )}
 
             <button className="btn btn-primary floating-btn" onClick={createSession} style={{ padding: 0 }}>
                 <Plus size={40} />
@@ -224,7 +212,7 @@ export default function Dashboard() {
                         </div>
                         <h2 style={{ marginBottom: '1.5rem', fontSize: '1.5rem' }}>Tạo thành công!</h2>
                         <button className="btn-light-blue" onClick={() => setShowSuccess(false)}>
-                            Oke
+                            Đồng ý
                         </button>
                     </div>
                 </div>

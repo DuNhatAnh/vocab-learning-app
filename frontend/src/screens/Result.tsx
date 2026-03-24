@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, RefreshCw, Edit2, Check, X, Layers, Image as ImageIcon, Plus, Mic } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Edit2, Check, X, Layers, Image as ImageIcon, Plus, Mic, Trash2 } from 'lucide-react';
 import { api } from '../api/api';
 import type { EvaluationResult, Session } from '../types';
 
@@ -65,6 +65,17 @@ export default function Result() {
         }
     };
 
+    const handleDelete = async (wordId: string) => {
+        if (!window.confirm("Bạn có chắc chắn muốn xóa từ vựng này không?")) return;
+        try {
+            await api.deleteWord(id!, wordId);
+            setResults(results.filter(r => r.id !== wordId));
+        } catch (err) {
+            console.error(err);
+            alert("Lỗi khi xóa từ vựng!");
+        }
+    };
+
     if (loading) return <div className="p-8 text-center">Đang tải kết quả...</div>;
 
     return (
@@ -74,29 +85,88 @@ export default function Result() {
                     <h1 style={{ margin: 0 }}>{session?.topic || "Chi tiết từ vựng"}</h1>
                     <p className="text-muted">Danh sách từ vựng trong phiên học</p>
                 </div>
-                <div className="flex gap-2">
-                    <button
-                        className="btn btn-ghost btn-sm"
-                        onClick={() => navigate(`/session/${id}/pronunciation`)}
-                        style={{ color: '#8b5cf6' }}
-                    >
-                        <Mic size={16} /> Phát âm
-                    </button>
-                    <button
-                        className="btn btn-primary btn-sm"
-                        onClick={() => navigate(`/session/${id}/flashcards`, { state: { results } })}
-                    >
-                        <Layers size={16} /> Flashcard
-                    </button>
-                </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row" style={{ marginBottom: '2rem', gap: '1rem' }}>
-                <button className="btn btn-ghost" onClick={() => navigate('/')} style={{ flex: 1 }}>
-                    <ArrowLeft size={18} /> Quay về Dashboard
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '2rem' }}>
+                <button
+                    className="btn"
+                    onClick={() => navigate(`/session/${id}/pronunciation`)}
+                    style={{ 
+                        background: '#e0f2fe', 
+                        color: '#0369a1', 
+                        height: '140px', 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        gap: '0.75rem', 
+                        borderRadius: '24px', 
+                        border: 'none',
+                        cursor: 'pointer'
+                    }}
+                >
+                    <Mic size={32} />
+                    <span style={{ fontWeight: 600, fontSize: '1.1rem' }}>Phát âm</span>
                 </button>
-                <button className="btn btn-primary" onClick={handleRetry} style={{ flex: 1 }}>
-                    <RefreshCw size={18} /> Luyện tập
+                <button
+                    className="btn"
+                    onClick={() => navigate(`/session/${id}/flashcards`, { state: { results } })}
+                    style={{ 
+                        background: '#e0f2fe', 
+                        color: '#0369a1', 
+                        height: '140px', 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        gap: '0.75rem', 
+                        borderRadius: '24px', 
+                        border: 'none',
+                        cursor: 'pointer'
+                    }}
+                >
+                    <Layers size={32} />
+                    <span style={{ fontWeight: 600, fontSize: '1.1rem' }}>Flashcard</span>
+                </button>
+                <button 
+                    className="btn" 
+                    onClick={() => navigate('/')} 
+                    style={{ 
+                        background: '#e0f2fe', 
+                        color: '#0369a1', 
+                        height: '140px', 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        gap: '0.75rem', 
+                        borderRadius: '24px', 
+                        border: 'none',
+                        cursor: 'pointer'
+                    }}
+                >
+                    <ArrowLeft size={32} />
+                    <span style={{ fontWeight: 600, fontSize: '1.1rem' }}>Dashboard</span>
+                </button>
+                <button 
+                    className="btn" 
+                    onClick={handleRetry} 
+                    style={{ 
+                        background: '#e0f2fe', 
+                        color: '#0369a1', 
+                        height: '140px', 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        gap: '0.75rem', 
+                        borderRadius: '24px', 
+                        border: 'none',
+                        cursor: 'pointer'
+                    }}
+                >
+                    <RefreshCw size={32} />
+                    <span style={{ fontWeight: 600, fontSize: '1.1rem' }}>Luyện tập</span>
                 </button>
             </div>
 
@@ -167,13 +237,22 @@ export default function Result() {
                                     <div className="text-muted text-sm">Tiếng Anh</div>
                                     <div className="font-bold text-primary" style={{ fontSize: '1.1rem' }}>{result.english}</div>
                                 </div>
-                                <div style={{ width: '40px', textAlign: 'right' }}>
+                                <div style={{ width: '80px', textAlign: 'right', display: 'flex', gap: '0.25rem' }}>
                                     <button
                                         className="btn btn-ghost btn-sm"
                                         onClick={() => startEditing(result)}
                                         title="Chỉnh sửa"
+                                        style={{ padding: '4px' }}
                                     >
                                         <Edit2 size={16} />
+                                    </button>
+                                    <button
+                                        className="btn btn-ghost btn-sm"
+                                        onClick={() => handleDelete(result.id)}
+                                        title="Xóa"
+                                        style={{ color: '#ef4444', padding: '4px' }}
+                                    >
+                                        <Trash2 size={16} />
                                     </button>
                                 </div>
                             </div>
