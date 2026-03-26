@@ -22,7 +22,7 @@ public class ChatController {
     public Map<String, String> sendMessage(@RequestBody Map<String, String> payload) {
         String userMessage = payload.get("message");
         String aiResponse = chatService.processMessage(userMessage);
-        
+
         Map<String, String> response = new HashMap<>();
         response.put("response", aiResponse);
         return response;
