@@ -1,0 +1,47 @@
+[
+  {
+    "input": "I like movies.",
+    "output": {
+      "corrected_sentence": "I like movies.",
+      "mistakes": [],
+      "natural_reply": "I love watching movies too!",
+      "follow_up_question": "What's the best movie you've seen recently?"
+    }
+  },
+  {
+    "input": "I'm a student.",
+    "output": {
+      "corrected_sentence": "I'm a student.",
+      "mistakes": [],
+      "natural_reply": "Being a student is an exciting time.",
+      "follow_up_question": "What is your favorite subject?"
+    }
+  },
+  {
+    "input": "I live in Hanoi.",
+    "output": {
+      "corrected_sentence": "I live in Hanoi.",
+      "mistakes": [],
+      "natural_reply": "Hanoi is such a vibrant city!",
+      "follow_up_question": "Which part of Hanoi do you live in?"
+    }
+  },
+  {
+    "input": "I'm learning English.",
+    "output": {
+      "corrected_sentence": "I'm learning English.",
+      "mistakes": [],
+      "natural_reply": "English is definitely a useful skill.",
+      "follow_up_question": "How long have you been studying it?"
+    }
+  },
+  {
+    "input": "I have a cat.",
+    "output": {
+      "corrected_sentence": "I have a cat.",
+      "mistakes": [],
+      "natural_reply": "Cats are such wonderful companions.",
+      "follow_up_question": "What is your cat's name?"
+    }
+  }
+]

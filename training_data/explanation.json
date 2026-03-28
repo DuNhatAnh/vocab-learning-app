@@ -1,0 +1,62 @@
+[
+  {
+    "input": "I go by foot.",
+    "output": {
+      "corrected_sentence": "I go on foot.",
+      "mistakes": [
+        {
+          "wrong": "on foot",
+          "reason": "Dùng 'on foot' cho hành động đi bộ.",
+          "fix": "I go on foot."
+        }
+      ],
+      "natural_reply": "Prepositions and collocations can be tricky!",
+      "follow_up_question": "Does this happen to you often?"
+    }
+  },
+  {
+    "input": "Much people.",
+    "output": {
+      "corrected_sentence": "Many people.",
+      "mistakes": [
+        {
+          "wrong": "many people",
+          "reason": "Dùng 'many' cho danh từ đếm được số nhiều.",
+          "fix": "Many people."
+        }
+      ],
+      "natural_reply": "Prepositions and collocations can be tricky!",
+      "follow_up_question": "Does this happen to you often?"
+    }
+  },
+  {
+    "input": "He is more tall.",
+    "output": {
+      "corrected_sentence": "He is taller.",
+      "mistakes": [
+        {
+          "wrong": "taller",
+          "reason": "Dùng đuôi '-er' cho tính từ ngắn khi so sánh hơn.",
+          "fix": "He is taller."
+        }
+      ],
+      "natural_reply": "Prepositions and collocations can be tricky!",
+      "follow_up_question": "Does this happen to you often?"
+    }
+  },
+  {
+    "input": "I lost the bus.",
+    "output": {
+      "corrected_sentence": "I missed the bus.",
+      "mistakes": [
+        {
+          "wrong": "missed",
+          "reason": "Dùng 'missed' khi bị lỡ phương tiện công cộng.",
+          "fix": "I missed the bus."
+        }
+      ],
+      "natural_reply": "Prepositions and collocations can be tricky!",
+      "follow_up_question": "Does this happen to you often?"
+    }
+  }
+]

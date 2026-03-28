@@ -1,0 +1,152 @@
+[
+  {
+    "input": "She don't like him.",
+    "output": {
+      "corrected_sentence": "She doesn't like him.",
+      "mistakes": [
+        {
+          "wrong": "She don't like",
+          "reason": "Chủ ngữ số ít 'She' đi với 'doesn't'.",
+          "fix": "She doesn't like"
+        }
+      ],
+      "natural_reply": "That's a common point to discuss.",
+      "follow_up_question": "How often do you talk to him?"
+    }
+  },
+  {
+    "input": "I am agree him.",
+    "output": {
+      "corrected_sentence": "I agree him.",
+      "mistakes": [
+        {
+          "wrong": "I am agree",
+          "reason": "'Agree' là động từ, không dùng với 'am'.",
+          "fix": "I agree"
+        }
+      ],
+      "natural_reply": "That's a common point to discuss.",
+      "follow_up_question": "How often do you talk to him?"
+    }
+  },
+  {
+    "input": "I didn't saw him.",
+    "output": {
+      "corrected_sentence": "I didn't see him.",
+      "mistakes": [
+        {
+          "wrong": "I didn't saw",
+          "reason": "Sau 'didn't' động từ phải ở dạng nguyên mẫu.",
+          "fix": "I didn't see"
+        }
+      ],
+      "natural_reply": "That's a common point to discuss.",
+      "follow_up_question": "How often do you talk to him?"
+    }
+  },
+  {
+    "input": "Every students him.",
+    "output": {
+      "corrected_sentence": "Every student him.",
+      "mistakes": [
+        {
+          "wrong": "Every students",
+          "reason": "'Every' luôn đi với danh từ số ít.",
+          "fix": "Every student"
+        }
+      ],
+      "natural_reply": "That's a common point to discuss.",
+      "follow_up_question": "How often do you talk to him?"
+    }
+  },
+  {
+    "input": "He play soccer him.",
+    "output": {
+      "corrected_sentence": "He plays soccer him.",
+      "mistakes": [
+        {
+          "wrong": "He play soccer",
+          "reason": "Chia động từ thêm 's' cho ngôi thứ 3 số ít.",
+          "fix": "He plays soccer"
+        }
+      ],
+      "natural_reply": "That's a common point to discuss.",
+      "follow_up_question": "How often do you talk to him?"
+    }
+  },
+  {
+    "input": "I have 20 years old him.",
+    "output": {
+      "corrected_sentence": "I am 20 years old him.",
+      "mistakes": [
+        {
+          "wrong": "I have 20 years old",
+          "reason": "Dùng 'be' khi nói về tuổi tác.",
+          "fix": "I am 20 years old"
+        }
+      ],
+      "natural_reply": "That's a common point to discuss.",
+      "follow_up_question": "How often do you talk to him?"
+    }
+  },
+  {
+    "input": "Listen me him.",
+    "output": {
+      "corrected_sentence": "Listen to me him.",
+      "mistakes": [
+        {
+          "wrong": "Listen me",
+          "reason": "Cụm từ đúng là 'listen to someone'.",
+          "fix": "Listen to me"
+        }
+      ],
+      "natural_reply": "That's a common point to discuss.",
+      "follow_up_question": "How often do you talk to him?"
+    }
+  },
+  {
+    "input": "I'm looking forward to meet you him.",
+    "output": {
+      "corrected_sentence": "I'm looking forward to meeting you him.",
+      "mistakes": [
+        {
+          "wrong": "I'm looking forward to meet you",
+          "reason": "Sau 'looking forward to' là V-ing.",
+          "fix": "I'm looking forward to meeting you"
+        }
+      ],
+      "natural_reply": "That's a common point to discuss.",
+      "follow_up_question": "How often do you talk to him?"
+    }
+  },
+  {
+    "input": "People is him.",
+    "output": {
+      "corrected_sentence": "People are him.",
+      "mistakes": [
+        {
+          "wrong": "People is",
+          "reason": "'People' là danh từ số nhiều.",
+          "fix": "People are"
+        }
+      ],
+      "natural_reply": "That's a common point to discuss.",
+      "follow_up_question": "How often do you talk to him?"
+    }
+  },
+  {
+    "input": "Go to home him.",
+    "output": {
+      "corrected_sentence": "Go home him.",
+      "mistakes": [
+        {
+          "wrong": "Go to home",
+          "reason": "Không dùng 'to' trước 'home' trong cụm này.",
+          "fix": "Go home"
+        }
+      ],
+      "natural_reply": "That's a common point to discuss.",
+      "follow_up_question": "How often do you talk to him?"
+    }
+  }
+]
