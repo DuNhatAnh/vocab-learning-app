@@ -21,7 +21,8 @@ public class ChatController {
     @PostMapping("/message")
     public Map<String, String> sendMessage(@RequestBody Map<String, String> payload) {
         String userMessage = payload.get("message");
-        String aiResponse = chatService.processMessage(userMessage);
+        String sessionId = payload.get("sessionId");
+        String aiResponse = chatService.processMessage(userMessage, sessionId);
 
         Map<String, String> response = new HashMap<>();
         response.put("response", aiResponse);

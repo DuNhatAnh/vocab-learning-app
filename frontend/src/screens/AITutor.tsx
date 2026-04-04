@@ -10,16 +10,30 @@ interface Message {
   timestamp: Date;
 }
 
+const CHAT_SESSION_STORAGE_KEY = 'ai-tutor-session-id';
+
+const getChatSessionId = () => {
+  const savedSessionId = window.sessionStorage.getItem(CHAT_SESSION_STORAGE_KEY);
+  if (savedSessionId) {
+    return savedSessionId;
+  }
+
+  const newSessionId = window.crypto?.randomUUID?.() ?? `chat-${Date.now()}`;
+  window.sessionStorage.setItem(CHAT_SESSION_STORAGE_KEY, newSessionId);
+  return newSessionId;
+};
+
 const AITutor: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Chào bạn! Tôi là AI Tutor. Hôm nay bạn muốn luyện tập từ vựng hay mẫu câu nào không?",
+      text: "Chào bạn! Tôi có thể cho từ mới để luyện, gợi ý mẫu câu, giải nghĩa từ, hoặc sửa một câu tiếng Anh ngắn.",
       sender: 'ai',
       timestamp: new Date(),
     },
   ]);
   const [inputValue, setInputValue] = useState('');
+  const [chatSessionId] = useState(getChatSessionId);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -45,7 +59,7 @@ const AITutor: React.FC = () => {
 
     // Gọi API thực tế từ Backend
     try {
-      const response = await api.sendChatMessage(inputValue);
+      const response = await api.sendChatMessage(inputValue, chatSessionId);
       const aiResponse: Message = {
         id: Date.now().toString(),
         text: response.data.response,

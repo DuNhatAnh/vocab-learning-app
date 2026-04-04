@@ -39,6 +39,6 @@ export const api = {
         });
     },
     // AI Chat Tutor
-    sendChatMessage: (message: string) =>
-        axios.post<{ response: string }>(`${API_BASE_URL}/chat/message`, { message })
+    sendChatMessage: (message: string, sessionId: string) =>
+        axios.post<{ response: string }>(`${API_BASE_URL}/chat/message`, { message, sessionId })
 };
