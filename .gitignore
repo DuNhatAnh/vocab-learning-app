@@ -50,8 +50,7 @@ frontend/.env.production.local
 .postgres_data/
 .gitnexus
 
-# Local models
-backend/src/main/resources/model/
+
 
 # Claude app config
 .claude/
