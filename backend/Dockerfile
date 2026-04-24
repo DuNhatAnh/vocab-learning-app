@@ -13,6 +13,9 @@ COPY src ./src
 # However, the model is usually used at runtime.
 RUN mvn clean package -DskipTests
 
+# Copy model in build stage so it can be transferred to run stage
+COPY src/main/resources/model /app/model
+
 # Reliable extraction or download of libvosk.so based on architecture
 RUN mkdir -p /app/libs && \
     VOSK_VERSION=0.3.45 && \
@@ -38,9 +41,8 @@ COPY --from=build /app/target/vocab-0.0.1-SNAPSHOT.jar app.jar
 COPY --from=build /app/libs/libvosk.so /usr/lib/libvosk.so
 
 # serviceAccountKey.json is now provided via environment variable FIREBASE_KEY_JSON
-# Copy model separately to leverage layer caching
-# This is the 68MB folder. Placing it here ensures it's only copied once and cached.
-COPY src/main/resources/model ./model
+# Transfer model from build stage
+COPY --from=build /app/model ./model
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
