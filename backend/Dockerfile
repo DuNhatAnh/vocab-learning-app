@@ -37,8 +37,7 @@ WORKDIR /app
 COPY --from=build /app/target/vocab-0.0.1-SNAPSHOT.jar app.jar
 COPY --from=build /app/libs/libvosk.so /usr/lib/libvosk.so
 
-# Workaround for macOS mount permissions
-COPY serviceAccountKey.json ./serviceAccountKey.json
+# serviceAccountKey.json is now provided via environment variable FIREBASE_KEY_JSON
 # Copy model separately to leverage layer caching
 # This is the 68MB folder. Placing it here ensures it's only copied once and cached.
 COPY src/main/resources/model ./model

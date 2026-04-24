@@ -8,8 +8,10 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 @Configuration
 public class FirebaseConfig {
@@ -17,16 +19,21 @@ public class FirebaseConfig {
     @Bean
     public Firestore firestore() throws Exception {
         if (FirebaseApp.getApps().isEmpty()) {
-            String keyPath = System.getenv("FIREBASE_KEY_PATH");
-            if (keyPath == null || keyPath.isEmpty()) {
-                keyPath = "serviceAccountKey.json";
-            }
-            
-            InputStream serviceAccount = null; // Declare serviceAccount here
-            try {
-                serviceAccount = new FileInputStream(keyPath);
-            } catch (Exception e) {
-                throw new RuntimeException("Firebase key file not found at: " + keyPath + ". Please provide it to connect to Firebase.");
+            String keyJson = System.getenv("FIREBASE_KEY_JSON");
+            InputStream serviceAccount;
+
+            if (keyJson != null && !keyJson.isEmpty()) {
+                serviceAccount = new ByteArrayInputStream(keyJson.getBytes(StandardCharsets.UTF_8));
+            } else {
+                String keyPath = System.getenv("FIREBASE_KEY_PATH");
+                if (keyPath == null || keyPath.isEmpty()) {
+                    keyPath = "serviceAccountKey.json";
+                }
+                try {
+                    serviceAccount = new FileInputStream(keyPath);
+                } catch (Exception e) {
+                    throw new RuntimeException("Firebase key not found in FIREBASE_KEY_JSON or at path: " + keyPath);
+                }
             }
 
             FirebaseOptions options = FirebaseOptions.builder()

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { Session, Word, EvaluationResult, SessionStatus } from '../types';
 
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8080/api');
 
 export const api = {
     getSessions: () => axios.get<Session[]>(`${API_BASE_URL}/sessions`),
