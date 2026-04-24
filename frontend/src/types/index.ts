@@ -23,5 +23,6 @@ export interface EvaluationResult {
     vietnamese: string;
     userAnswer: string;
     correct: boolean;
+    skipped?: boolean;
     imageUrl?: string;
 }

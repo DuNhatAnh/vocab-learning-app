@@ -45,15 +45,24 @@ export default function Learning() {
         setAnswers({ ...answers, [wordId]: value });
     };
 
-    const handleSubmit = async () => {
-        const answeredCount = Object.keys(answers).filter(id => answers[id].trim()).length;
-        if (answeredCount < words.length) {
-            alert("Vui lòng điền đầy đủ tất cả các câu trả lời!");
-            return;
+    const handleSkip = (wordId: string, index: number) => {
+        setAnswers({ ...answers, [wordId]: 'skip' });
+        if (index < words.length - 1) {
+            setCurrentIndex(index + 1);
         }
+    };
+
+    const handleSubmit = async () => {
+        // Auto-fill empty answers with 'skip'
+        const finalAnswers = { ...answers };
+        words.forEach(word => {
+            if (!finalAnswers[word.id!] || !finalAnswers[word.id!].trim()) {
+                finalAnswers[word.id!] = 'skip';
+            }
+        });
 
         try {
-            const resp = await api.submitLearning(id!, answers);
+            const resp = await api.submitLearning(id!, finalAnswers);
             navigate(`/session/${id}/summary`, { state: { results: resp.data } });
         } catch (err) {
             console.error(err);
@@ -136,43 +145,71 @@ export default function Learning() {
                                 </div>
                             ) : (
                                 <div style={{ position: 'relative' }}>
-                                    <input
-                                        ref={el => { inputRefs.current[index] = el; }}
-                                        className="input"
-                                        placeholder="Type the English word..."
-                                        value={answers[word.id!] || ''}
-                                        onChange={e => handleAnswerChange(word.id!, e.target.value)}
-                                        onKeyDown={e => {
-                                            if (e.key === 'Enter') {
-                                                if (answers[word.id!]?.trim()) {
-                                                    if (index < words.length - 1) {
-                                                        setCurrentIndex(index + 1);
+                                    <div className="flex gap-2">
+                                        <div style={{ position: 'relative', flex: 1 }}>
+                                            <input
+                                                ref={el => { inputRefs.current[index] = el; }}
+                                                className="input"
+                                                placeholder="Type the English word..."
+                                                value={(answers[word.id!] === 'skip') ? '' : (answers[word.id!] || '')}
+                                                onChange={e => handleAnswerChange(word.id!, e.target.value)}
+                                                onKeyDown={e => {
+                                                    if (e.key === 'Enter') {
+                                                        if (answers[word.id!]?.trim()) {
+                                                            if (index < words.length - 1) {
+                                                                setCurrentIndex(index + 1);
+                                                            }
+                                                        }
                                                     }
-                                                }
-                                            }
-                                        }}
-                                        onFocus={() => {
-                                            if (!isActive) setCurrentIndex(index);
-                                        }}
-                                        style={{
-                                            borderColor: isActive ? '#e2e8f0' : 'var(--border)',
-                                            boxShadow: isActive ? '0 0 0 3px rgba(0, 102, 204, 0.05)' : 'none',
-                                            paddingRight: '3rem',
-                                            backgroundColor: 'white'
-                                        }}
-                                    />
-                                    {isActive && (
-                                        <div style={{
-                                            position: 'absolute',
-                                            right: '1rem',
-                                            top: '50%',
-                                            transform: 'translateY(-50%)',
-                                            color: '#cbd5e1',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            pointerEvents: 'none'
-                                        }}>
-                                            <CornerDownLeft size={18} strokeWidth={2.5} />
+                                                }}
+                                                onFocus={() => {
+                                                    if (!isActive) setCurrentIndex(index);
+                                                }}
+                                                style={{
+                                                    borderColor: isActive ? '#e2e8f0' : 'var(--border)',
+                                                    boxShadow: isActive ? '0 0 0 3px rgba(0, 102, 204, 0.05)' : 'none',
+                                                    paddingRight: '3rem',
+                                                    backgroundColor: 'white'
+                                                }}
+                                            />
+                                            {isActive && (
+                                                <div style={{
+                                                    position: 'absolute',
+                                                    right: '1rem',
+                                                    top: '50%',
+                                                    transform: 'translateY(-50%)',
+                                                    color: '#cbd5e1',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    pointerEvents: 'none'
+                                                }}>
+                                                    <CornerDownLeft size={18} strokeWidth={2.5} />
+                                                </div>
+                                            )}
+                                        </div>
+                                        {isActive && (
+                                            <button 
+                                                className="btn"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleSkip(word.id!, index);
+                                                }}
+                                                style={{
+                                                    background: '#f1f5f9',
+                                                    color: '#64748b',
+                                                    border: 'none',
+                                                    padding: '0 1.5rem',
+                                                    fontWeight: 600,
+                                                    fontSize: '0.9rem'
+                                                }}
+                                            >
+                                                Skip
+                                            </button>
+                                        )}
+                                    </div>
+                                    {answers[word.id!] === 'skip' && (
+                                        <div style={{ color: '#94a3b8', fontSize: '0.85rem', marginTop: '0.5rem', fontWeight: 500 }}>
+                                            Từ này đã được bỏ qua
                                         </div>
                                     )}
                                 </div>

@@ -34,7 +34,8 @@ public class QuizController {
 
             if (word != null) {
                 String userAnswer = entry.getValue().trim();
-                boolean correct = word.getEnglish().equalsIgnoreCase(userAnswer);
+                boolean skipped = userAnswer.equalsIgnoreCase("skip");
+                boolean correct = !skipped && word.getEnglish().equalsIgnoreCase(userAnswer);
 
                 results.add(LearningService.EvaluationResult.builder()
                         .id(word.getId())
@@ -42,6 +43,7 @@ public class QuizController {
                         .vietnamese(word.getVietnamese())
                         .userAnswer(userAnswer)
                         .correct(correct)
+                        .skipped(skipped)
                         .imageUrl(word.getImageUrl())
                         .build());
             }

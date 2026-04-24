@@ -27,6 +27,7 @@ public class LearningService {
         private String vietnamese;
         private String userAnswer;
         private boolean correct;
+        private boolean skipped;
         private String imageUrl;
     }
 
@@ -36,7 +37,8 @@ public class LearningService {
 
         for (Word word : words) {
             String userAnswer = answers.getOrDefault(word.getId(), "").trim();
-            boolean correct = word.getEnglish().equalsIgnoreCase(userAnswer);
+            boolean skipped = userAnswer.equalsIgnoreCase("skip");
+            boolean correct = !skipped && word.getEnglish().equalsIgnoreCase(userAnswer);
 
             word.setUserAnswer(userAnswer);
             word.setCorrect(correct);
@@ -47,6 +49,7 @@ public class LearningService {
                     .vietnamese(word.getVietnamese())
                     .userAnswer(userAnswer)
                     .correct(correct)
+                    .skipped(skipped)
                     .imageUrl(word.getImageUrl())
                     .build());
         }
@@ -61,12 +64,15 @@ public class LearningService {
         List<EvaluationResult> results = new ArrayList<>();
 
         for (Word word : words) {
+            String userAnswer = word.getUserAnswer() != null ? word.getUserAnswer() : "";
+            boolean skipped = userAnswer.equalsIgnoreCase("skip");
             results.add(EvaluationResult.builder()
                     .id(word.getId())
                     .english(word.getEnglish())
                     .vietnamese(word.getVietnamese())
-                    .userAnswer(word.getUserAnswer() != null ? word.getUserAnswer() : "")
+                    .userAnswer(userAnswer)
                     .correct(word.getCorrect() != null ? word.getCorrect() : false)
+                    .skipped(skipped)
                     .imageUrl(word.getImageUrl())
                     .build());
         }

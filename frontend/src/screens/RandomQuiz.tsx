@@ -34,13 +34,16 @@ export default function RandomQuiz() {
     };
 
     const handleSubmit = async () => {
-        const answeredCount = Object.keys(answers).filter(id => answers[id].trim()).length;
-        if (answeredCount < words.length && !window.confirm("Bạn chưa hoàn thành hết các câu. Vẫn muốn nộp bài?")) {
-            return;
-        }
+        // Auto-fill empty answers with 'skip'
+        const finalAnswers = { ...answers };
+        words.forEach(word => {
+            if (!finalAnswers[word.id!] || !finalAnswers[word.id!].trim()) {
+                finalAnswers[word.id!] = 'skip';
+            }
+        });
 
         try {
-            const resp = await api.submitRandomQuiz(answers);
+            const resp = await api.submitRandomQuiz(finalAnswers);
             navigate(`/quiz/result`, { state: { results: resp.data } });
         } catch (err) {
             console.error(err);

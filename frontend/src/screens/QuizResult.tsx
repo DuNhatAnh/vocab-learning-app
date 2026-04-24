@@ -46,7 +46,7 @@ export default function QuizResult() {
             <div className="grid">
                 {results.map((result, idx) => (
                     <div key={idx} className="card" style={{
-                        borderLeft: `5px solid ${result.correct ? '#10b981' : '#ef4444'}`,
+                        borderLeft: `5px solid ${result.correct ? '#10b981' : result.skipped ? '#64748b' : '#ef4444'}`,
                         padding: '1.25rem'
                     }}>
                         <div className="flex justify-between items-start">
@@ -62,6 +62,10 @@ export default function QuizResult() {
                                     <div className="flex items-center gap-1" style={{ color: '#10b981', fontWeight: 'bold' }}>
                                         <CheckCircle2 size={16} /> Chính xác
                                     </div>
+                                ) : result.skipped ? (
+                                    <div className="flex items-center gap-1" style={{ color: '#64748b', fontWeight: 'bold' }}>
+                                        <XCircle size={16} /> Đã bỏ qua
+                                    </div>
                                 ) : (
                                     <div className="flex items-center gap-1" style={{ color: '#ef4444', fontWeight: 'bold' }}>
                                         <XCircle size={16} /> Chưa đúng
@@ -74,10 +78,11 @@ export default function QuizResult() {
                             <div style={{ background: 'rgba(0,0,0,0.03)', padding: '0.75rem', borderRadius: '8px' }}>
                                 <div className="text-muted text-xs">Bạn đã nhập:</div>
                                 <div style={{
-                                    textDecoration: result.correct ? 'none' : 'line-through',
-                                    color: result.correct ? 'inherit' : '#ef4444'
+                                    textDecoration: (result.correct || result.skipped) ? 'none' : 'line-through',
+                                    color: result.correct ? 'inherit' : result.skipped ? '#64748b' : '#ef4444',
+                                    fontStyle: result.skipped ? 'italic' : 'normal'
                                 }}>
-                                    {result.userAnswer || <span className="text-muted italic">(Trống)</span>}
+                                    {result.skipped ? '(Bỏ qua)' : (result.userAnswer || <span className="text-muted italic">(Trống)</span>)}
                                 </div>
                             </div>
                             <div style={{ background: 'rgba(16, 185, 129, 0.05)', padding: '0.75rem', borderRadius: '8px' }}>
