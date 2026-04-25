@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { CornerDownLeft } from 'lucide-react';
+import { CornerDownLeft, ArrowLeft } from 'lucide-react';
 import { api } from '../api/api';
 import type { Word } from '../types';
 
@@ -73,9 +73,14 @@ export default function Learning() {
 
     return (
         <div className="container">
-            <header style={{ marginBottom: '2rem' }}>
-                <h1 style={{ margin: 0 }}>Luyện tập</h1>
-                <p className="text-muted">Nhập nghĩa tiếng Anh chính xác cho các từ dưới đây</p>
+            <header style={{ marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <button className="btn btn-ghost" onClick={() => navigate(`/session/${id}/result`)} style={{ padding: '8px' }}>
+                    <ArrowLeft size={24} />
+                </button>
+                <div>
+                    <h1 style={{ margin: 0 }}>Luyện tập</h1>
+                    <p className="text-muted">Nhập nghĩa tiếng Anh chính xác cho các từ dưới đây</p>
+                </div>
             </header>
 
             <div className="grid">

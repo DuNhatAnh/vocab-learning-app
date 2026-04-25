@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { RotateCw, ChevronRight, ChevronLeft, CheckCircle2, RefreshCw, LogOut, Image as ImageIcon, Volume2 } from 'lucide-react';
+import { CheckCircle2, RefreshCw, LogOut, Volume2, XCircle, Check } from 'lucide-react';
 import { api } from '../api/api';
 import type { EvaluationResult, Session } from '../types';
 
@@ -14,6 +14,10 @@ export default function Flashcard() {
     const [isFlipped, setIsFlipped] = useState(false);
     const [loading, setLoading] = useState(true);
     const [isFinished, setIsFinished] = useState(false);
+    const [scratchpadLines, setScratchpadLines] = useState<string[]>(['']);
+    
+    // Refs for scratchpad inputs to handle auto-focus
+    const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,20 +39,15 @@ export default function Flashcard() {
 
     const handleSpeak = useCallback((text: string, lang: 'en-US' | 'vi-VN') => {
         if ('speechSynthesis' in window) {
-            // Cancel any ongoing speech
             window.speechSynthesis.cancel();
-
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = lang;
-            utterance.rate = 0.9; // Slightly slower for clarity
-
-            // Try to find a better voice if available
+            utterance.rate = 0.9;
             const voices = window.speechSynthesis.getVoices();
             const preferredVoice = voices.find(v => v.lang === lang && (v.name.includes('Google') || v.name.includes('Premium')));
             if (preferredVoice) {
                 utterance.voice = preferredVoice;
             }
-
             window.speechSynthesis.speak(utterance);
         }
     }, []);
@@ -60,9 +59,10 @@ export default function Flashcard() {
     const handleNext = useCallback(() => {
         if (currentIndex < words.length - 1) {
             setIsFlipped(false);
+            setScratchpadLines(['']);
             setTimeout(() => {
                 setCurrentIndex(prev => prev + 1);
-            }, 150); // Small delay to sync with flip back
+            }, 150);
         } else {
             setIsFinished(true);
         }
@@ -71,28 +71,21 @@ export default function Flashcard() {
     const handlePrev = useCallback(() => {
         if (currentIndex > 0) {
             setIsFlipped(false);
+            setScratchpadLines(['']);
             setTimeout(() => {
                 setCurrentIndex(prev => prev - 1);
             }, 150);
         }
     }, [currentIndex]);
 
-    // Keyboard controls
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (isFinished || loading) return;
-
             switch (e.key) {
-                case 'ArrowRight':
-                    handleNext();
-                    break;
-                case 'ArrowLeft':
-                    handlePrev();
-                    break;
-                case 'Enter':
-                    handleFlip();
-                    break;
-                case ' ': // Space to speak
+                case 'ArrowRight': handleNext(); break;
+                case 'ArrowLeft': handlePrev(); break;
+                case 'Enter': handleFlip(); break;
+                case ' ':
                     e.preventDefault();
                     if (words[currentIndex]) {
                         const text = isFlipped ? words[currentIndex].vietnamese : words[currentIndex].english;
@@ -100,11 +93,8 @@ export default function Flashcard() {
                         handleSpeak(text, lang as any);
                     }
                     break;
-                default:
-                    break;
             }
         };
-
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [handleNext, handlePrev, handleFlip, handleSpeak, isFinished, loading, words, currentIndex, isFlipped]);
@@ -113,10 +103,45 @@ export default function Flashcard() {
         setCurrentIndex(0);
         setIsFlipped(false);
         setIsFinished(false);
+        setScratchpadLines(['']);
     };
 
     const handleExit = () => {
         navigate(`/session/${id}/result`);
+    };
+
+    const validateLine = useCallback((line: string) => {
+        if (!line.trim() || !words[currentIndex]) return null;
+        const currentWord = words[currentIndex];
+        const normalizedLine = line.trim().toLowerCase();
+        const en = currentWord.english.toLowerCase();
+        const vi = currentWord.vietnamese.toLowerCase();
+        return normalizedLine === en || normalizedLine === vi;
+    }, [words, currentIndex]);
+
+    const handleScratchpadChange = (index: number, value: string) => {
+        const newLines = [...scratchpadLines];
+        newLines[index] = value;
+        
+        const isValid = validateLine(value);
+        
+        // If correct, automatically move to next line
+        if (isValid === true) {
+            if (index === scratchpadLines.length - 1) {
+                newLines.push('');
+            }
+            // Use setTimeout to allow state update before focusing
+            setTimeout(() => {
+                if (inputRefs.current[index + 1]) {
+                    inputRefs.current[index + 1]?.focus();
+                }
+            }, 10);
+        } else if (index === scratchpadLines.length - 1 && value.trim() !== '') {
+            // Still add a line if they are typing something new, but don't focus yet
+            newLines.push('');
+        }
+        
+        setScratchpadLines(newLines);
     };
 
     if (loading) return <div className="container" style={{ textAlign: 'center', padding: '3rem' }}>Đang tải...</div>;
@@ -129,7 +154,6 @@ export default function Flashcard() {
                 </div>
                 <h1 style={{ marginBottom: '1rem' }}>Tuyệt vời!</h1>
                 <p className="text-muted" style={{ marginBottom: '3rem' }}>Bạn đã hoàn thành tất cả các thẻ Flashcard trong phiên học này.</p>
-
                 <div className="flex flex-col gap-4">
                     <button className="btn btn-primary" onClick={handleRestart} style={{ width: '100%' }}>
                         <RefreshCw size={18} /> Học lại từ đầu
@@ -152,120 +176,85 @@ export default function Flashcard() {
     const currentWord = words[currentIndex];
 
     return (
-        <div className="container" style={{ maxWidth: '600px' }}>
-            <header style={{ marginBottom: '2rem', textAlign: 'center' }}>
-                <h1 style={{ margin: 0 }}>{session?.topic || "Flashcard"}</h1>
-                <p className="text-muted">Thẻ {currentIndex + 1} trên {words.length}</p>
+        <div className="container" style={{ minHeight: '95vh', display: 'flex', flexDirection: 'column', maxWidth: '1200px', alignItems: 'center', margin: '0 auto' }}>
+            <header style={{ marginBottom: '1rem', textAlign: 'center' }}>
+                <h1 style={{ margin: 0, fontSize: '2.5rem', color: '#1e40af' }}>{session?.topic || "Flashcard"}</h1>
+                <p className="text-muted" style={{ fontSize: '1.1rem' }}>Thẻ {currentIndex + 1} trên {words.length}</p>
             </header>
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', gap: '1.5rem', marginBottom: '2rem' }}>
-                {/* Spacer to center the card by balancing the speaker button on the right */}
-                <div style={{ width: '60px', flexShrink: 0 }} aria-hidden="true"></div>
-
-                <div className={`flashcard-container ${isFlipped ? 'is-flipped' : ''}`} onClick={handleFlip} style={{ margin: 0, flexShrink: 0 }}>
+            <div className="flashcard-unified-card">
+                <div className={`flashcard-container ${isFlipped ? 'is-flipped' : ''}`} onClick={handleFlip}>
                     <div className="flashcard-inner">
-                        {/* Front Face: English */}
                         <div className="flashcard-face flashcard-front">
-                            <div className="flashcard-label">Tiếng Anh</div>
-                            <div className="flashcard-content">{currentWord.english}</div>
-                            <div className="text-muted text-xs" style={{ marginTop: '2rem', opacity: 0.6 }}>Bấm để lật thẻ</div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0 1.5rem' }}>
+                                <div className="flashcard-content" style={{ fontSize: '3rem', color: '#1e40af' }}>{currentWord.english}</div>
+                                <button
+                                    className="btn btn-ghost"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleSpeak(currentWord.english, 'en-US');
+                                    }}
+                                    style={{ padding: 0, color: '#1e40af' }}
+                                >
+                                    <Volume2 size={48} />
+                                </button>
+                            </div>
                         </div>
-                        {/* Back Face: Vietnamese */}
-                        <div className="flashcard-face flashcard-back" style={{ padding: 0, overflow: 'hidden' }}>
-                            <div className="flex flex-col h-full w-full">
-                                <div className="flashcard-image-container">
-                                    {currentWord.imageUrl ? (
-                                        <img src={currentWord.imageUrl} alt={currentWord.english} className="flashcard-image" />
-                                    ) : (
-                                        <div className="flashcard-image-placeholder">
-                                            <ImageIcon size={48} opacity={0.2} />
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="flex-1 flex flex-col items-center justify-center p-6">
-                                    <div className="flashcard-content" style={{ color: 'var(--text)', fontSize: '2.5rem' }}>{currentWord.vietnamese}</div>
-                                </div>
+                        <div className="flashcard-face flashcard-back">
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+                                {currentWord.imageUrl && (
+                                    <img src={currentWord.imageUrl} alt={currentWord.english} style={{ maxWidth: '200px', maxHeight: '150px', borderRadius: '8px', marginBottom: '1rem' }} />
+                                )}
+                                <div className="flashcard-content" style={{ fontSize: '3rem', color: '#1e40af' }}>{currentWord.vietnamese}</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex flex-col" style={{ width: '60px', flexShrink: 0 }}>
-                    <button
-                        className="btn btn-ghost btn-lg speaker-btn"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            const text = isFlipped ? currentWord.vietnamese : currentWord.english;
-                            const lang = isFlipped ? 'vi-VN' : 'en-US';
-                            handleSpeak(text, lang as any);
-                        }}
-                        title="Phát âm"
-                        style={{
-                            width: '60px',
-                            height: '60px',
-                            borderRadius: '50%',
-                            padding: 0,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxShadow: 'var(--shadow-sm)',
-                            backgroundColor: 'white',
-                            color: 'var(--primary)',
-                            border: '2px solid var(--border)'
-                        }}
-                    >
-                        <Volume2 size={32} />
-                    </button>
+                <div className="scratchpad-container">
+                    <div className="scratchpad-content">
+                        {scratchpadLines.map((line, idx) => {
+                            const isValid = validateLine(line);
+                            return (
+                                <div key={idx} className="scratchpad-line">
+                                    <input
+                                        ref={el => { inputRefs.current[idx] = el; }}
+                                        className="scratchpad-input"
+                                        placeholder={idx === 0 ? "Type to practice..." : ""}
+                                        value={line}
+                                        onChange={(e) => handleScratchpadChange(idx, e.target.value)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' && idx === scratchpadLines.length - 1 && line.trim() === '') {
+                                                handleNext();
+                                            }
+                                        }}
+                                        style={{ fontSize: '1.25rem' }}
+                                    />
+                                    <div className="scratchpad-indicator">
+                                        {isValid === true && <Check size={20} color="#10b981" strokeWidth={3} />}
+                                        {isValid === false && <XCircle size={20} color="#ef4444" />}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
 
-            <div className="flashcard-actions">
-                <button
-                    className="btn btn-light-blue"
-                    onClick={handlePrev}
-                    disabled={currentIndex === 0}
-                    style={{ opacity: currentIndex === 0 ? 0.3 : 1, width: '100%' }}
-                >
-                    <ChevronLeft size={18} /> Trước đó
-                </button>
-
-                <button
-                    className="btn btn-light-blue"
-                    onClick={handleNext}
-                    style={{ width: '100%' }}
-                >
-                    {currentIndex < words.length - 1 ? (
-                        <>Kế tiếp <ChevronRight size={18} /></>
-                    ) : (
-                        <>Hoàn thành <CheckCircle2 size={18} /></>
-                    )}
-                </button>
-
-                <button
-                    className="btn btn-light-blue"
-                    onClick={handleFlip}
-                    style={{ width: '100%' }}
-                >
-                    <RotateCw size={18} /> Lật thẻ
-                </button>
-
-                <button
-                    className="btn btn-light-blue"
-                    onClick={handleExit}
-                    style={{ width: '100%' }}
-                >
-                    <LogOut size={18} /> Thoát
-                </button>
-            </div>
-
-            <div style={{ marginTop: '2.5rem' }}>
-                <div style={{ height: '6px', background: 'var(--border)', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{
-                        height: '100%',
-                        background: 'var(--primary)',
-                        width: `${((currentIndex + 1) / words.length) * 100}%`,
-                        transition: 'width 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                    }}></div>
+            <div style={{ width: '1000px', marginTop: '2rem', margin: '2rem auto 0 auto' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <button className="btn btn-outline" onClick={handlePrev} disabled={currentIndex === 0} style={{ borderRadius: '24px', height: '56px', fontSize: '1.1rem', color: '#1e40af', borderColor: '#1e40af' }}>
+                        Trước đó
+                    </button>
+                    <button className="btn btn-primary" onClick={handleNext} style={{ borderRadius: '24px', height: '56px', fontSize: '1.1rem', backgroundColor: '#1d4ed8' }}>
+                        {currentIndex < words.length - 1 ? "Kế tiếp" : "Hoàn thành"}
+                    </button>
+                    <button className="btn btn-outline" onClick={handleFlip} style={{ borderRadius: '24px', height: '56px', fontSize: '1.1rem', color: '#1e40af', borderColor: '#1e40af' }}>
+                        Lật thẻ
+                    </button>
+                    <button className="btn btn-outline" onClick={handleExit} style={{ borderRadius: '24px', height: '56px', fontSize: '1.1rem', color: '#1e40af', borderColor: '#1e40af' }}>
+                        Thoát
+                    </button>
                 </div>
             </div>
         </div>

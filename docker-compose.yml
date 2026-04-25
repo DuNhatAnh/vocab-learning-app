@@ -15,9 +15,9 @@ services:
       - FIREBASE_KEY_PATH=/app/serviceAccountKey.json
       - VOSK_MODEL_PATH=/app/model
       - JAVA_TOOL_OPTIONS=-Djna.debug_load=true
-#    volumes:
-#      - ./backend/serviceAccountKey.json:/app/serviceAccountKey.json
-#      - ./backend/src/main/resources/model:/app/model
+    volumes:
+      - ./backend/serviceAccountKey.json:/app/serviceAccountKey.json
+      - ./backend/src/main/resources/model:/app/model
     networks:
       - vocab-network
 

@@ -50,8 +50,6 @@ body {
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 2rem 1.5rem;
 }
 
@@ -465,11 +463,25 @@ h1 {
 /* Flashcard Styles */
 .flashcard-container {
   perspective: 1000px;
-  width: 100%;
-  max-width: 400px;
-  height: 300px;
-  margin: 1.5rem auto;
+  width: 50%;
+  height: 100%;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flashcard-unified-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  width: 1000px;
+  height: 450px;
+  margin: 2rem auto;
+  overflow: hidden;
+  position: relative;
 }
 
 .flashcard-inner {
@@ -495,11 +507,8 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 24px;
   padding: 2rem;
-  background: white;
-  border: 2px solid var(--border);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  background: transparent;
 }
 
 .flashcard-front {
@@ -514,7 +523,7 @@ h1 {
 }
 
 .flashcard-content {
-  font-size: 2.2rem;
+  font-size: 5rem;
   font-weight: 700;
   color: var(--primary);
   word-wrap: break-word;
@@ -617,4 +626,65 @@ h1 {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   max-width: 90%;
   width: 320px;
+}
+
+/* Scratchpad Styles */
+.scratchpad-container {
+  width: 50%;
+  height: 100%;
+  background: transparent;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--border);
+}
+
+.scratchpad-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.scratchpad-content {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1.5px solid #3b82f6;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.scratchpad-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.scratchpad-input {
+  flex: 1;
+  border: none;
+  border-bottom: 1px dashed var(--border);
+  font-size: 1rem;
+  padding: 2px 0;
+  outline: none;
+  background: transparent;
+}
+
+.scratchpad-input:focus {
+  border-bottom-color: var(--primary);
+}
+
+.scratchpad-indicator {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }

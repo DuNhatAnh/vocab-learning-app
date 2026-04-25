@@ -188,7 +188,7 @@ export default function Pronunciation() {
     const currentWord = words[currentIndex];
 
     return (
-        <div className="container" style={{ maxWidth: '600px' }}>
+        <div className="container">
             <header style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                     <h1 style={{ margin: 0 }}>Luyện phát âm</h1>

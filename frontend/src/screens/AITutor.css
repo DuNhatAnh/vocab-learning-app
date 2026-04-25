@@ -4,8 +4,6 @@
   height: calc(100vh - 70px);
   /* Adjust for bottom nav */
   background: var(--bg);
-  max-width: 600px;
-  margin: 0 auto;
   position: relative;
 }
 

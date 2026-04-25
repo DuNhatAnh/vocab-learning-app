@@ -79,7 +79,7 @@ export default function Result() {
     if (loading) return <div className="p-8 text-center">Đang tải kết quả...</div>;
 
     return (
-        <div className="container" style={{ maxWidth: '650px' }}>
+        <div className="container">
             <div className="flex justify-between items-center" style={{ marginBottom: '2rem' }}>
                 <div style={{ textAlign: 'left' }}>
                     <h1 style={{ margin: 0 }}>{session?.topic || "Chi tiết từ vựng"}</h1>

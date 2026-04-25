@@ -27,7 +27,7 @@ export default function Summary() {
     };
 
     return (
-        <div className="container" style={{ maxWidth: '700px' }}>
+        <div className="container">
             <header style={{ marginBottom: '2rem', textAlign: 'center' }}>
                 <h1 style={{ margin: 0 }}>Kết quả kiểm tra</h1>
                 <p className="text-muted">Tổng kết bài luyện tập của bạn</p>

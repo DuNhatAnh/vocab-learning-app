@@ -16,7 +16,7 @@ export default function QuizResult() {
     const totalCount = results.length;
 
     return (
-        <div className="container" style={{ maxWidth: '700px' }}>
+        <div className="container">
             <header style={{ marginBottom: '2rem', textAlign: 'center' }}>
                 <h1 style={{ margin: 0, color: '#8b5cf6' }}>Kết quả thử thách</h1>
                 <p className="text-muted">Tổng kết bài trắc nghiệm ngẫu nhiên</p>
