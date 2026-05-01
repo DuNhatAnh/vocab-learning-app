@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, RefreshCw, Edit2, Check, X, Layers, Image as ImageIcon, Plus, Mic, Trash2 } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Edit2, Check, X, Layers, Image as ImageIcon, Mic, Trash2 } from 'lucide-react';
 import { api } from '../api/api';
 import type { EvaluationResult, Session } from '../types';
 
@@ -79,196 +79,269 @@ export default function Result() {
     if (loading) return <div className="p-8 text-center">Đang tải kết quả...</div>;
 
     return (
-        <div className="container">
-            <div className="flex justify-between items-center" style={{ marginBottom: '2rem' }}>
-                <div style={{ textAlign: 'left' }}>
-                    <h1 style={{ margin: 0 }}>{session?.topic || "Chi tiết từ vựng"}</h1>
-                    <p className="text-muted">Danh sách từ vựng trong phiên học</p>
+        <div style={{ 
+            minHeight: '100vh', 
+            background: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)',
+            padding: '2rem 1rem 6rem 1rem'
+        }}>
+            <div className="container" style={{ maxWidth: '100%', margin: '0 auto', padding: '0 1rem' }}>
+                {/* Header Title */}
+                <h1 style={{ 
+                    textAlign: 'center', 
+                    fontSize: '2.5rem', 
+                    color: '#075985', 
+                    marginBottom: '2.5rem',
+                    fontWeight: 800,
+                    letterSpacing: '-0.02em'
+                }}>
+                    {session?.topic || "Chi tiết từ vựng"}
+                </h1>
+
+                {/* Navigation Pill Bar */}
+                <div style={{
+                    background: 'rgba(255, 255, 255, 0.8)',
+                    backdropFilter: 'blur(12px)',
+                    padding: '0.6rem',
+                    borderRadius: '9999px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: '0.5rem',
+                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
+                    marginBottom: '3rem',
+                    border: '1px solid rgba(255, 255, 255, 0.5)'
+                }}>
+                    <button 
+                        onClick={() => navigate('/')} 
+                        style={{
+                            flex: 1,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.5rem',
+                            padding: '0.75rem 1.25rem',
+                            borderRadius: '9999px',
+                            border: 'none',
+                            background: '#dcfce7',
+                            color: '#166534',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            transition: 'all 0.2s',
+                            fontSize: '0.95rem'
+                        }}
+                    >
+                        <ArrowLeft size={18} />
+                        <span>Dashboard</span>
+                    </button>
+                    <button 
+                        onClick={handleRetry} 
+                        style={{
+                            flex: 1,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.5rem',
+                            padding: '0.75rem 1.25rem',
+                            borderRadius: '9999px',
+                            border: 'none',
+                            background: '#f3e8ff',
+                            color: '#6b21a8',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            transition: 'all 0.2s',
+                            fontSize: '0.95rem'
+                        }}
+                    >
+                        <RefreshCw size={18} />
+                        <span>Luyện tập</span>
+                    </button>
+                    <button 
+                        onClick={() => navigate(`/session/${id}/flashcards`, { state: { results } })}
+                        style={{
+                            flex: 1,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.5rem',
+                            padding: '0.75rem 1.25rem',
+                            borderRadius: '9999px',
+                            border: 'none',
+                            background: '#ffedd5',
+                            color: '#9a3412',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            transition: 'all 0.2s',
+                            fontSize: '0.95rem'
+                        }}
+                    >
+                        <Layers size={18} />
+                        <span>Flashcard</span>
+                    </button>
+                    <button 
+                        onClick={() => navigate(`/session/${id}/pronunciation`)}
+                        style={{
+                            flex: 1,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.5rem',
+                            padding: '0.75rem 1.25rem',
+                            borderRadius: '9999px',
+                            border: 'none',
+                            background: '#e0f2fe',
+                            color: '#075985',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            transition: 'all 0.2s',
+                            fontSize: '0.95rem'
+                        }}
+                    >
+                        <Mic size={18} />
+                        <span>Phát âm</span>
+                    </button>
+                </div>
+
+                <div style={{ marginBottom: '1.5rem', paddingLeft: '0.5rem' }}>
+                    <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#1e293b' }}>Vocabulary List</h2>
+                </div>
+
+                {/* Vocabulary Grid */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '1.5rem' }}>
+                    {results.map((result: EvaluationResult, idx: number) => (
+                        <div key={idx} style={{ 
+                            background: 'white',
+                            borderRadius: '24px',
+                            overflow: 'hidden',
+                            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03)',
+                            border: '1px solid #f1f5f9',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+                        }}>
+                            {editingId === result.id ? (
+                                <div style={{ padding: '1.5rem' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                        <div>
+                                            <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>Link Hình ảnh (URL)</label>
+                                            <input
+                                                className="input"
+                                                style={{ marginTop: '0.25rem' }}
+                                                placeholder="https://example.com/image.jpg"
+                                                value={editValues.imageUrl}
+                                                onChange={(e: any) => setEditValues({ ...editValues, imageUrl: e.target.value })}
+                                            />
+                                        </div>
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                            <div>
+                                                <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>Tiếng Việt</label>
+                                                <input
+                                                    className="input"
+                                                    style={{ marginTop: '0.25rem' }}
+                                                    value={editValues.vietnamese}
+                                                    onChange={(e: any) => setEditValues({ ...editValues, vietnamese: e.target.value })}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>Tiếng Anh</label>
+                                                <input
+                                                    className="input"
+                                                    style={{ marginTop: '0.25rem' }}
+                                                    value={editValues.english}
+                                                    onChange={(e: any) => setEditValues({ ...editValues, english: e.target.value })}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'end', gap: '0.5rem', marginTop: '1rem' }}>
+                                        <button className="btn btn-ghost btn-sm" onClick={cancelEditing} style={{ borderRadius: '9999px' }}>
+                                            <X size={16} /> Hủy
+                                        </button>
+                                        <button className="btn btn-primary btn-sm" onClick={saveEdit} style={{ borderRadius: '9999px' }}>
+                                            <Check size={16} /> Lưu
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <>
+                                    <div style={{ padding: '1.75rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <div style={{ flex: 1 }}>
+                                            <h3 style={{ fontSize: '2rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>{result.vietnamese}</h3>
+                                        </div>
+                                        
+                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', minWidth: '100px' }}>
+                                            <div style={{ 
+                                                width: '70px', 
+                                                height: '70px', 
+                                                borderRadius: '16px', 
+                                                background: '#f8fafc',
+                                                border: '1px solid #e2e8f0',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                overflow: 'hidden'
+                                            }}>
+                                                {result.imageUrl ? (
+                                                    <img src={result.imageUrl} alt={result.english} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                                ) : (
+                                                    <ImageIcon size={28} color="#94a3b8" />
+                                                )}
+                                            </div>
+                                            <span style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0284c7' }}>{result.english}</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Action bar at bottom */}
+                                    <div style={{ 
+                                        background: '#f8fafc', 
+                                        padding: '0.75rem 1.5rem', 
+                                        display: 'flex', 
+                                        justifyContent: 'flex-end', 
+                                        gap: '1.25rem',
+                                        borderTop: '1px solid #f1f5f9'
+                                    }}>
+                                        <button
+                                            onClick={() => startEditing(result)}
+                                            style={{ 
+                                                background: 'transparent', 
+                                                border: 'none', 
+                                                color: '#0369a1', 
+                                                display: 'flex', 
+                                                alignItems: 'center', 
+                                                gap: '0.35rem',
+                                                fontSize: '0.875rem',
+                                                fontWeight: 600,
+                                                cursor: 'pointer',
+                                                padding: '4px'
+                                            }}
+                                        >
+                                            <Edit2 size={16} />
+                                            <span>Edit</span>
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(result.id)}
+                                            style={{ 
+                                                background: 'transparent', 
+                                                border: 'none', 
+                                                color: '#ef4444', 
+                                                display: 'flex', 
+                                                alignItems: 'center', 
+                                                gap: '0.35rem',
+                                                fontSize: '0.875rem',
+                                                fontWeight: 600,
+                                                cursor: 'pointer',
+                                                padding: '4px'
+                                            }}
+                                        >
+                                            <Trash2 size={16} />
+                                            <span>Delete</span>
+                                        </button>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    ))}
                 </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '2rem' }}>
-                <button
-                    className="btn"
-                    onClick={() => navigate(`/session/${id}/pronunciation`)}
-                    style={{ 
-                        background: '#e0f2fe', 
-                        color: '#0369a1', 
-                        height: '140px', 
-                        display: 'flex', 
-                        flexDirection: 'column', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        gap: '0.75rem', 
-                        borderRadius: '24px', 
-                        border: 'none',
-                        cursor: 'pointer'
-                    }}
-                >
-                    <Mic size={32} />
-                    <span style={{ fontWeight: 600, fontSize: '1.1rem' }}>Phát âm</span>
-                </button>
-                <button
-                    className="btn"
-                    onClick={() => navigate(`/session/${id}/flashcards`, { state: { results } })}
-                    style={{ 
-                        background: '#e0f2fe', 
-                        color: '#0369a1', 
-                        height: '140px', 
-                        display: 'flex', 
-                        flexDirection: 'column', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        gap: '0.75rem', 
-                        borderRadius: '24px', 
-                        border: 'none',
-                        cursor: 'pointer'
-                    }}
-                >
-                    <Layers size={32} />
-                    <span style={{ fontWeight: 600, fontSize: '1.1rem' }}>Flashcard</span>
-                </button>
-                <button 
-                    className="btn" 
-                    onClick={() => navigate('/')} 
-                    style={{ 
-                        background: '#e0f2fe', 
-                        color: '#0369a1', 
-                        height: '140px', 
-                        display: 'flex', 
-                        flexDirection: 'column', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        gap: '0.75rem', 
-                        borderRadius: '24px', 
-                        border: 'none',
-                        cursor: 'pointer'
-                    }}
-                >
-                    <ArrowLeft size={32} />
-                    <span style={{ fontWeight: 600, fontSize: '1.1rem' }}>Dashboard</span>
-                </button>
-                <button 
-                    className="btn" 
-                    onClick={handleRetry} 
-                    style={{ 
-                        background: '#e0f2fe', 
-                        color: '#0369a1', 
-                        height: '140px', 
-                        display: 'flex', 
-                        flexDirection: 'column', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        gap: '0.75rem', 
-                        borderRadius: '24px', 
-                        border: 'none',
-                        cursor: 'pointer'
-                    }}
-                >
-                    <RefreshCw size={32} />
-                    <span style={{ fontWeight: 600, fontSize: '1.1rem' }}>Luyện tập</span>
-                </button>
-            </div>
-
-            <div className="grid">
-                {results.map((result: EvaluationResult, idx: number) => (
-                    <div key={idx} className="card" style={{ cursor: 'default', padding: '1.25rem' }}>
-                        {editingId === result.id ? (
-                            <div className="flex flex-col gap-4">
-                                <div className="grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                                    <div className="flex flex-col gap-4" style={{ gridColumn: 'span 2' }}>
-                                        <label className="text-muted text-xs font-bold uppercase">Link Hình ảnh (URL)</label>
-                                        <input
-                                            className="input"
-                                            placeholder="https://example.com/image.jpg"
-                                            value={editValues.imageUrl}
-                                            onChange={(e: any) => setEditValues({ ...editValues, imageUrl: e.target.value })}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="text-muted text-xs font-bold uppercase">Tiếng Việt</label>
-                                        <input
-                                            className="input"
-                                            value={editValues.vietnamese}
-                                            onChange={(e: any) => setEditValues({ ...editValues, vietnamese: e.target.value })}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="text-muted text-xs font-bold uppercase">Tiếng Anh</label>
-                                        <input
-                                            className="input"
-                                            value={editValues.english}
-                                            onChange={(e: any) => setEditValues({ ...editValues, english: e.target.value })}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="flex justify-end gap-2">
-                                    <button className="btn btn-ghost btn-sm" onClick={cancelEditing}>
-                                        <X size={16} /> Hủy
-                                    </button>
-                                    <button className="btn btn-primary btn-sm" onClick={saveEdit}>
-                                        <Check size={16} /> Lưu
-                                    </button>
-                                </div>
-                            </div>
-                        ) : (
-                            <div className="flex justify-between items-center group">
-                                <div style={{ flex: 1 }}>
-                                    <div className="text-muted text-sm">Tiếng Việt</div>
-                                    <div className="font-bold" style={{ fontSize: '1.1rem' }}>
-                                        <span className="text-muted" style={{ marginRight: '0.5rem' }}>{idx + 1}.</span>
-                                        {result.vietnamese}
-                                    </div>
-                                </div>
-
-                                <div style={{ flex: 0.5, display: 'flex', justifyContent: 'center' }}>
-                                    <div className="word-image-thumbnail">
-                                        {result.imageUrl ? (
-                                            <img src={result.imageUrl} alt={result.english} />
-                                        ) : (
-                                            <div className="no-image">
-                                                <ImageIcon size={16} />
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div style={{ flex: 1, textAlign: 'center' }}>
-                                    <div className="text-muted text-sm">Tiếng Anh</div>
-                                    <div className="font-bold text-primary" style={{ fontSize: '1.1rem' }}>{result.english}</div>
-                                </div>
-                                <div style={{ width: '80px', textAlign: 'right', display: 'flex', gap: '0.25rem' }}>
-                                    <button
-                                        className="btn btn-ghost btn-sm"
-                                        onClick={() => startEditing(result)}
-                                        title="Chỉnh sửa"
-                                        style={{ padding: '4px' }}
-                                    >
-                                        <Edit2 size={16} />
-                                    </button>
-                                    <button
-                                        className="btn btn-ghost btn-sm"
-                                        onClick={() => handleDelete(result.id)}
-                                        title="Xóa"
-                                        style={{ color: '#ef4444', padding: '4px' }}
-                                    >
-                                        <Trash2 size={16} />
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                ))}
-            </div>
-
-            <button
-                className="btn btn-primary floating-btn"
-                onClick={() => navigate(`/session/${id}/add`)}
-                style={{ padding: 0 }}
-                title="Thêm từ vựng mới"
-            >
-                <Plus size={40} />
-            </button>
         </div >
     );
 }
