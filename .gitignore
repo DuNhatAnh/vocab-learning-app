@@ -54,3 +54,6 @@ frontend/.env.production.local
 
 # Claude app config
 .claude/
+
+# Environment variables
+.env
